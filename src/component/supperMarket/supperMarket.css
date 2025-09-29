@@ -1,0 +1,184 @@
+/* SupperMarket page - Add Item Modal styles */
+
+.modal-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.45);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 5000;
+}
+
+.modal {
+	background: #fff;
+	border-radius: 12px;
+	padding: 24px;
+	width: 480px;
+	max-width: 95%;
+	max-height: 85vh;
+	overflow-y: auto;
+	box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2);
+	animation: fadeIn 0.25s ease-in-out;
+}
+
+.modal-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 16px;
+}
+
+.close-btn {
+	background: none;
+	border: none;
+	font-size: 20px;
+	cursor: pointer;
+}
+
+.addd-form {
+	font-family: "Nunito", sans-serif;
+}
+
+.modal-body .form-group {
+	margin-bottom: 12px;
+	display: flex;
+	padding: 10px;
+	flex-direction: column;
+}
+
+.modal-body label {
+	font-size: 14px;
+	margin-bottom: 4px;
+	font-weight: 500;
+	color: #333;
+}
+
+.modal-body input,
+.modal-body select {
+	padding: 8px 10px;
+	font-size: 14px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+}
+
+.modal-footer {
+	margin-top: 20px;
+	display: flex;
+	justify-content: flex-end;
+	gap: 10px;
+}
+
+.btn-cancel {
+	background: #f1f1f1;
+	color: #333;
+	border: none;
+	padding: 8px 16px;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+.btn-cancel:hover {
+	background: #e0e0e0;
+}
+
+.btn-save {
+	background: #2563eb;
+	color: #fff;
+	border: none;
+	padding: 8px 16px;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+.btn-save:hover {
+	background: #1e40af;
+}
+
+@keyframes fadeIn {
+	from { opacity: 0; transform: scale(0.95); }
+	to { opacity: 1; transform: scale(1); }
+}
+
+/* Tabs (Item / Order / Gallery) */
+.user-first {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 12px;
+}
+
+.user-management {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	justify-content: flex-start;
+}
+
+.sup-btn {
+	appearance: none;
+	border: 1px solid #e5e7eb;
+	background: #ffffff;
+	color: #111827;
+	padding: 10px 25px;
+	border-radius: 8px;
+	font-size: 14px;
+	font-weight: 600;
+	cursor: pointer;
+	margin-right: 8px;
+	transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.sup-btn:hover {
+	background: #f3f4f6;
+}
+
+.sup-btn.active {
+	background: #2F985A;
+	color: #ffffff;
+	border-color: #2F985A;
+}
+
+/* ================= Responsive - Tabs & Modal ================= */
+@media (max-width: 1024px) {
+	.sup-btn {
+		padding: 9px 18px;
+		font-size: 13px;
+	}
+	.modal { width: 520px; max-height: 80vh; }
+}
+
+@media (max-width: 768px) {
+	.user-first { 
+		flex-direction: column; 
+		gap: 10px; 
+		align-items: stretch; }
+	.user-management { 
+		width: 100%; 
+		justify-content: flex-start; }
+	.user-second {
+		 width: 100%; }
+	.sup-btn {
+		 padding: 8px 14px;
+		 font-size: 13px;
+		  margin-bottom: 6px; }
+	.modal {
+		 width: 92%;
+		  max-height: 80vh; }
+}
+
+@media (max-width: 480px) {
+	.sup-btn { 
+		padding: 8px 12px;
+		 font-size: 12px; }
+	.modal { 
+		width: 95%; 
+		max-height: 78vh; }
+	.modal-body .form-group { 
+		padding: 8px; }
+}
+
+

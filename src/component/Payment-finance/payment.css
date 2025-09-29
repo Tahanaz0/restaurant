@@ -1,0 +1,31 @@
+.payment-container{
+    font-family: "Nunito", sans-serif;
+}
+
+.payment-box{
+    display: flex;
+    /* justify-content: center; */
+    padding: 10px;
+    gap: 10px;
+    align-items: center;
+}
+.payment-boxes{
+    width: 50%;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #EBEBEB;
+    border-radius: 8px;
+}
+.payment{
+     color:#787878;
+     padding: 5px;
+
+}
+.doller{
+    padding: 5px;
+    font-weight: bold;
+}
+.week{
+    color: #2ED62B;
+    padding: 5px;
+}
