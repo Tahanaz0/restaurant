@@ -9,7 +9,7 @@ const UserManagement = () => {
 
   return (
     <>
-      <div>
+      <div className="user-management-container">
         <div className="user-first">
           <div className="user-management">
             <button className="right-btn">Customers</button>
