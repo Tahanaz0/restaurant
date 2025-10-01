@@ -59,6 +59,9 @@
 .user-input{
 	width: 100%;
 }
+/* .user-btn{
+	width: 30%;
+} */
 .modal-body input,
 .modal-body select {
 	padding: 8px 10px;

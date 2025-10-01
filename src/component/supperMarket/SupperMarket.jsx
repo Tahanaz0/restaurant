@@ -22,7 +22,7 @@ const SupperMarket = () => {
     const [activeTab, setActiveTab] = useState('item');
 
     return (
-        <div style={{ padding: '20px',width: '80%' }}>
+        <div style={{ padding: '20px',width: '85%' }}>
         <div>
                 <div className="user-first">
                     <div className="user-management">

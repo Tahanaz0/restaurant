@@ -91,7 +91,7 @@ const Sidebar = () => {
 
         {/* Logout */}
         <NavLink 
-          to="/logout" 
+          to="/" 
           className={({ isActive }) => isActive ? "active-link" : ""} 
           onClick={handleLinkClick}
         >

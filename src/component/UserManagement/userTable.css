@@ -120,16 +120,14 @@
   
   /* Dropdown Menu */
   .dropdown {
-    position: absolute;
-    top: 100%;
-    right: 0;
+    position: fixed; /* use viewport coords from JS */
     background: #fff;
     border: 1px solid #e5e7eb;
     border-radius: 8px;
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
     padding: 6px 0;
     min-width: 140px;
-    z-index: 1000;
+    z-index: 99999;
   }
   
   .dropdown button {

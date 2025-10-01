@@ -7,7 +7,7 @@ html, body, #root {
 
 body {
   overflow-y: auto;
-  overflow-x: auto;
+  overflow-x: hidden; /* prevent page-level horizontal cut */
 }
 
 /* app layout container */
@@ -27,8 +27,7 @@ body {
 }
 
 .main-content {
- 
-  margin-left: 255px;    
+  margin-left: 200px;    
   flex: 1;
   margin-top: 0px;
   min-height: auto;
@@ -45,7 +44,14 @@ body {
   height: 80px;
   z-index: 1100;
 }
-
+@media (max-width: 992px) {
+  .header-fixed {
+    left: 200px;
+  }
+  .main-content{
+    margin-left: 150px;
+  }
+}
 
 /* .main-content.with-fixed-header {
   padding-top: 80px;    

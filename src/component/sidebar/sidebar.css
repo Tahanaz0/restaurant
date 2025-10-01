@@ -1,6 +1,6 @@
 .sidebar-container {
-  width: 250px;
-  min-width: 250px;
+  width: 18%;
+  min-width: 200px;
   height: 90vh;
   background-color: #fff;
   border-right: 1px solid #e5e5e5;
@@ -23,9 +23,10 @@
 }
 .logo-container2{
   background-color: #45d17d;
-  width: 10%;
+  width: 45%;
   padding: 15px;
-  height: 20%;
+  padding-left: 25px;
+  height: 55%;
   /* padding-top: 20px;
   padding-bottom: 50px;  */
  /* display: flex; 

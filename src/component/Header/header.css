@@ -1,6 +1,6 @@
 .header-container {
-    width: calc(100% - 250px); /* Sidebar jitna space minus kardo */
-    margin-left: 255px;        /* Sidebar ki width ke barabar push karo */
+    width: calc(100% - 250px); /* desktop: sidebar 250px */
+    margin-left: 250px;        /* push by sidebar width */
     height: 40px;
     display: flex;
     justify-content: center;
@@ -48,9 +48,14 @@
   
   /* 📱 Tablet (≤ 992px) */
   @media (max-width: 992px) {
+    .header-container {
+      width: calc(100% - 200px);
+      margin-left: 200px;
+      padding: 20px;
+      gap: 24px;
+    }
     .header-left {
       font-size: 20px;
-      margin-left: 5%;
     }
     .header-right img {
       width: 28px;
@@ -59,17 +64,19 @@
   }
   @media (max-width: 768px) {
     .header-container {
-      width: 100%;   /* Small screen par sidebar collapse ho jaye */
-      margin-left: 10px;
-      /* padding: 10px; */
+      width: 90%;
+      margin-left: 5%;
+      padding: 12px 14px;
+      gap: 16px;
     }
   }
   /* 📱 Mobile (≤ 768px) */
   @media (max-width: 768px) {
     
     .header-container {
-      padding: 0 10px;
+      padding: 8px 12px;
       height: 45px;
+      margin-left: 5%;
     }
     .header-right {
       gap: 10px;
@@ -83,6 +90,7 @@
       justify-content: space-between;
       height: auto;
       padding: 8px 10px;
+      margin-left: 5%;
     }
   
     .header-left {
@@ -99,4 +107,14 @@
       height: 24px;
     }
   }
-  
+   @media (max-width:375px){
+    .header-container{
+      margin-left: 15%;
+    }
+  }
+  @media (max-width:320px){
+    .header-container{
+      margin-left: 10%;
+    }
+  }
+ 

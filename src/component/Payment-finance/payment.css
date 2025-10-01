@@ -1,5 +1,8 @@
 .payment-container{
     font-family: "Nunito", sans-serif;
+    width: 95%;
+    padding: 10px;
+    margin: 10px;
 }
 
 .payment-box{
@@ -10,7 +13,7 @@
     align-items: center;
 }
 .payment-boxes{
-    width: 39%;
+    width: 40%;
     padding: 10px;
     margin: 5px;
     border: 1px solid #EBEBEB;

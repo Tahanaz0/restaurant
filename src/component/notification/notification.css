@@ -4,6 +4,8 @@
   max-width: 1000px;
   /* margin: 0 auto; */
   /* padding: 16px 18px; */
+  padding: 10px;
+  margin: 20px;
   font-family: "Nunito", sans-serif;
   box-sizing: border-box;
 }
@@ -101,6 +103,7 @@
 @media (max-width: 768px) {
   .notif-container {
     padding: 12px;
+    width: 90%;
   }
   .notif-header {
     align-items: flex-start;
