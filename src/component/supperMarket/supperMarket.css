@@ -4,7 +4,7 @@
 	position: fixed;
 	top: 0;
 	left: 0;
-	width: 100%;
+	width: 80%;
 	height: 100%;
 	background: rgba(0, 0, 0, 0.45);
 	display: flex;
@@ -56,7 +56,9 @@
 	font-weight: 500;
 	color: #333;
 }
-
+.user-input{
+	width: 100%;
+}
 .modal-body input,
 .modal-body select {
 	padding: 8px 10px;

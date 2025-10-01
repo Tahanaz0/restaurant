@@ -29,7 +29,7 @@ const Login = () => {
             <img src='/images/logoo.png' alt="logo" className='login-logo-image' />
           </div>
           <div className='login-logo-text'>
-            <img src="/images/T3all.png" alt="" />
+            <img src="/images/T3all.png" alt="" className='tall' />
           </div>
         </div>
       </div>

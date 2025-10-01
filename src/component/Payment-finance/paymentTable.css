@@ -1,0 +1,505 @@
+/* ================= Table Wrapper ================= */
+.payment-table-container {
+    width: 80%;
+    max-width: calc(100vw - 270px);
+    padding: 5px;
+    margin: 10px;
+    overflow-x: auto;
+    overflow-y: visible;
+    font-family: "Nunito", sans-serif;
+    position: relative;
+    z-index: 1;
+    background: transparent; /* no visual border/background on container */
+}
+
+/* ================= Responsive - Table ================= */
+@media (min-width: 1200px) {
+  .payment-table-container {
+    max-width: calc(100vw - 270px); /* Account for sidebar width on large screens */
+  }
+}
+
+@media (max-width: 1024px) {
+  .payment-table th,
+  .payment-table td {
+    padding: 10px 8px;
+    font-size: 13px;
+  }
+  .payment-table th:nth-child(6),
+  .payment-table td:nth-child(6) { /* Time */
+    width: 18%;
+  }
+  .payment-table th:nth-child(7),
+  .payment-table td:nth-child(7) { /* Actions */
+    width: 8%;
+  }
+}
+
+@media (max-width: 768px) {
+  .payment-table-container {
+    margin: 6px;
+    padding: 4px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    max-width: calc(100vw - 20px); /* Full width minus padding on mobile */
+  }
+  .payment-table th,
+  .payment-table td {
+    padding: 8px 6px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+  .status {
+    font-size: 11px;
+    padding: 3px 8px;
+  }
+  /* Ensure table scrolls horizontally on small screens */
+  .payment-table {
+    min-width: 600px;
+    width: max-content;
+    table-layout: auto; /* Allow auto layout on mobile for better scrolling */
+  }
+}
+
+@media (max-width: 480px) {
+  .payment-table-container {
+    margin: 3px;
+    padding: 2px;
+    max-width: calc(100vw - 10px); /* Full width minus minimal padding on very small screens */
+  }
+  .payment-table th,
+  .payment-table td {
+    padding: 6px 4px;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+  .status {
+    font-size: 10px;
+    padding: 2px 6px;
+  }
+  .payment-table {
+    min-width: 500px;
+    width: max-content;
+    table-layout: auto; /* Allow auto layout on very small screens */
+  }
+}
+  
+  /* Main Table */
+  .payment-table {
+    min-width: 200px;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: visible;
+    border-collapse: collapse;
+    border-spacing: 0;
+    table-layout: fixed; /* Fixed layout for consistent column widths */
+    box-sizing: border-box;
+    border: #e5e7eb 1px solid;
+    border-radius: 5px;
+  }
+  
+  
+  
+  .payment-table th {
+    padding: 12px 10px;
+    background: #f9fafb;
+    font-weight: 600;
+    font-size: 14px;
+    text-align: left;
+    white-space: nowrap;
+  }
+  
+  .payment-table th:first-child {
+    width: 5%;
+    padding: 12px 2px;
+  }
+  
+  .payment-table th:nth-child(2) { width: 25%; }  /* User Name */
+  .payment-table th:nth-child(3) { width: 15%; }  /* Type */
+  .payment-table th:nth-child(4) { width: 20%; }  /* Total Earnings */
+  .payment-table th:nth-child(5) { width: 15%; }  /* Status */
+  .payment-table th:nth-child(6) { width: 20%; }  /* Time */
+  .payment-table th:nth-child(7) { width: 5%; }   /* Actions */
+  
+  
+  .payment-table th:last-child {
+    width: 10%;
+  }
+  /* .th{
+   width: 50%;
+  } */
+  
+  .payment-table td {
+    background: #fff;
+    padding: 7px 7px;
+    text-align: left;
+    font-size: 14px;
+    color: #4b5563;
+    border: none;
+    border-top: 1px solid #e5e7eb;
+    border-bottom: 1px solid #e5e7eb;
+  vertical-align: middle;
+  overflow: visible; /* ensure dropdown not clipped by cell */
+  }
+.payment-table td:nth-child(6), /* Time | or Stock in other tables */
+  .payment-table td:nth-child(7), /* Restaurant */
+.payment-table td:nth-child(8)  /* Status */{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Mirror widths for tds so columns stay aligned and avoid wrapping */
+.payment-table td:nth-child(7) { /* Restaurant */
+  width: 18%;
+}
+.payment-table td:nth-child(8) { /* Status */
+  width: 14%;
+}
+  
+  .payment-table td:first-child {
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    width: 5%;
+    padding: 12px 2px;
+  }
+  .payment-table td:last-child {
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+  }
+  
+  /* Hover effect */
+  .payment-table tr:hover td {
+    background: #f9fafb;
+    transition: 0.2s ease-in-out;
+  }
+  
+  /* ================= Status Badge ================= */
+  .status {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  /* .status.active { background: #d1fae5; color: #065f46; }
+  .status.moderate { background: #fef3c7; color: #92400e; }
+  .status.decline { background: #fee2e2; color: #991b1b; } */
+  
+  /* ================= 3 Dots & Dropdown ================= */
+  .actions-cell {
+    position: relative;
+    text-align: center;
+  }
+  
+  .dots {
+    cursor: pointer;
+    font-size: 20px;
+    padding: 4px 8px;
+    border-radius: 4px;
+  }
+  
+  .dots:hover {
+    background: #f3f4f6;
+  }
+  
+  /* Dropdown Menu */
+  .dropdown {
+    position: fixed;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    padding: 6px 0;
+    min-width: 140px;
+    z-index: 99999;
+    display: block;
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  .dropdown-btn {
+    width: 100%;
+    background: transparent;
+    border: none;
+    text-align: left;
+    padding: 10px 12px;
+    cursor: pointer;
+    color: #111827;
+    font-size: 14px;
+    transition: background-color 0.2s;
+  }
+
+  .dropdown-btn:hover {
+    background-color: #f3f4f6;
+  }
+
+  .dropdown-btn.delete-btn {
+    color: #b91c1c;
+  }
+
+  .dropdown-btn.delete-btn:hover {
+    background-color: #fef2f2;
+  }
+  
+  /* ================= Delete Modal ================= */
+  .ud-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5000;
+  }
+  
+  .ud-modal {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px 28px;
+    width: 380px;
+    max-width: 90%;
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    animation: fadeIn 0.25s ease-in-out;
+  }
+  
+  .ud-modal h4 {
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .ud-modal p {
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .ud-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+  }
+  
+  .ud-confirm {
+    background: #e63946;
+    color: #fff;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  .ud-confirm:hover {
+    background: #d62828;
+  }
+  
+  .ud-cancel {
+    background: #f1f1f1;
+    color: #333;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  .ud-cancel:hover {
+    background: #e0e0e0;
+  }
+  
+  /* ================= Edit Modal ================= */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5000;
+  }
+  
+  .modal {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    width: 480px;
+    max-width: 95%;
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.25s ease-in-out;
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .close-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  .addd-form{
+    font-family: "Nunito", sans-serif;
+  
+  }
+  .modal-body .form-group {
+    margin-bottom: 12px;
+    display: flex;
+    padding: 10px;
+    flex-direction: column;
+  }
+  
+  .modal-body label {
+    font-size: 14px;
+    margin-bottom: 4px;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .modal-body input,
+  .modal-body select {
+    padding: 8px 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+  
+  .modal-footer {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+  
+  .btn-cancel {
+    background: #f1f1f1;
+    color: #333;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .btn-cancel:hover {
+    background: #e0e0e0;
+  }
+  
+  .btn-save {
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .btn-save:hover {
+    background: #1e40af;
+  }
+  
+  /* ================= Animation ================= */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  
+  .user-add-container {
+    width: 80%;
+    max-width: 300px;
+    margin: 30px auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  
+  .form-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #1f2937; /* dark grey */
+  }
+  
+  .form-group {
+    display: flex;
+    padding: 10px;
+    font-family: "Nunito", sans-serif;
+    flex-direction: column;
+    margin-bottom: 18px;
+  }
+  .user-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+  }
+  .form-group label {
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: #374151;
+  }
+  
+  .form-group input,
+  .form-group select {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 5px;
+    outline: none;
+  }
+  .add-btn{
+    background-color: #2563eb;
+    color: white;
+    width: 7%;
+    padding: 5px;
+    border-radius: 7px;
+    border: none;
+  }
+  .add-card{
+    display: flex;
+    justify-content: end;
+  }
+  
+  .form-group input:focus,
+  .form-group select:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 1px #2563eb;
+  }
+  
+  .submit-btn {
+    width: 120px;
+    padding: 10px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    margin: 5px;
+    transition: background 0.2s;
+  }
+  
+  .submit-btn:hover {
+    background: #1e40af;
+  }
+  /* @media(min-width:425px){
+    .table-container{
+      width: 100%;
+      overflow-y: auto;
+    }
+  } */

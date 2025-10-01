@@ -2,6 +2,7 @@ import React from "react";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import { FiClock } from "react-icons/fi";
 import './payment.css'
+import PaymentTable from "./paymentTable";
 
 const PaymentFinance = () => {
     return (
@@ -14,7 +15,9 @@ const PaymentFinance = () => {
                                 // color:'#F91616',
                                 backgroundColor: '#E8EEF6',
                                 padding: '5px',
-                                borderRadius: '5px'
+                                borderRadius: '5px',
+                                fontSize: '30px',
+
                             }} />
                         </div>
                         <div className="payment">
@@ -34,7 +37,8 @@ const PaymentFinance = () => {
                                     color: '#F91616',
                                     backgroundColor: '#F8E6E6',
                                     padding: '5px',
-                                    borderRadius: '5px'
+                                    borderRadius: '5px',
+                                    fontSize: '30px'
                                 }} />
                         </div>
                         <div className="payment">
@@ -46,6 +50,7 @@ const PaymentFinance = () => {
 
                     </div>
                 </div>
+                <PaymentTable/>
             </div>
         </>
     )

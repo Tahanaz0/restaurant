@@ -1,9 +1,10 @@
 /* body ka default margin/padding hatana zaroori hai */
-body, html {
+body,
+html {
     margin: 0;
     padding: 0;
     height: 100%;
-    overflow: hidden; 
+    overflow: hidden;
 }
 
 .login-container {
@@ -12,8 +13,8 @@ body, html {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;   
-    width: 100vw;    
+    height: 100vh;
+    width: 100vw;
 }
 
 .login-logo {
@@ -25,9 +26,10 @@ body, html {
 
     justify-content: center;
     height: 100%;
-    box-sizing: border-box; 
+    box-sizing: border-box;
 }
-.logo-container{
+
+.logo-container {
     background-color: #3BBE70;
     width: 20%;
     padding: 39px;
@@ -39,16 +41,29 @@ body, html {
     align-items: center;
     border-radius: 25px;
 }
-.login-logo-image{
+
+.login-logo-image {
     width: 70%;
-    height: 70%;
+    height: auto;
+    max-width: 420px;
+    display: block;
+    margin: 0 auto;
 }
-.login-logo-container{
+
+.tall {
+    width: 50%;
+    height: auto;
+    display: block;
+    margin: 20px auto 0 auto;
+}
+
+.login-logo-container {
     display: flex;
     align-items: center;
     flex-direction: column;
     color: #0047AB;
     justify-content: center;
+    text-align: center;
 }
 
 .login-form {
@@ -62,7 +77,8 @@ body, html {
     justify-content: center;
     box-sizing: border-box;
 }
-.login-form-container{
+
+.login-form-container {
     /* border-left: 1px solid #000000; */
     padding-left: 20px;
     width: 60%;
@@ -71,73 +87,83 @@ body, html {
     flex-direction: column;
     /* align-items: center; */
     justify-content: center;
+    margin: 0 auto;
     box-sizing: border-box;
 }
+
 .remember-forget {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin: 10px 0;
-  }
-  .remember{
-    color:#BEBEBE ;
+}
+
+.remember {
+    color: #BEBEBE;
     font-weight: 100;
     font-size: small;
-  }
-  
-  .remember-me {
+}
+
+.remember-me {
     display: flex;
     align-items: center;
     gap: 5px;
-  }
-  
-  .forget-password a {
+}
+
+.forget-password a {
     color: red;
     text-decoration: none;
     font-size: small;
-  }
-  
-  .forget-password a:hover {
+}
+
+.forget-password a:hover {
     text-decoration: underline;
-  }
-  
-.login-form-container2{
+}
+
+.login-form-container2 {
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
 }
-.login-form-heading{
-    /* font-size: 45px; */
+
+.login-form-heading {
+    /* font-size: 20px; */
     text-align: center;
     margin-bottom: 10px;
     margin-top: 0px;
-    color:#3BBE70;
+    color: #3BBE70;
 }
-.login-form-text{
+
+.login-form-text {
     font-size: 25px;
     /* margin-bottom: 20px; */
     margin-top: 0px;
     color: #000000;
 }
-.login-form-input{
+
+.login-form-input {
     width: 100%;
     height: 40px;
     border: 1px solid #BEBEBE;
     border-radius: 5px;
     padding: 5px;
 }
-.login-form-input:focus{
-    outline:black;
+
+.login-form-input:focus {
+    outline: black;
     border: 2px solid #dbd8d8;
 }
-.login-form-label{
+
+.login-form-label {
     font-weight: bold;
     font-size: 16px;
     color: #000000;
 }
-.login-form-button{
+
+.login-form-button {
     width: 100%;
     height: 40px;
     margin-top: 30px;
@@ -147,18 +173,154 @@ body, html {
     color: #ffffff;
     padding: 10px;
 }
-.login-form-button:hover{
+
+.login-form-button:hover {
     background-color: #48dc83;
     cursor: pointer;
 }
+
+@media (max-width: 1024px) {
+    .login-logo {
+        width: 45%;
+    }
+
+    .login-form {
+        width: 55%;
+    }
+
+    .login-form-container {
+        width: 70%;
+    }
+}
+
 @media (max-width: 768px) {
+
+    body,
+    html {
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
     .login-container {
-        flex-direction: column; /* side-by-side ki jagah upar-neeche */
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+        padding: 16px;
+        overflow-y: auto;
+        overflow-x: hidden;
     }
 
     .login-logo,
     .login-form {
-        width: 100%;   /* full width */
-        height: 50%;   /* aadha-aadha height */
+        width: 100%;
+        height: auto;
+        border-left: none;
+    }
+
+    .logo-container {
+        width: 70%;
+        height: auto;
+        padding: 20px;
+        margin: 0 auto;
+    }
+
+    .login-logo-image {
+        width: 60%;
+        height: auto;
+        max-width: 240px;
+    }
+
+    .tall {
+        width: 60%;
+        margin: 12px auto 0 auto;
+        max-width: 280px;
+    }
+
+    .login-form-container {
+        width: 100%;
+        max-width: 520px;
+        padding-left: 0;
+        margin: 0;
+        padding-right: 0;
+        padding-inline: 16px;
+        box-sizing: border-box;
+    }
+
+    .login-form-heading {
+        margin-top: 16px;
+        font-size: 28px;
+    }
+
+    .login-form-text {
+        font-size: 18px;
+    }
+
+    .login-form-input {
+        height: 36px;
+        font-size: 14px;
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    .login-form-button {
+        height: 44px;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .remember-forget {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-container {
+        width: 85%;
+        padding: 16px;
+        margin: 0 auto;
+    }
+
+    .login-logo-image {
+        width: 52%;
+        max-width: 180px;
+    }
+
+    .tall {
+        width: 52%;
+        max-width: 220px;
+    }
+
+    .login-form-container {
+        width: 100%;
+        max-width: 420px;
+        margin: 0;
+        padding-inline: 14px;
+        box-sizing: border-box;
+    }
+
+    .login-form-heading {
+        font-size: 22px;
+    }
+
+    .login-form-text {
+        font-size: 15px;
+    }
+
+    .login-form-input {
+        height: 34px;
+        font-size: 13px;
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    .login-form-button {
+        height: 42px;
+        width: 100%;
+        max-width: 100%;
     }
 }

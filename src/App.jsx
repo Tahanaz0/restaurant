@@ -11,11 +11,29 @@ import Notification from "./component/notification/Notification.jsx";
 
 function LayoutWithHeaderSidebar({ children }) {
   return (
-    <div style={{ display: "flex", height: "100vh" }}>
+    <div style={{ 
+      display: "flex", 
+      height: "100vh", 
+      width: "100%", 
+      overflow: "hidden",
+      boxSizing: "border-box"
+    }}>
       <Sidebar />
-      <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+      <div style={{ 
+        flex: 1, 
+        display: "flex", 
+        flexDirection: "column", 
+        minWidth: 0,
+        overflow: "hidden"
+      }}>
         <Header />
-        <div className="main-content" style={{ flex: 1, padding: "20px" }}>
+        <div className="main-content" style={{ 
+          flex: 1, 
+          padding: "20px", 
+          overflow: "auto",
+          minWidth: 0,
+          boxSizing: "border-box"
+        }}>
           {children}
         </div>
       </div>
