@@ -8,14 +8,13 @@ body, html {
   padding: 0;
   overflow-x: hidden;
 }
-
+/* 
 .main-content {
   width: 100%;
   max-width: 100%;
   overflow-x: hidden;
 }
 
-/* Responsive main content */
 @media (max-width: 768px) {
   .main-content {
     padding: 10px !important;
@@ -27,3 +26,8 @@ body, html {
     padding: 5px !important;
   }
 }
+@media (max-widht:4k-2560px){
+  .main-content{
+    margin-left: 70%;
+  }
+} */

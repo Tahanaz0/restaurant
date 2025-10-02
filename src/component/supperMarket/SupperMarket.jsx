@@ -22,10 +22,10 @@ const SupperMarket = () => {
     const [activeTab, setActiveTab] = useState('item');
 
     return (
-        <div style={{ padding: '20px',width: '85%' }}>
-        <div>
+        <div className="support-manag" >
+            <div >
                 <div className="user-first">
-                    <div className="user-management">
+                    <div className="support-management">
                         <button className={`sup-btn ${activeTab === 'item' ? 'active' : ''}`} onClick={() => setActiveTab('item')}>Item</button>
                         <button className={`sup-btn ${activeTab === 'order' ? 'active' : ''}`} onClick={() => setActiveTab('order')}>Order</button>
                         <button className={`sup-btn ${activeTab === 'gallery' ? 'active' : ''}`} onClick={() => setActiveTab('gallery')}>Gallery</button>
@@ -95,7 +95,7 @@ const SupperMarket = () => {
                         </div>
                     </div>
                 )}
-               
+
             </div>
         </div>
     )

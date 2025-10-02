@@ -1,77 +1,95 @@
-.user-first{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    margin: 10px;
-}
-.user-management{
-    display: flex;
-    width: 65%;
-    gap: 5px;
-    justify-content: space-between;
-    align-items: center;
-}
-.right-btn{
-  
-    border: 1px solid #DDDDDD;
-    background-color: #FFFFFF;
-    border-radius: 5px;
-    padding: 10px;
-    padding-left: 20px;
-    padding-right: 20px;
-    /* width: 20%; */
-}
-.right-btn:hover{
-    cursor: pointer;
-    background-color: #2F985A;
-    color: #FFFFFF;
-}
-.user-management-container{
-    width: 85%;
-    padding: 10px;
-    margin: 10px;
+.user-first1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  margin: 10px;
+  width: 100%;
+  /* background-color:#2F985A; */
 }
 
-.user-second{
-    display: flex;
-  
-    gap: 5px;
-  
+.user-management {
+  display: flex;
+  width: 50%;
+  gap: 5px;
+  /* justify-content: space-between; */
+  align-items: center;
 }
+
+.right-btn {
+
+  border: 1px solid #DDDDDD;
+  background-color: #FFFFFF;
+  border-radius: 5px;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  /* width: 20%; */
+}
+
+.right-btn:hover {
+  cursor: pointer;
+  background-color: #2F985A;
+  color: #FFFFFF;
+}
+
+.user-management-container {
+  width: 95%;
+  padding: 10px;
+  margin: 10px;
+}
+
+.user-second {
+  display: flex;
+  gap: 5px;
+  width: 50%;
+  /* background-color: aquamarine; */
+  padding: 5px;
+}
+
 .input-wrapper {
-    position: relative;
-    display: inline-block;
-    width: 250px;   /* input ki width */
+  position: relative;
+  display: inline-block;
+  width: 250px;
+  /* input ki width */
+}
+
+.user-input {
+  width: 80%;
+  padding: 10px 12px 10px 35px;
+  /* 👈 left padding diya icon ke liye */
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.user-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+  font-size: 18px;
+  pointer-events: none;
+  /* icon click na ho */
+}
+
+.user-btn {
+  width: 25%;
+  border: 1px solid #DDDDDD;
+  background-color: #2F985A;
+  color: #FFFFFF;
+  border-radius: 5px;
+  padding: 5px;
+  /* font-size: 1vw; */
+  /* padding-left: 20px; */
+  cursor: pointer;
+  padding-right: 20px;
+}
+
+@media (max-width: 768px) {
+  .user-first1 {
+    display: flex;
+    flex-direction: column;
   }
-  
-  .user-input {
-    width: 80%;
-    padding: 10px 12px 10px 35px; /* 👈 left padding diya icon ke liye */
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 14px;
-  }
-  
-  .user-icon {
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #888;
-    font-size: 18px;
-    pointer-events: none; /* icon click na ho */
-  }
-  .user-btn{
-    width: 120px;
-    border: 1px solid #DDDDDD;
-    background-color: #2F985A;
-    color: #FFFFFF;
-    border-radius: 5px;
-    padding: 5px;
-    font-size: 1vw;
-    padding-left: 20px;
-    cursor: pointer;
-    padding-right: 20px;
-  }
-  
+}

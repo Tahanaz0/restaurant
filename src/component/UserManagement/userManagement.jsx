@@ -10,7 +10,7 @@ const UserManagement = () => {
   return (
     <>
       <div className="user-management-container">
-        <div className="user-first">
+        <div className="user-first1">
           <div className="user-management">
             <button className="right-btn">Customers</button>
             <button className="right-btn">Driver</button>

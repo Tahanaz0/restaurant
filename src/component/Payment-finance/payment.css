@@ -32,3 +32,12 @@
     color: #2ED62B;
     padding: 5px;
 }
+@media (max-width:425px){
+    .payment-box{
+        flex-direction: column;
+    }
+    .payment-boxes{
+        width: 100%;
+        margin: 0%;
+    }
+}

@@ -1,6 +1,6 @@
 .header-container {
-    width: calc(100% - 250px); /* desktop: sidebar 250px */
-    margin-left: 250px;        /* push by sidebar width */
+    width: 80% ;
+    margin-left: 17%;        /* push by sidebar width */
     height: 40px;
     display: flex;
     justify-content: center;

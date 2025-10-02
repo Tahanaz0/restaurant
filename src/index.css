@@ -27,8 +27,9 @@ body {
 }
 
 .main-content {
-  margin-left: 200px;    
+  margin-left: 17%;    
   flex: 1;
+  width: 90%;
   margin-top: 0px;
   min-height: auto;
   overflow-y: auto;       

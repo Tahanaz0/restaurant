@@ -1,4 +1,8 @@
-/* SupperMarket page - Add Item Modal styles */
+.support-manag{
+	width: 95%;
+	padding: 10px;
+	margin: 10px; 
+}
 
 .modal-overlay {
 	position: fixed;
@@ -110,30 +114,38 @@
 
 /* Tabs (Item / Order / Gallery) */
 .user-first {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	gap: 12px;
+    display: flex
+;
+    justify-content: space-between;
+    align-items: center;
+    /* padding: 5px; */
+    margin: 10px;
+    width: 100%;
 }
 
-.user-management {
+.support-management {
 	display: flex;
-	flex-wrap: wrap;
-	gap: 8px;
-	justify-content: flex-start;
+	width: 50%;
+	gap: 5px;
+	/* justify-content: space-between; */
+	align-items: center;
+}
+.user-second{
+	width: 50%;
 }
 
 .sup-btn {
-	appearance: none;
+	/* appearance: none; */
 	border: 1px solid #e5e7eb;
 	background: #ffffff;
 	color: #111827;
-	padding: 10px 25px;
+	padding: 10px;
 	border-radius: 8px;
-	font-size: 14px;
+	/* font-size: 14px; */
 	font-weight: 600;
 	cursor: pointer;
 	margin-right: 8px;
+	width: 130px;
 	transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
@@ -149,10 +161,10 @@
 
 /* ================= Responsive - Tabs & Modal ================= */
 @media (max-width: 1024px) {
-	.sup-btn {
+	/* .sup-btn {
 		padding: 9px 18px;
 		font-size: 13px;
-	}
+	} */
 	.modal { width: 520px; max-height: 80vh; }
 }
 
@@ -166,19 +178,19 @@
 		justify-content: flex-start; }
 	.user-second {
 		 width: 100%; }
-	.sup-btn {
+	/* .sup-btn {
 		 padding: 8px 14px;
 		 font-size: 13px;
-		  margin-bottom: 6px; }
+		  margin-bottom: 6px; } */
 	.modal {
 		 width: 92%;
 		  max-height: 80vh; }
 }
 
 @media (max-width: 480px) {
-	.sup-btn { 
+	/* .sup-btn { 
 		padding: 8px 12px;
-		 font-size: 12px; }
+		 font-size: 12px; } */
 	.modal { 
 		width: 95%; 
 		max-height: 78vh; }
