@@ -1,7 +1,11 @@
 /* orders.css */
-.orders-container {
-    padding: 24px;
+.order-top {
+    /* padding: 24px; */
     font-family: "Nunito", sans-serif;
+    width: 96%;
+    /* background-color: #2F985A; */
+    padding: 10px;
+    margin: 10px;
 }
 
 .orders-grid {

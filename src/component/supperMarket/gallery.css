@@ -2,6 +2,8 @@
 .gallery-wrap {
      padding: 20px;
      font-family: "Nunito", sans-serif;
+	 width: 95%;
+	 height: auto;
      
 
      }
@@ -53,8 +55,8 @@
 }
 .slide { position: relative; }
 .slide img { 
-	width: 100%; 
-	height: 380px; 
+	width: 90%; 
+	height: 480px; 
 	object-fit: cover; 
 	display: block; 
 }

@@ -13,7 +13,7 @@
     align-items: center;
 }
 .payment-boxes{
-    width: 40%;
+    width: 50%;
     padding: 10px;
     margin: 5px;
     border: 1px solid #EBEBEB;
@@ -31,6 +31,14 @@
 .week{
     color: #2ED62B;
     padding: 5px;
+}
+@media (max-width:768px){
+    .payment-box{
+        flex-direction: column;
+    }
+    .payment-boxes{
+        width: 100%;
+    }
 }
 @media (max-width:425px){
     .payment-box{
