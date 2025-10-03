@@ -26,7 +26,7 @@
   width: 45%;
   padding: 15px;
   padding-left: 25px;
-  height: 55%;
+  height: 65%;
   /* padding-top: 20px;
   padding-bottom: 50px;  */
  /* display: flex; 
@@ -36,7 +36,7 @@
 }
 .login-logo-image2{
   width: 80%;
-  height: 70%;
+  height: 97%;
 }
 
 /* hide on small screens */
@@ -137,17 +137,26 @@
 .sidebar-icon {
   font-size: 18px;
 }
-
 .sidebar-logout {
   display: flex;
   align-items: center;
-  gap: 10px;
-  color: red;
-  /* width: 115px; */
-  font-weight: 600;
+  justify-content: center;  /* 👈 ye add karo */
+  gap: 8px;
+  font-size: 14px;
+  width: 100%;
+  min-width: 165px;
+  padding: 8px 10px;
+  border-radius: 6px;
   cursor: pointer;
-  padding: 8px 70px;
+  transition: all 0.2s ease-in-out;
+  color: red;
+  font-weight: 600;
   border-top: 1px solid #f2f2f2;
+}
+
+.sidebar-logout:hover {
+  background-color: #ffe6e6;
+  color: red;
 }
 
 .logout-icon {
