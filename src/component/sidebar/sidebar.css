@@ -99,6 +99,7 @@
 .sidebar-logout a {
   text-decoration: none;
   color: inherit;
+  
 }
 .active-link .sidebar-item {
   background-color: #2F985A;   /* ya koi bhi color */
@@ -111,6 +112,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  /* justify-content: center; */
   color: #8a8a8a;
   font-size: 14px;
   width: 100%;
@@ -140,12 +142,13 @@
 .sidebar-logout {
   display: flex;
   align-items: center;
-  justify-content: center;  /* 👈 ye add karo */
-  gap: 8px;
+  /* justify-content: center; */
+  margin-left: 7%;
+  gap: 20px;
   font-size: 14px;
   width: 100%;
   min-width: 165px;
-  padding: 8px 10px;
+  padding: 10px 15px;
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;

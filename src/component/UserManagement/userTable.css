@@ -239,7 +239,7 @@
   .modal {
     background: #fff;
     border-radius: 12px;
-    padding: 24px;
+    padding: 5px;
     width: 480px;
     max-width: 95%;
     box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2);
