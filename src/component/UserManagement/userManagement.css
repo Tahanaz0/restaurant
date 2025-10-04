@@ -3,7 +3,8 @@
   justify-content: space-between;
   align-items: center;
   /* padding: 5px; */
-  margin: 10px;
+  /* gap: 20%; */
+  /* margin: 10px; */
   width: 100%;
   /* background-color:#2F985A; */
 }
@@ -12,6 +13,7 @@
   display: flex;
   width: 50%;
   gap: 5px;
+
   /* justify-content: space-between; */
   align-items: center;
 }
@@ -34,17 +36,20 @@
 }
 
 .user-management-container {
-  width: 95%;
+  width: 94%;
   padding: 10px;
   margin: 10px;
 }
 
 .user-second {
   display: flex;
-  gap: 5px;
+  gap: 15px;
   width: 50%;
+  flex-wrap: wrap;
+  /* margin-left: 20%; */
   /* background-color: aquamarine; */
   padding: 5px;
+  /* background-color: aqua; */
 }
 
 .input-wrapper {
@@ -75,7 +80,7 @@
 }
 
 .user-btn {
-  width: 25%;
+  width: 28%;
   border: 1px solid #DDDDDD;
   background-color: #2F985A;
   color: #FFFFFF;
@@ -84,12 +89,31 @@
   /* font-size: 1vw; */
   /* padding-left: 20px; */
   cursor: pointer;
-  padding-right: 20px;
+  /* padding-right: 20px; */
 }
 
 @media (max-width: 768px) {
   .user-first1 {
     display: flex;
+    width: 100%;
+    gap: 10px;
     flex-direction: column;
+  }
+  .user-management-container{
+    width: 100%;
+    padding: 5px;
+    margin: 0px;
+    
+
+  }
+  .user-management{
+    /* display: flex; */
+    width: 100%;
+    /* gap: 26%; */
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .user-btn{
+    margin-right: 15px;
   }
 }

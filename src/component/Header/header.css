@@ -66,18 +66,18 @@
     .header-container {
       width: 90%;
       margin-left: 5%;
+      height: 70px;
       padding: 12px 14px;
       gap: 16px;
     }
   }
   /* 📱 Mobile (≤ 768px) */
   @media (max-width: 768px) {
-    
-    .header-container {
+/* .header-container {
       padding: 8px 12px;
       height: 45px;
       margin-left: 5%;
-    }
+    }  */
     .header-right {
       gap: 10px;
     }
@@ -90,7 +90,7 @@
       justify-content: space-between;
       height: auto;
       padding: 8px 10px;
-      margin-left: 5%;
+      margin-left: 10%;
     }
   
     .header-left {
@@ -109,7 +109,7 @@
   }
    @media (max-width:375px){
     .header-container{
-      margin-left: 15%;
+      margin-left: 10%;
     }
   }
   @media (max-width:320px){

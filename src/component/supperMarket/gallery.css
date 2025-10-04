@@ -57,7 +57,7 @@
 .slide img { 
 	width: 90%; 
 	height: 480px; 
-	object-fit: cover; 
+	object-fit:contain; 
 	display: block; 
 }
 .delete { 
@@ -107,5 +107,9 @@
 .dot.active { background: #2F985A; }
 
 @media (max-width: 768px) {
-	.slide img { height: 260px; }
+	.slide img { 
+		height: 260px; }
+		.gallery-wrap{
+			width: 100%;
+		}
 }

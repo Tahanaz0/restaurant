@@ -14,6 +14,170 @@
     gap: 24px;
 }
 
+
+.order-top {
+    padding: 10px;
+  }
+  
+  .order-heading {
+    margin-bottom: 12px;
+    color: #111827;
+  }
+  
+  .order-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 14px;
+  }
+  
+  .order-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    background: #fff;
+  }
+  
+  .order-card-header {
+    padding: 12px 14px;
+    border-bottom: 1px solid #eef2f7;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+    color: #111827;
+  }
+  
+  .order-card-body {
+    padding: 12px 14px;
+    color: #374151;
+    height: 50%;
+    font-size: 14px;
+  }
+  
+  .customer-name {
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  
+  .customer-phone {
+    margin-bottom: 10px;
+    color: #6b7280;
+  }
+  
+  .order-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+  
+  .order-card-footer {
+    padding: 12px 14px;
+    border-top: 1px solid #eef2f7;
+    display: flex;
+    gap: 10px;
+  }
+  
+  .btn-accept,
+  .btn-reject,
+  .btn-complete,
+  .btn-save,
+  .btn-cancel {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+  }
+  
+  .btn-accept {
+    background-color: #16a34a;
+    color: white;
+  }
+  
+  .btn-reject {
+    background-color: #ef4444;
+    color: white;
+  }
+  
+  .btn-complete {
+    background-color: #3b82f6;
+    color: white;
+  }
+  
+  .btn-save {
+    background-color: #16a34a;
+    color: white;
+  }
+  
+  .btn-cancel {
+    background-color: #9ca3af;
+    color: white;
+  }
+  
+  .completed-text {
+    color: #16a34a;
+    font-weight: 600;
+  }
+  
+  /* ===== Modal Styles ===== */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .modal {
+    background: white;
+    border-radius: 8px;
+    width: 320px;
+    max-width: 90%;
+    padding: 16px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.15);
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .modal-header h3 {
+    margin: 0;
+  }
+  
+  .close-btn {
+    border: none;
+    background: none;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  .modal-body label {
+    display: block;
+    margin-bottom: 8px;
+  }
+  
+  .modal-body select {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #d1d5db;
+  }
+  
+  .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  
+
 @media (min-width: 768px) {
     .orders-grid {
         grid-template-columns: 1fr 1fr;

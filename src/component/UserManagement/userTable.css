@@ -1,10 +1,10 @@
 /* ================= Table Wrapper ================= */
 .table-container {
-    width: 97%;
+    width: 96%;
    border: #e5e7eb 1px solid;
    border-radius: 5px;
-    padding: 5px;
-    margin: 10px;
+    /* padding: 5px; */
+    /* margin: 10px; */
     overflow-x: auto;
     font-family: "Nunito", sans-serif;
   
@@ -13,7 +13,7 @@
   /* Main Table */
   .user-table {
     min-width: 200px;
-    width: 100%;
+    width: 95%;
     overflow-x: auto;
     border-collapse: collapse;
     border-spacing: 0;
@@ -403,9 +403,12 @@
   .submit-btn:hover {
     background: #1e40af;
   }
-  /* @media(min-width:425px){
+  @media(min-width:768px){
     .table-container{
       width: 100%;
-      overflow-y: auto;
+      /* overflow-y: auto; */
     }
-  } */
+    .user-table{
+      width: 100%;
+    }
+  }

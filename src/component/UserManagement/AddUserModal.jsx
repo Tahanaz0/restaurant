@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
+import Select from "react-select";
 import "./addUserModal.css";
 
 const AddUserModal = ({ onClose }) => {
+  const [userType, setUserType] = useState(null);
+
+  const options = [
+    { value: "Customer", label: "Customer" },
+    { value: "Driver", label: "Driver" },
+    { value: "Restaurant", label: "Restaurant" },
+  ];
+
   return (
     <div className="modal-overlay">
       <div className="modal-content">
@@ -33,11 +42,24 @@ const AddUserModal = ({ onClose }) => {
 
           <label>
             Type
-            <select>
-              <option>Customer</option>
-              <option>Driver</option>
-              <option>Restaurant</option>
-            </select>
+            <Select
+              options={options}
+              value={userType}
+              onChange={setUserType}
+              placeholder="Select type"
+              menuPortalTarget={document.body} // ✅ dropdown modal ke bahar render hoga
+              styles={{
+                menuPortal: base => ({ ...base, zIndex: 9999 }), // ✅ ensure top layer
+                control: base => ({
+                  ...base,
+                  borderColor: "#ccc",
+                  borderRadius: "6px",
+                  padding: "2px",
+                  fontSize: "14px",
+                  boxShadow: "none",
+                }),
+              }}
+            />
           </label>
 
           <div className="modal-actions">
