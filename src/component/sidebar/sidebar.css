@@ -130,6 +130,24 @@
   background-color: #3BBE70;
   color: white;
 }
+.sidebar-item2{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  /* justify-content: center; */
+  color: red;
+  font-size: 14px;
+  width: 100%;
+  min-width: 165px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+}
 
 .sidebar-item.active {
   background-color: #2F985A;
@@ -142,17 +160,17 @@
 .sidebar-logout {
   display: flex;
   align-items: center;
-  /* justify-content: center; */
-  margin-left: 7%;
+  justify-content: center;
+  /* margin-left: 7%; */
   gap: 20px;
   font-size: 14px;
   width: 100%;
   min-width: 165px;
-  padding: 10px 15px;
+  padding: 8px 15px;
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  color: red;
+
   font-weight: 600;
   border-top: 1px solid #f2f2f2;
 }

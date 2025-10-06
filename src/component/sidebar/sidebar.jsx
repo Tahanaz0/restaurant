@@ -1,6 +1,6 @@
-import React, { useState } from 'react'; 
-import { HiUsers, HiOutlineShoppingCart } from "react-icons/hi2"; 
-import { FaDollarSign, FaSignOutAlt, FaBars } from "react-icons/fa"; 
+import React, { useState } from 'react';
+import { HiUsers, HiOutlineShoppingCart } from "react-icons/hi2";
+import { FaDollarSign, FaSignOutAlt, FaBars } from "react-icons/fa";
 import { MdOutlineNotifications } from "react-icons/md";
 import { NavLink } from 'react-router-dom';
 import './sidebar.css';
@@ -27,47 +27,47 @@ const Sidebar = () => {
 
       {/* Sidebar */}
       <div className={`sidebar-container ${isOpen ? "open" : ""}`}>
-        
+
         {/* Logo */}
         <div className="sidebar-logo">
-        
+
           <div className='logo-container2'>
-            <img src='/images/logoo.png' alt="logo" className='login-logo-image2'  width={600}/>
+            <img src='/images/logoo.png' alt="logo" className='login-logo-image2' width={600} />
           </div>
           <div className='login-logo-text2'>
             <img src="/images/T3all.png" alt="" width={100} />
           </div>
-       
+
         </div>
 
         {/* Menu */}
         <div className="sidebar-menu">
 
-          <NavLink 
-            to="/userManagement" 
-            className={({ isActive }) => isActive ? "active-link" : ""} 
+          <NavLink
+            to="/userManagement"
+            className={({ isActive }) => isActive ? "active-link" : ""}
             onClick={handleLinkClick}
           >
             <div className="sidebar-item">
-              <HiUsers  className="sidebar-icon" />
+              <HiUsers className="sidebar-icon" />
               <span>User Management</span>
             </div>
           </NavLink>
 
-          <NavLink 
-            to="/supperMarket" 
-            className={({ isActive }) => isActive ? "active-link" : ""} 
+          <NavLink
+            to="/supperMarket"
+            className={({ isActive }) => isActive ? "active-link" : ""}
             onClick={handleLinkClick}
           >
             <div className="sidebar-item">
-              <HiOutlineShoppingCart  className="sidebar-icon" />
+              <HiOutlineShoppingCart className="sidebar-icon" />
               <span>Super Market</span>
             </div>
           </NavLink>
 
-          <NavLink 
-            to="/Payment-finance" 
-            className={({ isActive }) => isActive ? "active-link" : ""} 
+          <NavLink
+            to="/Payment-finance"
+            className={({ isActive }) => isActive ? "active-link" : ""}
             onClick={handleLinkClick}
           >
             <div className="sidebar-item">
@@ -76,30 +76,32 @@ const Sidebar = () => {
             </div>
           </NavLink>
 
-          <NavLink 
-            to="/notification" 
-            className={({ isActive }) => isActive ? "active-link" : ""} 
+          <NavLink
+            to="/notification"
+            className={({ isActive }) => isActive ? "active-link" : ""}
             onClick={handleLinkClick}
           >
             <div className="sidebar-item">
-            <MdOutlineNotifications  className="sidebar-icon" />
+              <MdOutlineNotifications className="sidebar-icon" />
               <span>Notification</span>
             </div>
           </NavLink>
 
         </div>
+        <div  className="sidebar-logout">
 
-        {/* Logout */}
-        <NavLink 
-          to="/" 
-          className={({ isActive }) => isActive ? "active-link" : ""} 
-          onClick={handleLinkClick}
-        >
-          <div className="sidebar-logout">
-            <FaSignOutAlt className="sidebar-icon logout-icon" />
-            <span>Logout</span>
-          </div>
-        </NavLink>
+          {/* Logout */}
+          <NavLink
+            to="/"
+            className={({ isActive }) => isActive ? "active-link" : ""}
+            onClick={handleLinkClick}
+          >
+            <div className='sidebar-item2'>
+              <FaSignOutAlt className="sidebar-icon logout-icon" />
+              <span>Logout</span>
+            </div>
+          </NavLink>
+        </div>
 
       </div>
     </>
