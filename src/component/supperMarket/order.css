@@ -81,6 +81,7 @@
   .btn-complete,
   .btn-save,
   .btn-cancel {
+    background-color: white;
     padding: 6px 12px;
     border-radius: 6px;
     border: none;
@@ -98,10 +99,10 @@
     color: white;
   }
   
-  .btn-complete {
+  /* .btn-complete {
     background-color: #3b82f6;
     color: white;
-  }
+  } */
   
   .btn-save {
     background-color: #16a34a;
@@ -304,7 +305,8 @@
 .btn-complete {
 
     border: 1px solid #ddd;
-    background-color: white;
+    /* background-color: white; */
+    color: #3BBE70;
     text-align: center;
     width: 100%;
     padding: 8px 12px;

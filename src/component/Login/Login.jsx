@@ -8,36 +8,50 @@ import './Login.css';
 const Login = () => {
   const navigate = useNavigate();
 
-  // form fields ke liye state
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  // ✅ error state for fields
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [generalError, setGeneralError] = useState("");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setEmailError("");
+    setPasswordError("");
+    setGeneralError("");
 
     if (email.trim() === "" || password.trim() === "") {
-      alert("Please enter both email and password!");
+      if (email.trim() === "") setEmailError("Email is required");
+      if (password.trim() === "") setPasswordError("Password is required");
       return;
     }
 
     try {
       setLoading(true);
-      // ✅ Firebase login
       await signInWithEmailAndPassword(auth, email, password);
 
-      // Optionally remember user
       if (rememberMe) {
         localStorage.setItem("userEmail", email);
       } else {
         localStorage.removeItem("userEmail");
       }
 
-      alert("Login successful!");
-      navigate("/UserManagement"); // ✅ redirect after login
+      navigate("/UserManagement");
     } catch (error) {
-      alert(error.message);
+      // ✅ Firebase errors ko show karo
+      if (error.code === "invalid email or password") {
+        setEmailError("Invalid email format");
+      } else if (error.code === "auth/user-not-found") {
+        setEmailError("No account found with this email");
+      } else if (error.code === "auth/wrong-password") {
+        setPasswordError("Incorrect password");
+      } else {
+        setGeneralError(error.message);
+      }
     } finally {
       setLoading(false);
     }
@@ -67,10 +81,11 @@ const Login = () => {
             <input
               type="email"
               placeholder='Email'
-              className='login-form-input'
+              className={`login-form-input ${emailError ? "input-error" : ""}`}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
+            {emailError && <p className="error-text">{emailError}</p>}
 
             <div>
               <label htmlFor="password" className='login-form-label'>Password</label>
@@ -78,10 +93,13 @@ const Login = () => {
             <input
               type="password"
               placeholder='Password'
-              className='login-form-input'
+              className={`login-form-input ${passwordError ? "input-error" : ""}`}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+            {passwordError && <p className="error-text">{passwordError}</p>}
+
+            {generalError && <p className="error-text">{generalError}</p>}
 
             <div className="remember-forget">
               <div className="remember-me">

@@ -5,6 +5,7 @@ import Header from "./component/Header/header.jsx";
 import Sidebar from "./component/sidebar/sidebar.jsx"
 import UserManagement from "./component/UserManagement/userManagement.jsx"; // ✅ ye page banayenge
 import "./App.css";
+import ForgotPassword from "./component/Login/ForgotPassword.jsx";
 import SupperMarket from "./component/supperMarket/SupperMarket.jsx";
 import PaymentFinance from "./component/Payment-finance/Payment-finance.jsx";
 import Notification from "./component/notification/Notification.jsx";
@@ -47,6 +48,8 @@ const App = () => {
       <Routes>
         {/* Login page without header/sidebar */}
         <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
 
       
         <Route

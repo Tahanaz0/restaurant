@@ -1,5 +1,5 @@
 
-.payment-table-container {
+.payment- {
   width: 98%;
   border-radius: 5px;
   padding: 5px;
@@ -21,7 +21,7 @@
 
 
 @media (min-width: 1200px) {
-  .payment-table-container {
+  .payment- {
     max-width: calc(100vw - 270px);
   
   }
@@ -49,7 +49,7 @@
 }
 
 @media (max-width: 768px) {
-  .payment-table-container {
+  .payment- {
     margin: 6px;
     padding: 4px;
     width: 100%;
@@ -80,7 +80,7 @@
 }
 
 @media (max-width: 480px) {
-  .payment-table-container {
+  .payment- {
     margin: 3px;
     padding: 2px;
     max-width: calc(100vw - 10px);
@@ -551,7 +551,7 @@
 }
 
 /* @media(min-width:425px){
-    .table-container{
+    .{
       width: 100%;
       overflow-y: auto;
     }
