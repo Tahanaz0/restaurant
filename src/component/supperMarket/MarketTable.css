@@ -181,12 +181,12 @@
     text-align: center;
   }
   
-  .dots {
+  /* .dots {
     cursor: pointer;
     font-size: 20px;
     padding: 4px 8px;
     border-radius: 4px;
-  }
+  } */
   
   .dots:hover {
     background: #f3f4f6;

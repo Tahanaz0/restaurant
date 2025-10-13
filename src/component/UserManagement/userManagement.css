@@ -43,7 +43,7 @@
 
 .user-second {
   display: flex;
-  gap: 15px;
+  gap: 10px;
   width: 50%;
   flex-wrap: wrap;
   /* margin-left: 20%; */
@@ -55,7 +55,8 @@
 .input-wrapper {
   position: relative;
   display: inline-block;
-  width: 250px;
+  /* width: 250px; */
+  flex: 1;
   /* input ki width */
 }
 
