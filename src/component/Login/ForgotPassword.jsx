@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "../../firebase";
+import { NavLink } from "react-router-dom";
 import "./Login.css";
 
 const ForgotPassword = () => {
@@ -70,7 +71,13 @@ const ForgotPassword = () => {
             </button>
 
             <div className="back-to-login">
-              <a href="/Login">← Back to Login</a>
+            <NavLink to='/Login' style={{
+              textDecoration:'none'
+            }}>
+            <div className="back-btn">
+              ← Back to Login
+              </div>
+              </NavLink>
             </div>
           </form>
         </div>
