@@ -3,7 +3,7 @@ import { CiSearch } from "react-icons/ci";
 import MarketTable from "./marketTable";
 import Order from "./order";
 import Gallery from "./Gallery";
-import Select from "react-select"; // ✅ NEW IMPORT
+import Select from "react-select"; 
 import "./MarketTable.css";
 import "./supperMarket.css";
 
@@ -140,7 +140,7 @@ const SupperMarket = () => {
                   />
                 </div>
 
-                {/* ✅ REPLACED STATUS SELECT */}
+            
                 <div className="form-group">
                   <label>Status</label>
                   <Select

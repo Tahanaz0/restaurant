@@ -21,8 +21,8 @@ const UserDelete = ({ onDelete, children }) => {
               <button
                 className="ud-confirm"
                 onClick={() => {
-                  onDelete();     // 🔴 actually call parent handler
-                  setOpen(false); // close modal
+                  onDelete();     
+                  setOpen(false); 
                 }}
               >
                 Delete

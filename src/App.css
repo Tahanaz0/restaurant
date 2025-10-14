@@ -1,4 +1,4 @@
-/* Global responsive styles */
+
 * {
   box-sizing: border-box;
 }
@@ -23,9 +23,8 @@ body, html {
   text-align: right;
 }
 
-/* Header ke andar alignment adjust */
 [dir="rtl"] .header-container {
-  flex-direction: row-reverse; /* icons aur title ulta ho jaye */
+  flex-direction: row-reverse; 
   text-align: right;
 }
 
@@ -37,26 +36,4 @@ body, html {
   flex-direction: row-reverse;
 }
 
-/* 
-.main-content {
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
-}
 
-@media (max-width: 768px) {
-  .main-content {
-    padding: 10px !important;
-  }
-}
-
-@media (max-width: 480px) {
-  .main-content {
-    padding: 5px !important;
-  }
-}
-@media (max-widht:4k-2560px){
-  .main-content{
-    margin-left: 70%;
-  }
-} */
