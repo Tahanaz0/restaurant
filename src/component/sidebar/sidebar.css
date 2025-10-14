@@ -166,7 +166,7 @@
   font-size: 14px;
   width: 100%;
   min-width: 165px;
-  padding: 8px 15px;
+  /* padding: px px; */
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;

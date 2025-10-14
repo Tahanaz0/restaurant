@@ -1,11 +1,12 @@
 /* ================= Table Wrapper ================= */
 .table-container {
-    width: 90%;
+    width: 100%;
    border: #e5e7eb 1px solid;
    border-radius: 5px;
     /* padding: 5px; */
     /* margin: 10px; */
     overflow-x: auto;
+    margin-top: 10px;
     font-family: "Nunito", sans-serif;
   
   }
@@ -406,6 +407,7 @@
   @media(min-width:768px){
     .table-container{
       width: 100%;
+    
       /* overflow-y: auto; */
     }
     .user-table{
