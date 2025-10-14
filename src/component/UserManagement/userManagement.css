@@ -2,14 +2,19 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  /* padding: 5px; */
+  /* gap: 20%; */
+  /* margin: 10px; */
   width: 100%;
- 
+  /* background-color:#2F985A; */
 }
 
 .user-management {
   display: flex;
   width: 50%;
   gap: 5px;
+
+  /* justify-content: space-between; */
   align-items: center;
 }
 
@@ -41,20 +46,24 @@
   gap: 10px;
   width: 50%;
   flex-wrap: wrap;
-  padding: 5px;
-
+  /* margin-left: 20%; */
+  /* background-color: aquamarine; */
+  /* padding: 5px; */
+  /* background-color: aqua; */
 }
 
 .input-wrapper {
   position: relative;
   display: inline-block;
+  /* width: 250px; */
   flex: 1;
-
+  /* input ki width */
 }
 
 .user-input {
   width: 80%;
   padding: 10px 12px 10px 35px;
+  /* 👈 left padding diya icon ke liye */
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 14px;
@@ -78,6 +87,8 @@
   color: #FFFFFF;
   border-radius: 5px;
   padding: 5px;
+  /* font-size: 1vw; */
+  /* padding-left: 20px; */
   cursor: pointer;
   /* padding-right: 20px; */
 }
@@ -97,9 +108,11 @@
 
   }
   .user-management{
-
+    /* display: flex; */
     width: 100%;
+    /* gap: 26%; */
     flex-wrap: wrap;
+    /* justify-content: space-between; */
   }
   .user-btn{
     margin-right: 15px;

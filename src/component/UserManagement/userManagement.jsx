@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './userManagement.css';
 import { CiSearch } from "react-icons/ci";
-import AddUserModal from "./AddUserModal"; // 👈 Modal import
+import AddUserModal from "./AddUserModal"; 
 import UserTable from "./userTable";
 
 const UserManagement = () => {
@@ -33,10 +33,9 @@ const UserManagement = () => {
         <UserTable/>
       </div>
 
-      {/* Modal call */}
       {isModalOpen && <AddUserModal onClose={() => setIsModalOpen(false)} />}
     </>
   );
 };
 
-export default UserManagement
+export default UserManagement; 

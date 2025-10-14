@@ -54,15 +54,24 @@ const Header = () => {
   const [selectedLang, setSelectedLang] = useState("English"); // default lang
   const fileInputRef = useRef(null);
 
-  const pageKey = location.pathname.replace("/", ""); // route ka key banane ke liye
+  const titles = {
+    "/userManagement": "User Management",
+    "/supperMarket": "Super Market",
+    "/Payment-finance": "Payments & Finance",
+    "/notification": "Notification",
+    "/logout": "Logout"
+  };
 
-const pageTitle =
-  translations[selectedLang]?.[pageKey] || translations[selectedLang].userManagement;
+  const descriptions = {
+    "/userManagement": "Manage all the users and their access in the system.",
+    "/supperMarket": "Track and manage supermarket operations easily.",
+    "/Payment-finance": "Handle payments, invoices, and finance related tasks.",
+    "/notification": "Check and respond to all notifications here.",
+    "/logout": "You can logout securely from here."
+  };
 
-const pageDescription =
-  translations[selectedLang]?.["desc" + pageKey.charAt(0).toUpperCase() + pageKey.slice(1)] ||
-  translations[selectedLang].descUserManagement;
-
+  const pageTitle = titles[location.pathname] || "User Management";
+  const pageDescription = descriptions[location.pathname] || "Manage all the users and their access in the system.";
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -74,14 +83,13 @@ const pageDescription =
   const handleSelectLang = (lang) => {
     setSelectedLang(lang);
     setDropdownOpen(false);
-  
-    if (lang === "Arabic" || lang === "Hebrew") {
-      document.body.setAttribute("dir", "rtl"); // Right to Left
+    console.log("Language Selected:", lang);
+    if (lang === "Arabic") {
+      document.documentElement.setAttribute("dir", "rtl"); // Right-to-left
     } else {
-      document.body.setAttribute("dir", "ltr"); // Left to Right (default)
+      document.documentElement.setAttribute("dir", "ltr"); // Left-to-right
     }
   };
-  
 
   return (
     <div className='header-container'>

@@ -1,4 +1,4 @@
-
+/* Global responsive styles */
 * {
   box-sizing: border-box;
 }
@@ -11,29 +11,27 @@ body, html {
 
 
 
-/* Default LTR style */
-[dir="ltr"] {
-  direction: ltr;
-  text-align: left;
+
+/* 
+.main-content {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
-/* Arabic RTL style */
-[dir="rtl"] {
-  direction: rtl;
-  text-align: right;
+@media (max-width: 768px) {
+  .main-content {
+    padding: 10px !important;
+  }
 }
 
-[dir="rtl"] .header-container {
-  flex-direction: row-reverse; 
-  text-align: right;
+@media (max-width: 480px) {
+  .main-content {
+    padding: 5px !important;
+  }
 }
-
-[dir="rtl"] .header-title p {
-  text-align: right;
-}
-
-[dir="rtl"] .header-right {
-  flex-direction: row-reverse;
-}
-
-
+@media (max-widht:4k-2560px){
+  .main-content{
+    margin-left: 70%;
+  }
+} */

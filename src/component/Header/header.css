@@ -223,4 +223,12 @@
   .dropdown-item:hover {
     background: #f0f0f0;
   }
-  
+/* Default LTR */
+body[dir="ltr"] .header-container {
+  flex-direction: row;
+}
+
+/* RTL (Arabic, Hebrew) */
+body[dir="rtl"] .header-container {
+  flex-direction: row-reverse; /* 👈 flips icons & title */
+}
