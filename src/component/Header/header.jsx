@@ -44,7 +44,11 @@ const Header = () => {
     setSelectedLang(lang);
     setDropdownOpen(false);
     console.log("Language Selected:", lang);
-    // yahan aap translation logic connect kar sakte ho
+    if (lang === "Arabic") {
+      document.documentElement.setAttribute("dir", "rtl"); // Right-to-left
+    } else {
+      document.documentElement.setAttribute("dir", "ltr"); // Left-to-right
+    }
   };
 
   return (

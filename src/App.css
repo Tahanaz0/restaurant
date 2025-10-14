@@ -8,6 +8,35 @@ body, html {
   padding: 0;
   overflow-x: hidden;
 }
+
+
+
+/* Default LTR style */
+[dir="ltr"] {
+  direction: ltr;
+  text-align: left;
+}
+
+/* Arabic RTL style */
+[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Header ke andar alignment adjust */
+[dir="rtl"] .header-container {
+  flex-direction: row-reverse; /* icons aur title ulta ho jaye */
+  text-align: right;
+}
+
+[dir="rtl"] .header-title p {
+  text-align: right;
+}
+
+[dir="rtl"] .header-right {
+  flex-direction: row-reverse;
+}
+
 /* 
 .main-content {
   width: 100%;
