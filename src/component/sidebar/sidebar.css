@@ -6,7 +6,7 @@
   border-right: 1px solid #e5e5e5;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start; /* allow menu to grow and logout at bottom */
   font-family: 'Nunito', sans-serif;
   padding: 20px 15px;
   position: fixed;
@@ -17,36 +17,135 @@
   box-sizing: border-box;
 }
 
-/* default: sidebar visible */
+/* Sidebar visible */
 .sidebar-container.open {
   transform: translateX(0);
 }
-.logo-container2{
+
+.logo-container2 {
   background-color: #45d17d;
   width: 45%;
-  padding: 15px;
-  padding-left: 25px;
+  padding: 15px 25px;
   height: 65%;
-  /* padding-top: 20px;
-  padding-bottom: 50px;  */
- /* display: flex; 
-   justify-content: center;
-  align-items: center; */
   border-radius: 10px;
 }
-.login-logo-image2{
+.login-logo-image2 {
   width: 80%;
   height: 97%;
 }
 
-/* hide on small screens */
-@media (max-width: 768px) {
-  .sidebar-container {
-    transform: translateX(-100%); /* hidden by default */
-  }
-  .sidebar-container.open {
-    transform: translateX(0); /* show when open */
-  }
+/* Sidebar Logo */
+.sidebar-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+/* Sidebar Menu */
+.sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  margin: 10px;
+  flex: 1;
+}
+
+.sidebar-menu a {
+  /* display: flex; */
+  align-items: center;
+  /* gap: 15px;  */
+  width: 100%;
+  /* padding: 5px 5px; */
+  /* border-radius: 6px; */
+  /* color: red; */
+  text-decoration: none;
+  /* cursor: pointer; */
+  /* transition: all 0.2s ease-in-out; */
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  /* justify-content: flex-start; */
+  color: #8a8a8a;
+  font-size: 14px;
+  width: 90%;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  /* white-space: nowrap; */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sidebar-item2{
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  justify-content: flex-start;
+  color: #FF6D6D;
+  font-size: 14px;
+  width: 100%;
+  padding: 5px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+}
+
+.sidebar-item:hover,
+.active-link .sidebar-item {
+  background-color: #3BBE70;
+  color: white;
+}
+
+.sidebar-icon-container {
+  width: 20px;
+  text-align: left;
+}
+
+.sidebar-text1 {
+  /* font-size: 14px; */
+  /* text-align: left; */
+  /* flex: 1; */
+  /* width: 140%; */
+}
+
+/* Logout Button Sticky at Bottom */
+.sidebar-logout {
+  width: 100%;
+  margin-top: auto; /* push to bottom */
+}
+
+.sidebar-logout  a{
+  display: flex;
+  align-items: center;
+  gap: 15px; 
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 6px;
+  color: red;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.sidebar-logout a:hover {
+  background-color: #ffe6e6;
+  color: red;
+}
+
+.logout-icon {
+  font-size: 18px;
 }
 
 /* Hamburger Button */
@@ -61,160 +160,33 @@
   color: #0047AB;
 }
 
-
-
-/* Sidebar Content (same as before) */
-.sidebar-logo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 40px;
-}
-
-.sidebar-logo-image {
-  width: 80px;
-  height: 80px;
-}
-
-.sidebar-logo-text {
-  font-weight: 700;
-  font-size: 16px;
-  color: #0047AB;
-  margin-top: 5px;
-}
-
-.sidebar-menu {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 20px;
-}
-.sidebar-menu a {
-  text-decoration: none;   /* sab links se underline hata dega */
-  color: inherit;          /* text ka color same rakhega */
-}
-
-.sidebar-logout a {
-  text-decoration: none;
-  color: inherit;
-  
-}
-.active-link .sidebar-item {
-  background-color: #2F985A;   /* ya koi bhi color */
-  border-radius: 8px; 
-  color: white;         /* thoda rounded look */
-}
-
-.sidebar-text1{
-  text-align: left;        /* ensure text left aligned */
-  font-size: 14px;
-  width: 25px;
-  /* color: #8a8a8a; */
-}
-.sidebar-icon-container{
-  text-align: left;
-  width: 20px;
-}
-.sidebar-item {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  justify-content: flex-start;
-  color: #8a8a8a;
-  font-size: 14px;
-  width: 100%;
-  min-width: 165px;
-  padding: 8px 5px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.sidebar-item:hover {
-  background-color: #3BBE70;
-  color: white;
-}
-.sidebar-item2{
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  /* justify-content: center; */
-  color: red;
-  font-size: 14px;
-  width: 100%;
-  min-width: 165px;
-  padding:10px 20px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-
-}
-
-.sidebar-item.active {
-  background-color: #2F985A;
-  font-weight: 600;
-}
-
-.sidebar-icon {
-  /* font-size: 18px; */
-  margin: px;
-}
-.sidebar-logout {
-  display: flex;
-  align-items: center;
-  justify-content: center;
- margin-left: 15px;
-  gap: 20px;
-  font-size: 14px;
-  width: 80%;
-  min-width: 165px;
-
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-
-  font-weight: 600;
-  border-top: 1px solid #f2f2f2;
-}
-
-.sidebar-logout:hover {
-  background-color: #ffe6e6;
-  color: red;
-}
-
-.logout-icon {
-  font-size: 18px;
-}
+/* Responsive */
 @media (max-width: 768px) {
   .sidebar-container {
+    transform: translateX(-100%);
+    height: 100vh;
+    width: 220px;
     position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;           /* full screen height */
-    width: 220px;            /* apni sidebar ki width jitni chahiye */
-    background: #fff;
-    transform: translateX(-100%); /* bilkul left side hide */
-    transition: transform 0.3s ease-in-out;
-    z-index: 1000;
   }
-
   .sidebar-container.open {
-    transform: translateX(0); /* show sidebar */
+    transform: translateX(0);
   }
-
   .hamburger {
     display: block;
-    position: fixed;
     top: 10px;
     left: 10px;
-    z-index: 1100;
   }
 }
+/* Sirf badi screens (1920px - 2560px) ke liye */
+@media (min-width: 1920px) {
+  .sidebar-item {
+    width: 60%;  /* chhoti hogi sidebar ki andar */
+    margin: 0 auto; 
+  }
+  .sidebar-item2{
+    width: 60%;  /* chhoti hogi sidebar ki andar */
+    margin: 0 auto;
+
+  }
+}
+

@@ -47,9 +47,12 @@ const Sidebar = () => {
             to="/userManagement"
             className={({ isActive }) => isActive ? "active-link" : ""}
             onClick={handleLinkClick}
+            style={{
+              textDecoration:'None'
+            }}
           >
             <div className="sidebar-item">
-              <div className='sidebar-icon-container'><HiUsers className="sidebar-icon" size={22}/></div>
+              <div className='sidebar-icon-container'><HiUsers className="sidebar-icon" size={22} /></div>
               <div className='sidebar-text1'>User Management</div>
             </div>
           </NavLink>
@@ -60,7 +63,7 @@ const Sidebar = () => {
             onClick={handleLinkClick}
           >
             <div className="sidebar-item">
-              <div className='sidebar-icon-container'><HiOutlineShoppingCart className="sidebar-icon" size={22}/></div>
+              <div className='sidebar-icon-container'><HiOutlineShoppingCart className="sidebar-icon" size={22} /></div>
               <div className='sidebar-text1'>Super Market</div>
             </div>
           </NavLink>
@@ -71,7 +74,7 @@ const Sidebar = () => {
             onClick={handleLinkClick}
           >
             <div className="sidebar-item">
-              <div className='sidebar-icon-container'><FaDollarSign  size={22}/></div>
+              <div className='sidebar-icon-container'><FaDollarSign size={20} /></div>
               <div className='sidebar-text1'>Payments $ finance</div>
             </div>
           </NavLink>
@@ -82,26 +85,26 @@ const Sidebar = () => {
             onClick={handleLinkClick}
           >
             <div className="sidebar-item">
-              <div className='sidebar-icon-container'><MdOutlineNotifications className="sidebar-icon" size={24}/></div>
+              <div className='sidebar-icon-container'><MdOutlineNotifications className="sidebar-icon" size={24} /></div>
               <div className='sidebar-text1'>Notification</div>
             </div>
           </NavLink>
+          <div className="sidebar-logout">
 
+            {/* Logout */}
+            <NavLink
+              to="/"
+              className={({ isActive }) => isActive ? "active-link" : ""}
+              onClick={handleLinkClick}
+            >
+              <div className='sidebar-item2'>
+                <div><FaSignOutAlt className="sidebar-icon logout-icon" size={18} /></div>
+                <div className='sidebar-text1'>Logout</div>
+              </div>
+            </NavLink>
+          </div>
         </div>
-        <div  className="sidebar-logout">
 
-          {/* Logout */}
-          <NavLink
-            to="/"
-            className={({ isActive }) => isActive ? "active-link" : ""}
-            onClick={handleLinkClick}
-          >
-            <div className='sidebar-item2'>
-              <div><FaSignOutAlt className="sidebar-icon logout-icon" size={20} /></div>
-              <div className='sidebar-text1'>Logout</div>
-            </div>
-          </NavLink>
-        </div>
 
       </div>
     </>
