@@ -73,7 +73,7 @@
   
   
   .market-table th {
-    padding: 12px 20px;
+    padding: 12px 12px;
     background: #f9fafb;
     font-weight: 600;
     font-size: 14px;
@@ -83,7 +83,7 @@
   
   .market-table th:first-child {
     width: 5%;
-    padding: 12px 2px;
+    padding: 12px 12px;
   }
   
   .market-table th:nth-child(2) {
@@ -151,7 +151,7 @@
     border-top-left-radius: 6px;
     border-bottom-left-radius: 6px;
     width: 5%;
-    padding: 12px 2px;
+    padding: 12px 12px;
   }
   .market-table td:last-child {
     border-top-right-radius: 6px;
@@ -382,7 +382,7 @@
   }
   
   .btn-save {
-    background: #2563eb;
+    background: #278a51;
     color: #fff;
     border: none;
     padding: 8px 16px;
@@ -391,7 +391,7 @@
   }
   
   .btn-save:hover {
-    background: #1e40af;
+    background: #278a51;
   }
   
   /* ================= Animation ================= */

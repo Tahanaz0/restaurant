@@ -47,9 +47,9 @@ const AddUserModal = ({ onClose }) => {
               value={userType}
               onChange={setUserType}
               placeholder="Select type"
-              menuPortalTarget={document.body} // ✅ dropdown modal ke bahar render hoga
+              menuPortalTarget={document.body}
               styles={{
-                menuPortal: base => ({ ...base, zIndex: 9999 }), // ✅ ensure top layer
+                menuPortal: base => ({ ...base, zIndex: 9999 }),
                 control: base => ({
                   ...base,
                   borderColor: "#ccc",
@@ -58,8 +58,18 @@ const AddUserModal = ({ onClose }) => {
                   fontSize: "14px",
                   boxShadow: "none",
                 }),
+                option: (base, state) => ({
+                  ...base,
+                  backgroundColor: state.isFocused
+                    ? "#f3f4f6"   // hover bg (light gray/primary as you want)
+                    : "#fff",     // normal
+                  color: "black", // ✅ always black
+                  cursor: "pointer",
+                }),
               }}
             />
+
+
           </label>
 
           <div className="modal-actions">

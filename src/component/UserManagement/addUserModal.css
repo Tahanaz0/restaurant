@@ -32,6 +32,12 @@
   border-radius: 10px;
   max-height: 60vh;  /* scroll if form too tall */
   overflow-y: auto;
+
+  /* ✅ scrollbar hide */
+  scrollbar-width: none;   /* Firefox */
+}
+.modal-form::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
 }
 
 /* close (×) button */
@@ -103,7 +109,6 @@
 
   .modal-form {
     padding: 15px;
-    /* max-height: 65vh; */
   }
 
   .modal-actions button {

@@ -32,7 +32,7 @@
   
   .user-table th:first-child {
     width: 5%;
-    padding: 12px 2px;
+    padding: 12px 12px;
   }
   
   .user-table th:nth-child(2) {
@@ -78,7 +78,7 @@
     border-top-left-radius: 6px;
     border-bottom-left-radius: 6px;
     width: 5%;
-    padding: 12px 2px;
+    padding: 12px 12px;
   }
   .user-table td:last-child {
     border-top-right-radius: 6px;
@@ -307,7 +307,7 @@
   }
   
   .btn-save {
-    background: #2563eb;
+    background: #278a51;
     color: #fff;
     border: none;
     padding: 8px 16px;

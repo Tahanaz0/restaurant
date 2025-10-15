@@ -144,27 +144,46 @@ const SupperMarket = () => {
                 <div className="form-group">
                   <label>Status</label>
                   <Select
-                    options={statusOptions}
-                    value={statusOptions.find(
-                      (opt) => opt.value === newItem.status
-                    )}
-                    onChange={(selected) =>
-                      setNewItem({ ...newItem, status: selected.value })
-                    }
-                    placeholder="Select Status"
-                    menuPortalTarget={document.body}
-                    styles={{
-                      menuPortal: (base) => ({ ...base, zIndex: 9999 }),
-                      control: (base) => ({
-                        ...base,
-                        borderColor: "#ccc",
-                        borderRadius: "6px",
-                        padding: "2px",
-                        fontSize: "14px",
-                        boxShadow: "none",
-                      }),
-                    }}
-                  />
+  options={statusOptions}
+  value={statusOptions.find(
+    (opt) => opt.value === newItem.status
+  )}
+  onChange={(selected) =>
+    setNewItem({ ...newItem, status: selected.value })
+  }
+  placeholder="Select Status"
+  menuPortalTarget={document.body}
+  isSearchable={false}   // ✅ ye line cursor / typing hatayegi
+  styles={{
+    menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+    control: (base) => ({
+      ...base,
+      borderColor: "#ccc",
+      borderRadius: "6px",
+      padding: "2px",
+      fontSize: "14px",
+      boxShadow: "none",
+      backgroundColor: "#f9fafb",
+    }),
+    menu: (base) => ({
+      ...base,
+      backgroundColor: "#f3f4f6",
+      borderRadius: "6px",
+      marginTop: "4px",
+    }),
+    option: (base, state) => ({
+      ...base,
+      backgroundColor: state.isFocused ? "#e5e7eb" : "#f3f4f6",
+      color: "#111827",
+      cursor: "pointer",
+    }),
+    singleValue: (base) => ({
+      ...base,
+      color: "#111827",
+    }),
+  }}
+/>
+
                 </div>
               </div>
               <div className="modal-footer">

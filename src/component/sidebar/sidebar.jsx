@@ -49,8 +49,8 @@ const Sidebar = () => {
             onClick={handleLinkClick}
           >
             <div className="sidebar-item">
-              <HiUsers className="sidebar-icon" />
-              <span>User Management</span>
+              <div className='sidebar-icon-container'><HiUsers className="sidebar-icon" size={22}/></div>
+              <div className='sidebar-text1'>User Management</div>
             </div>
           </NavLink>
 
@@ -60,8 +60,8 @@ const Sidebar = () => {
             onClick={handleLinkClick}
           >
             <div className="sidebar-item">
-              <HiOutlineShoppingCart className="sidebar-icon" />
-              <span>Super Market</span>
+              <div className='sidebar-icon-container'><HiOutlineShoppingCart className="sidebar-icon" size={22}/></div>
+              <div className='sidebar-text1'>Super Market</div>
             </div>
           </NavLink>
 
@@ -71,8 +71,8 @@ const Sidebar = () => {
             onClick={handleLinkClick}
           >
             <div className="sidebar-item">
-              <FaDollarSign className="sidebar-icon" />
-              <span>Payments $ finance</span>
+              <div className='sidebar-icon-container'><FaDollarSign className="sidebar-icon"  size={22} /></div>
+              <div className='sidebar-text1'>Payments $ finance</div>
             </div>
           </NavLink>
 
@@ -82,8 +82,8 @@ const Sidebar = () => {
             onClick={handleLinkClick}
           >
             <div className="sidebar-item">
-              <MdOutlineNotifications className="sidebar-icon" />
-              <span>Notification</span>
+              <div className='sidebar-icon-container'><MdOutlineNotifications className="sidebar-icon" size={24}/></div>
+              <div className='sidebar-text1'>Notification</div>
             </div>
           </NavLink>
 
@@ -97,7 +97,7 @@ const Sidebar = () => {
             onClick={handleLinkClick}
           >
             <div className='sidebar-item2'>
-              <FaSignOutAlt className="sidebar-icon logout-icon" />
+              <FaSignOutAlt className="sidebar-icon logout-icon" size={20} />
               <span>Logout</span>
             </div>
           </NavLink>

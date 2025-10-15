@@ -12,11 +12,12 @@
   min-width: 200px;
   width: 97%;
   overflow-x: auto;
-  border-collapse: collapse;
+  border-collapse:separate;
   border: #e5e7eb 1px solid;
   border-radius: 5px;
   border-spacing: 0;
-  table-layout: auto;
+  /* table-layout: auto; */
+  overflow: hidden; 
 }
 
 
@@ -118,7 +119,7 @@
 
 .payment-table th:first-child {
   width: 5%;
-  padding: 12px 2px;
+  padding: 12px 12px;
 }
 
 .payment-table th:nth-child(2) {
@@ -201,7 +202,7 @@
   border-top-left-radius: 6px;
   border-bottom-left-radius: 6px;
   width: 5%;
-  padding: 12px 2px;
+  padding: 12px 12px;
 }
 
 .payment-table td:last-child {
@@ -440,7 +441,7 @@
 }
 
 .btn-save {
-  background: #2563eb;
+  background: #278a51;
   color: #fff;
   border: none;
   padding: 8px 16px;
@@ -449,7 +450,7 @@
 }
 
 .btn-save:hover {
-  background: #1e40af;
+  background: #278a51;
 }
 
 /* ================= Animation ================= */
@@ -514,7 +515,7 @@
 }
 
 .add-btn {
-  background-color: #2563eb;
+  background-color: #2F985A;
   color: white;
   width: 7%;
   padding: 5px;

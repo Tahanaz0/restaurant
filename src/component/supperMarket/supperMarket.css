@@ -1,7 +1,7 @@
-.support-manag{
+.support-manag {
 	width: 95%;
 	padding: 10px;
-	margin: 7px; 
+	margin: 10px; 
 }
 
 .modal-overlay {
@@ -24,9 +24,16 @@
 	width: 480px;
 	max-width: 95%;
 	max-height: 85vh;
-	overflow-y: auto;
+	overflow-y: auto;  /* scroll allow */
 	box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2);
 	animation: fadeIn 0.25s ease-in-out;
+
+	/* scrollbar hide */
+	-ms-overflow-style: none;  /* IE, Edge */
+	scrollbar-width: none;     /* Firefox */
+}
+.modal::-webkit-scrollbar {
+	display: none; /* Chrome, Safari */
 }
 
 .modal-header {
@@ -60,12 +67,10 @@
 	font-weight: 500;
 	color: #333;
 }
-.user-input{
+.user-input {
 	width: 100%;
 }
-/* .user-btn{
-	width: 30%;
-} */
+
 .modal-body input,
 .modal-body select {
 	padding: 8px 10px;
@@ -89,22 +94,20 @@
 	border-radius: 6px;
 	cursor: pointer;
 }
-
 .btn-cancel:hover {
 	background: #e0e0e0;
 }
 
 .btn-save {
-	background: #2563eb;
+	background: #278a51;
 	color: #fff;
 	border: none;
 	padding: 8px 16px;
 	border-radius: 6px;
 	cursor: pointer;
 }
-
 .btn-save:hover {
-	background: #1e40af;
+	background: #278a51;
 }
 
 @keyframes fadeIn {
@@ -114,12 +117,10 @@
 
 /* Tabs (Item / Order / Gallery) */
 .user-first {
-    display: flex
-;
+    display: flex;
     justify-content: space-between;
     align-items: center;
-    /* padding: 5px; */
-    margin: 10px;
+	margin-bottom: 10px;
     width: 96%;
 }
 
@@ -127,32 +128,27 @@
 	display: flex;
 	width: 50%;
 	gap: 5px;
-	/* justify-content: space-between; */
 	align-items: center;
 }
-.user-second{
+.user-second {
 	width: 50%;
 }
 
 .sup-btn {
-	/* appearance: none; */
 	border: 1px solid #e5e7eb;
 	background: #ffffff;
 	color: #111827;
 	padding: 10px;
 	border-radius: 6px;
-	/* font-size: 14px; */
 	font-weight: 600;
 	cursor: pointer;
 	margin-right: 8px;
 	width: 120px;
 	transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
-
 .sup-btn:hover {
 	background: #f3f4f6;
 }
-
 .sup-btn.active {
 	background: #2F985A;
 	color: #ffffff;
@@ -161,10 +157,6 @@
 
 /* ================= Responsive - Tabs & Modal ================= */
 @media (max-width: 1024px) {
-	/* .sup-btn {
-		padding: 9px 18px;
-		font-size: 13px;
-	} */
 	.modal { width: 520px; max-height: 80vh; }
 }
 
@@ -172,37 +164,15 @@
 	.user-first { 
 		flex-direction: column; 
 		gap: 10px; 
-		 align-items: stretch; 
-		} 
-	.user-management { 
-		width: 100%; 
-		
-		/* justify-content:; */
-	 }
-	.user-second {
-		 width: 100%;
-		justify-content: space-between; 
-	  
-	}
-	.support-manag{
-		margin: 0%;
-		padding: 0px;
-	}
-	
-	.modal {
-		 width: 92%;
-		  max-height: 80vh; }
+		align-items: stretch; 
+	} 
+	.user-management { width: 100%; }
+	.user-second { width: 100%; justify-content: space-between; }
+	.support-manag { margin: 0%; padding: 0px; }
+	.modal { width: 92%; max-height: 80vh; }
 }
 
 @media (max-width: 480px) {
-	/* .sup-btn { 
-		padding: 8px 12px;
-		 font-size: 12px; } */
-	.modal { 
-		width: 95%; 
-		max-height: 78vh; }
-	.modal-body .form-group { 
-		padding: 8px; }
+	.modal { width: 95%; max-height: 78vh; }
+	.modal-body .form-group { padding: 8px; }
 }
-
-

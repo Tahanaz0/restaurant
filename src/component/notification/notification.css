@@ -5,11 +5,16 @@
   /* margin: 0 auto; */
   /* padding: 16px 18px; */
   padding: 10px;
-  margin: 20px;
+  margin: 10px;
   font-family: "Nunito", sans-serif;
   box-sizing: border-box;
 }
-
+.payment-table input[type="checkbox"] {
+  /* width: 16px;
+  height: 16px; */
+  accent-color: #2563eb; /* ✅ Primary color for check */
+  cursor: pointer;
+}
 /* Header */
 .notif-header {
   display: flex;
