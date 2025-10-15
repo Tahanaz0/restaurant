@@ -1,9 +1,9 @@
 /* ================= Table Wrapper ================= */
 .market-table-container {
-    width: 97%;
+    width: 100%;
    border: #e5e7eb 1px solid;
    border-radius: 5px;
-    padding: 5px;
+    /* padding: 5px; */
     /* margin: 10px; */
     overflow-x: auto;
     font-family: "Nunito", sans-serif;

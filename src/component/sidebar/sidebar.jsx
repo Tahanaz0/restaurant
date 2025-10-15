@@ -71,7 +71,7 @@ const Sidebar = () => {
             onClick={handleLinkClick}
           >
             <div className="sidebar-item">
-              <div className='sidebar-icon-container'><FaDollarSign className="sidebar-icon"  size={22} /></div>
+              <div className='sidebar-icon-container'><FaDollarSign  size={22}/></div>
               <div className='sidebar-text1'>Payments $ finance</div>
             </div>
           </NavLink>
