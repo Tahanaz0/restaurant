@@ -97,8 +97,8 @@ const Sidebar = () => {
             onClick={handleLinkClick}
           >
             <div className='sidebar-item2'>
-              <FaSignOutAlt className="sidebar-icon logout-icon" size={20} />
-              <span>Logout</span>
+              <div><FaSignOutAlt className="sidebar-icon logout-icon" size={20} /></div>
+              <div className='sidebar-text1'>Logout</div>
             </div>
           </NavLink>
         </div>
