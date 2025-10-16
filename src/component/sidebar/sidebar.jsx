@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { HiUsers, HiOutlineShoppingCart } from "react-icons/hi2";
-import { FaDollarSign, FaSignOutAlt, FaBars } from "react-icons/fa";
+import {  FaSignOutAlt, FaBars } from "react-icons/fa";
+import { PiCurrencyDollarSimple } from "react-icons/pi";
 import { MdOutlineNotifications } from "react-icons/md";
 import { NavLink } from 'react-router-dom';
 import './sidebar.css';
@@ -32,10 +33,10 @@ const Sidebar = () => {
         <div className="sidebar-logo">
 
           <div className='logo-container2'>
-            <img src='/images/logoo.png' alt="logo" className='login-logo-image2' width={600} />
+            <img src='/images/title-icon.png' alt="logo" className='login-logo-image2'   />
           </div>
           <div className='login-logo-text2'>
-            <img src="/images/T3all.png" alt="" width={100} />
+            <img src="/images/T3all.png" alt="" width={120} />
           </div>
 
         </div>
@@ -74,7 +75,8 @@ const Sidebar = () => {
             onClick={handleLinkClick}
           >
             <div className="sidebar-item">
-              <div className='sidebar-icon-container'><FaDollarSign size={20} /></div>
+              <div className='sidebar-icon-container'><PiCurrencyDollarSimple  size={22}/>
+              </div>
               <div className='sidebar-text1'>Payments $ finance</div>
             </div>
           </NavLink>

@@ -45,18 +45,21 @@ body {
   height: 80px;
   z-index: 1100;
 }
-@media (max-width: 992px) {
+@media (max-width: 994px) {
   .header-fixed {
     left: 200px;
   }
   .main-content{
-    margin-left: 150px;
+    margin-left: 175px;
+    width: 85%;
   }
 }
 @media (max-width: 768px) {
  
   .main-content{
    width: 100%;
+   margin-left: 0px;
+   overflow-x: auto;
 
   }
 }
@@ -65,12 +68,7 @@ body {
 /* .main-content.with-fixed-header {
   padding-top: 80px;    
 } */
-@media (max-width: 768px) {
-  .main-content{
-    margin-left: 0px;
-    overflow-x: auto;
-  }
-}
+
 
 /* :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;

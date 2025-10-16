@@ -2,17 +2,13 @@
 .order-top {
     /* padding: 24px; */
     font-family: "Nunito", sans-serif;
-    width: 96%;
+    width: 100%;
     /* background-color: #2F985A; */
     /* padding: 5px; */
     /* margin: 5px; */
 }
 
-.orders-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 24px;
-}
+
 
 
 /* .order-top {
@@ -27,7 +23,9 @@
   .order-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 14px;
+    gap: 24px;
+    /* background-color: #16a34a; */
+    width: 100%;
   }
   
   .order-card {

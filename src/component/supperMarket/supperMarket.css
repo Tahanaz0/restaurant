@@ -1,7 +1,7 @@
 .support-manag {
 	width: 93%;
 	padding: 10px;
-	margin: 10px; 
+	/* margin: 10px;  */
 }
 
 .modal-overlay {
@@ -20,7 +20,7 @@
 .modal {
 	background: #fff;
 	border-radius: 12px;
-	padding: 24px;
+	padding: 10px;
 	width: 480px;
 	max-width: 95%;
 	max-height: 85vh;
@@ -132,6 +132,7 @@
 }
 .user-second {
 	width: 50%;
+	/* padding: 5px; */
 }
 
 .sup-btn {
@@ -142,7 +143,7 @@
 	border-radius: 6px;
 	font-weight: 600;
 	cursor: pointer;
-	margin-right: 8px;
+	/* margin-right: 8px; */
 	width: 120px;
 	transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
@@ -167,9 +168,17 @@
 		align-items: stretch; 
 	} 
 	.user-management { width: 100%; }
-	.user-second { width: 100%; justify-content: space-between; }
-	.support-manag { margin: 0%; padding: 0px; }
-	.modal { width: 92%; max-height: 80vh; }
+	.user-second { width: 100%; 
+		justify-content: space-between;
+		margin: 5px; }
+	.support-manag { 
+		margin: 0%; 
+		padding: 0px; 
+		width: 100%;
+	}
+	.modal {
+		 width: 92%; 
+		max-height: 80vh; }
 }
 
 @media (max-width: 480px) {

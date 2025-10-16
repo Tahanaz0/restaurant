@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import Select from 'react-select';
 import './MarketTable.css';
 
 const statusStyles = {
@@ -36,6 +37,7 @@ const MarketTable = () => {
     ]);
 
     const [openMenuIndex, setOpenMenuIndex] = useState(null);
+    const [editItem, setEditItem] = useState(null);
     const menuRef = useRef(null);
 
     useEffect(() => {
@@ -51,6 +53,16 @@ const MarketTable = () => {
     const handleDelete = (id) => {
         setItems((prev) => prev.filter((row) => row.id !== id));
         setOpenMenuIndex(null);
+    };
+
+    const handleOpenEdit = (item) => {
+        setEditItem({ ...item });
+        setOpenMenuIndex(null);
+    };
+
+    const handleSaveEdit = () => {
+        setItems(prev => prev.map(it => it.id === editItem.id ? editItem : it));
+        setEditItem(null);
     };
 
     return (
@@ -99,7 +111,7 @@ const MarketTable = () => {
                                         zIndex: 10,
                                         minWidth: '130px'
                                     }}>
-                                        <button onClick={() => { /* open edit modal hook here */ setOpenMenuIndex(null); }} style={{
+                                        <button onClick={() => { handleOpenEdit(item); }} style={{
                                             width: '100%',
                                             background: 'transparent',
                                             border: 'none',
@@ -124,6 +136,96 @@ const MarketTable = () => {
                         ))}
                     </tbody>
                 </table>
+
+                {editItem && (
+                    <div className="modal-overlay">
+                        <div className="modal">
+                            <div className="modal-header">
+                                <h3>Edit Item</h3>
+                                <button className="close-btn" onClick={() => setEditItem(null)}>×</button>
+                            </div>
+                            <div className="modal-body addd-form">
+                                <div className="form-group">
+                                    <label>Item ID</label>
+                                    <input value={editItem.id} onChange={(e) => setEditItem({ ...editItem, id: e.target.value })} />
+                                </div>
+                                <div className="form-group">
+                                    <label>Name</label>
+                                    <input value={editItem.name} onChange={(e) => setEditItem({ ...editItem, name: e.target.value })} />
+                                </div>
+                                <div className="form-group">
+                                    <label>Category</label>
+                                    <input value={editItem.category} onChange={(e) => setEditItem({ ...editItem, category: e.target.value })} />
+                                </div>
+                                <div className="form-group">
+                                    <label>Price</label>
+                                    <input type="number" value={editItem.price} onChange={(e) => setEditItem({ ...editItem, price: Number(e.target.value) })} />
+                                </div>
+                                <div className="form-group">
+                                    <label>Stock</label>
+                                    <input type="number" value={editItem.stock} onChange={(e) => setEditItem({ ...editItem, stock: Number(e.target.value) })} />
+                                </div>
+                                <div className="form-group">
+                                    <label>Restaurant</label>
+                                    <input value={editItem.restaurant} onChange={(e) => setEditItem({ ...editItem, restaurant: e.target.value })} />
+                                </div>
+                                <div className="form-group">
+                                    <label>Status</label>
+                                    <Select
+                                        options={[
+                                            { value: 'Preparing', label: 'Preparing' },
+                                            { value: 'Pending', label: 'Pending' },
+                                            { value: 'Out for Delivery', label: 'Out for Delivery' }
+                                        ]}
+                                        value={{ value: editItem.status, label: editItem.status }}
+                                        onChange={(selected) => setEditItem({ ...editItem, status: selected.value })}
+                                        isSearchable={false}
+                                        menuPlacement="auto"
+                                        menuShouldScrollIntoView
+                                        styles={{
+                                            menuPortal: base => ({ ...base, zIndex: 9999 }),
+                                            menuList: (base) => ({
+                                                ...base,
+                                                maxHeight: 180,
+                                                overflowY: 'auto',
+                                            }),
+                                            control: (base, state) => ({
+                                                ...base,
+                                                borderColor: state.isFocused ? '#2F985A' : '#ccc',
+                                                borderRadius: '6px',
+                                                padding: '2px',
+                                                fontSize: '14px',
+                                                boxShadow: 'none',
+                                            }),
+                                            input: (base) => ({
+                                                ...base,
+                                                color: '#111827',
+                                                caretColor: '#111827',
+                                            }),
+                                            option: (base, state) => ({
+                                                ...base,
+                                                backgroundColor: state.isSelected ? '#e5e7eb' : (state.isFocused ? '#f3f4f6' : '#fff'),
+                                                color: '#111827',
+                                            }),
+                                        }}
+                                        theme={(theme) => ({
+                                            ...theme,
+                                            colors: {
+                                                ...theme.colors,
+                                                primary25: '#f3f4f6',
+                                                primary: '#2F985A',
+                                            },
+                                        })}
+                                    />
+                                </div>
+                            </div>
+                            <div className="modal-footer">
+                                <button className="btn-cancel" onClick={() => setEditItem(null)}>Cancel</button>
+                                <button className="btn-save" onClick={handleSaveEdit}>Save</button>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
     );
 };

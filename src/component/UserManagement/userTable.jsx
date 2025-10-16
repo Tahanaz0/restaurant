@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import Select from 'react-select';
 import './userTable.css';
 // import UserAddForm from './UserAddForm';
 import UserDelete from './UserDelete';
@@ -106,6 +107,22 @@ const UserTable = () => {
     const [editUser, setEditUser] = useState(null);
     const [showEditModal, setShowEditModal] = useState(false);
     const [deleteIndex, setDeleteIndex] = useState(null);
+
+    const genderOptions = [
+        { value: 'Male', label: 'Male' },
+        { value: 'Female', label: 'Female' },
+        { value: 'Other', label: 'Other' },
+    ];
+    const userTypeOptions = [
+        { value: 'Admin', label: 'Admin' },
+        { value: 'User', label: 'User' },
+        { value: 'Provider', label: 'Provider' },
+    ];
+    const statusOptions = [
+        { value: 'Active', label: 'Active' },
+        { value: 'Moderate', label: 'Moderate' },
+        { value: 'Decline', label: 'Decline' },
+    ];
 
     const handleToggleDropdown = (index, event) => {
         const target = event?.currentTarget || event?.target;
@@ -255,27 +272,105 @@ const UserTable = () => {
                             </div>
                             <div className="form-group">
                                 <label>Gender</label>
-                                <select name="gender" value={editUser.gender} onChange={handleChange}>
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
-                                    <option value="Other">Other</option>
-                                </select>
+                                <Select
+                                    options={genderOptions}
+                                    value={genderOptions.find(o => o.value === editUser.gender)}
+                                    onChange={(selected) => setEditUser({ ...editUser, gender: selected.value })}
+                                    isSearchable={false}
+                                    menuPlacement="auto"
+                                    styles={{
+                                        control: (base, state) => ({
+                                            ...base,
+                                            borderColor: state.isFocused ? '#2F985A' : '#ccc',
+                                            borderRadius: '6px',
+                                            padding: '2px',
+                                            fontSize: '14px',
+                                            boxShadow: 'none',
+                                        }),
+                                        menuList: (base) => ({
+                                            ...base,
+                                            maxHeight: 180,
+                                            overflowY: 'auto',
+                                        }),
+                                        option: (base, state) => ({
+                                            ...base,
+                                            backgroundColor: state.isSelected ? '#e5e7eb' : (state.isFocused ? '#f3f4f6' : '#fff'),
+                                            color: '#111827',
+                                        }),
+                                    }}
+                                    theme={(theme) => ({
+                                        ...theme,
+                                        colors: { ...theme.colors, primary25: '#f3f4f6', primary: '#2F985A' },
+                                    })}
+                                />
                             </div>
                             <div className="form-group">
                                 <label>User Type</label>
-                                <select name="userType" value={editUser.userType} onChange={handleChange}>
-                                    <option value="Admin">Admin</option>
-                                    <option value="User">User</option>
-                                    <option value="Provider">Provider</option>
-                                </select>
+                                <Select
+                                    options={userTypeOptions}
+                                    value={userTypeOptions.find(o => o.value === editUser.userType)}
+                                    onChange={(selected) => setEditUser({ ...editUser, userType: selected.value })}
+                                    isSearchable={false}
+                                    menuPlacement="auto"
+                                    styles={{
+                                        control: (base, state) => ({
+                                            ...base,
+                                            borderColor: state.isFocused ? '#2F985A' : '#ccc',
+                                            borderRadius: '6px',
+                                            padding: '2px',
+                                            fontSize: '14px',
+                                            boxShadow: 'none',
+                                        }),
+                                        menuList: (base) => ({
+                                            ...base,
+                                            maxHeight: 180,
+                                            overflowY: 'auto',
+                                        }),
+                                        option: (base, state) => ({
+                                            ...base,
+                                            backgroundColor: state.isSelected ? '#e5e7eb' : (state.isFocused ? '#f3f4f6' : '#fff'),
+                                            color: '#111827',
+                                        }),
+                                    }}
+                                    theme={(theme) => ({
+                                        ...theme,
+                                        colors: { ...theme.colors, primary25: '#f3f4f6', primary: '#2F985A' },
+                                    })}
+                                />
                             </div>
                             <div className="form-group">
                                 <label>Status</label>
-                                <select name="status" value={editUser.status} onChange={handleChange}>
-                                    <option value="Active">Active</option>
-                                    <option value="Moderate">Moderate</option>
-                                    <option value="Decline">Decline</option>
-                                </select>
+                                <Select
+                                    options={statusOptions}
+                                    value={statusOptions.find(o => o.value === editUser.status)}
+                                    onChange={(selected) => setEditUser({ ...editUser, status: selected.value })}
+                                    isSearchable={false}
+                                    menuPlacement="auto"
+                                    styles={{
+                                        control: (base, state) => ({
+                                            ...base,
+                                            borderColor: state.isFocused ? '#2F985A' : '#ccc',
+                                            borderRadius: '6px',
+                                            padding: '2px',
+                                            fontSize: '14px',
+                                            boxShadow: 'none',
+                                        }),
+                                        menuList: (base) => ({
+                                            ...base,
+                                            maxHeight: 180,
+                                            overflowY: 'auto',
+                                        }),
+                                        option: (base, state) => ({
+                                            ...base,
+                                            backgroundColor: state.isSelected ? '#e5e7eb' : (state.isFocused ? '#f3f4f6' : '#fff'),
+                                            color: '#111827',
+                                        }),
+                                    }}
+                                    theme={(theme) => ({
+                                        ...theme,
+                                        colors: { ...theme.colors, primary25: '#f3f4f6', primary: '#2F985A' },
+                                    })}
+                                />
                             </div>
                         </div>
                         <div className="modal-footer">

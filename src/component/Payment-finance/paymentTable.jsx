@@ -1,5 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './paymentTable.css';
+import Select from "react-select";
+
+const statusOptions = [
+    { value: "Pending", label: "Pending" },
+    { value: "Completed", label: "Completed" }
+];
 
 const statusStyles = {
     Pending: { background: '#FEF3C7', color: '#92400e' },
@@ -113,8 +119,8 @@ const PaymentTable = () => {
                                 </span>
 
                                 {openMenuIndex === idx && (
-                                    <div 
-                                        ref={menuRef} 
+                                    <div
+                                        ref={menuRef}
                                         className="dropdown"
                                         style={{
                                             top: `${dropdownPosition.top}px`,
@@ -122,20 +128,20 @@ const PaymentTable = () => {
                                         }}
                                         onClick={(e) => e.stopPropagation()}
                                     >
-                                        <button 
+                                        <button
                                             onClick={(e) => {
                                                 e.stopPropagation();
                                                 handleEdit(row);
-                                            }} 
+                                            }}
                                             className="dropdown-btn"
                                         >
                                             Edit
                                         </button>
-                                        <button 
+                                        <button
                                             onClick={(e) => {
                                                 e.stopPropagation();
                                                 handleAskDelete(row);
-                                            }} 
+                                            }}
                                             className="dropdown-btn delete-btn"
                                         >
                                             Delete
@@ -186,10 +192,52 @@ const PaymentTable = () => {
                             </div>
                             <div className="form-group">
                                 <label>Status</label>
-                                <select value={editRow.status} onChange={(e) => setEditRow({ ...editRow, status: e.target.value })}>
-                                    <option>Pending</option>
-                                    <option>Completed</option>
-                                </select>
+                                <Select
+                                    options={statusOptions}
+                                    value={statusOptions.find(opt => opt.value === editRow.status)}
+                                    onChange={(selected) => setEditRow({ ...editRow, status: selected.value })}
+                                    isSearchable={false}
+                                    menuPlacement="auto"
+                                    menuShouldScrollIntoView
+                                    styles={{
+                                        menuPortal: base => ({ ...base, zIndex: 9999 }),
+                                        menuList: (base) => ({
+                                            ...base,
+                                            maxHeight: 180,
+                                            overflowY: 'auto',
+                                        }),
+                                        control: (base, state) => ({
+                                            ...base,
+                                            borderColor: state.isFocused ? "#2F985A" : "#ccc",
+                                            borderRadius: "6px",
+                                            padding: "2px",
+                                            fontSize: "14px",
+                                            boxShadow: "none",
+                                        }),
+                                        input: (base) => ({
+                                            ...base,
+                                            color: "#111827",
+                                            caretColor: "#111827",
+                                        }),
+                                        option: (base, state) => ({
+                                            ...base,
+                                            backgroundColor: state.isSelected
+                                                ? "#e5e7eb" // selected
+                                                : state.isFocused
+                                                ? "#f3f4f6" // hover/focus
+                                                : "#fff",
+                                            color: "#111827",
+                                        }),
+                                    }}
+                                    theme={(theme) => ({
+                                        ...theme,
+                                        colors: {
+                                            ...theme.colors,
+                                            primary25: "#f3f4f6", // hover
+                                            primary: "#2F985A",   // focus/active accents
+                                        },
+                                    })}
+                                />
                             </div>
                             <div className="form-group">
                                 <label>Time</label>

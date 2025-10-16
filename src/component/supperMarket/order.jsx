@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Select from "react-select";
 import "./order.css";
 
 const initialOrders = [
@@ -118,15 +119,42 @@ const Order = () => {
                         </div>
                         <div className="modal-body">
                             <label>How long will this order take to prepare?</label>
-                            <select
-                                value={prepTime}
-                                onChange={(e) => setPrepTime(e.target.value)}
-                            >
-                                <option>10 minutes</option>
-                                <option>15 minutes</option>
-                                <option>20 minutes</option>
-                                <option>30 minutes</option>
-                            </select>
+                            <Select
+                                options={[
+                                    { value: '10 minutes', label: '10 minutes' },
+                                    { value: '15 minutes', label: '15 minutes' },
+                                    { value: '20 minutes', label: '20 minutes' },
+                                    { value: '30 minutes', label: '30 minutes' },
+                                ]}
+                                value={{ value: prepTime, label: prepTime }}
+                                onChange={(selected) => setPrepTime(selected.value)}
+                                isSearchable={false}
+                                menuPlacement="auto"
+                                styles={{
+                                    control: (base, state) => ({
+                                        ...base,
+                                        borderColor: state.isFocused ? "#2F985A" : "#ccc",
+                                        borderRadius: "6px",
+                                        padding: "2px",
+                                        fontSize: "14px",
+                                        boxShadow: "none",
+                                    }),
+                                    menuList: (base) => ({
+                                        ...base,
+                                        maxHeight: 180,
+                                        overflowY: 'auto',
+                                    }),
+                                    option: (base, state) => ({
+                                        ...base,
+                                        backgroundColor: state.isSelected ? "#e5e7eb" : (state.isFocused ? "#f3f4f6" : "#fff"),
+                                        color: "#111827",
+                                    }),
+                                }}
+                                theme={(theme) => ({
+                                    ...theme,
+                                    colors: { ...theme.colors, primary25: "#f3f4f6", primary: "#2F985A" },
+                                })}
+                            />
                         </div>
                         <div className="modal-footer">
                             <button className="btn-cancel" onClick={() => setPrepModalFor(null)}>
