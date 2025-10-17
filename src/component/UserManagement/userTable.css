@@ -1,23 +1,23 @@
 /* ================= Table Wrapper ================= */
 .table-container {
     width: 100%;
-   border: #e5e7eb 1px solid;
-   border-radius: 5px;
-    /* padding: 5px; */
-    /* margin: 10px; */
+    border: #e5e7eb 1px solid;
+    border-radius: 5px;
     overflow-x: auto;
+    overflow-y: hidden;
     margin-top: 10px;
     font-family: "Nunito", sans-serif;
-  
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
   }
   
   /* Main Table */
   .user-table {
-    min-width: 200px;
+    min-width: 800px;
     width: 100%;
-    overflow-x: auto;
     border-collapse: collapse;
     border-spacing: 0;
+    table-layout: fixed;
   }
   
   
@@ -28,6 +28,9 @@
     font-weight: 600;
     font-size: 14px;
     text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   
   .user-table th:first-child {
@@ -72,6 +75,9 @@
     border-top: 1px solid #e5e7eb;
     border-bottom: 1px solid #e5e7eb;
     vertical-align: middle;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   
   .user-table td:first-child {
@@ -240,9 +246,11 @@
   .modal {
     background: #fff;
     border-radius: 12px;
-    padding: 5px;
+    padding: 0px 15px;
     width: 480px;
     max-width: 95%;
+    height: auto;
+    min-height: auto;
     box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2);
     animation: fadeIn 0.25s ease-in-out;
   }
@@ -251,7 +259,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 16px;
+    /* margin-bottom: 16px; */
   }
   
   .close-btn {
@@ -267,30 +275,32 @@
   .modal-body .form-group {
     margin-bottom: 12px;
     display: flex;
-    padding: 10px;
+    padding: 0;
     flex-direction: column;
   }
   
   .modal-body label {
     font-size: 14px;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
     font-weight: 500;
     color: #333;
   }
   
   .modal-body input,
   .modal-body select {
-    padding: 8px 10px;
+    padding: 10px 12px;
     font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 6px;
+    box-sizing: border-box;
   }
   
   .modal-footer {
-    margin-top: 20px;
+    /* margin-top: 25px; */
+    /* padding-top: 10px; */
     display: flex;
     justify-content: flex-end;
-    gap: 10px;
+    gap: 12px;
   }
   
   .btn-cancel {
@@ -404,13 +414,44 @@
   .submit-btn:hover {
     background: #1e40af;
   }
+  /* Custom scrollbar styling */
+  .table-container::-webkit-scrollbar {
+    height: 8px;
+  }
+  
+  .table-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+  
+  .table-container::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+  }
+  
+  .table-container::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+  }
+
   @media(min-width:768px){
     .table-container{
       width: 100%;
-    
-      /* overflow-y: auto; */
+      overflow-x: auto;
+      overflow-y: hidden;
     }
     .user-table{
+      min-width: 800px;
       width: 100%;
+    }
+  }
+
+  @media(max-width:767px){
+    .table-container{
+      width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+    .user-table{
+      min-width: 800px;
     }
   }

@@ -1,14 +1,14 @@
 .sidebar-container {
   width: 18%;
   min-width: 200px;
-  height: 90vh;
+  height: 100vh;
   background-color: #fff;
   border-right: 1px solid #e5e5e5;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* allow menu to grow and logout at bottom */
+  justify-content: flex-start;
   font-family: 'Nunito', sans-serif;
-  padding: 20px 15px;
+  padding: 30px 20px;
   position: fixed;
   top: 0;
   left: 0;
@@ -22,37 +22,52 @@
   transform: translateX(0);
 }
 
-.logo-container2 {
-  /* background-color: #45d17d; */
-  width: 80%;
-  padding: 15px 25px;
-  height: 65%;
-  border-radius: 10px;
-}
-.login-logo-image2 {
-  width: 100%;
-  height: 100%;
-}
-
-/* Sidebar Logo */
 .sidebar-logo {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
   margin-bottom: 35px;
+  position: relative;
+  z-index: 1;
+}
+
+.logo-container2 {
+  width: 100%;
+  /* height: 100%; */
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin: 0 auto;
+  /* background-color: #3BBE70; */
+  /* position: relative;
+  contain: layout style paint;
+  will-change: auto; */
+}
+
+.login-logo-image2 {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  display: block;
+  transition: none;
+  image-rendering: auto;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 /* Sidebar Menu */
 .sidebar-menu {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 8px;
   width: 100%;
-  /* margin: 10px; */
   flex: 1;
+  padding: 0;
 }
 
 .sidebar-menu a {
@@ -71,46 +86,63 @@
 .sidebar-item {
   display: flex;
   align-items: center;
-  gap: 15px;
-  /* justify-content: flex-start; */
+  gap: 12px;
   color: #8a8a8a;
   font-size: 14px;
-  width: 90%;
-  padding: 8px 10px;
-  border-radius: 6px;
+  font-weight: 500;
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  /* white-space: nowrap; */
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 .sidebar-item2{
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 12px;
   justify-content: flex-start;
   color: #FF6D6D;
   font-size: 14px;
+  font-weight: 500;
   width: 100%;
-  padding: 5px 8px;
-  border-radius: 6px;
+  padding: 12px 16px;
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-
 }
 
-.sidebar-item:hover,
+.sidebar-item:hover {
+  background-color: #f5f5f5;
+  color: #333;
+}
+
 .active-link .sidebar-item {
   background-color: #3BBE70;
   color: white;
 }
 
 .sidebar-icon-container {
-  width: 20px;
+  width: 24px;
   text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-logo-text2 {
+  text-align: center;
+  margin-top: 8px;
+}
+
+.login-logo-text2 img {
+  max-width: 100%;
+  height: auto;
 }
 
 
@@ -118,29 +150,31 @@
 /* Logout Button Sticky at Bottom */
 .sidebar-logout {
   width: 100%;
-  margin-top: auto; /* push to bottom */
+  margin-top: auto;
+  padding: 0;
 }
 
-.sidebar-logout  a{
+.sidebar-logout a {
   display: flex;
   align-items: center;
-  gap: 15px; 
-  width: 90%;
-  padding: 8px 10px;
-  border-radius: 6px;
-  color: red;
+  gap: 12px; 
+  width: 100%;
+  padding: 1px 16px;
+  border-radius: 8px;
+  color: #FF6D6D;
   text-decoration: none;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+  font-weight: 500;
 }
 
 .sidebar-logout a:hover {
   background-color: #ffe6e6;
-  color: red;
+  color: #FF6D6D;
 }
 
 .logout-icon {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 /* Hamburger Button */
@@ -160,38 +194,47 @@
   .sidebar-container {
     transform: translateX(-100%);
     height: 100vh;
-    width: 220px;
+    width: 250px;
     position: fixed;
+    padding: 20px 15px;
   }
   .sidebar-container.open {
     transform: translateX(0);
   }
   .hamburger {
     display: block;
-    top: 10px;
-    left: 10px;
+    top: 15px;
+    left: 15px;
   }
-  /* .login-logo-image2{
-    width: 100%;
+  .logo-container2 {
+    width: 50px;
+    height: 50px;
   }
-  .logo-container2{
-    width: 100%;
-  } */
+  .login-logo-image2 {
+    width: 20px;
+    height: 20px;
+  }
 }
 @media (min-width:2560px){
   .login-logo-image2{
     width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
   .logo-container2{
-    width: 50%;
+    width: 120px;
+    height: 120px;
   }
 }
 @media (min-width:2638px){
   .login-logo-image2{
     width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
   .logo-container2{
-    width: 50%;
+    width: 120px;
+    height: 120px;
   }
 }
 /* Sirf badi screens (1920px - 2560px) ke liye */

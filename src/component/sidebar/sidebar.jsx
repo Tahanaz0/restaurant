@@ -33,7 +33,13 @@ const Sidebar = () => {
         <div className="sidebar-logo">
 
           <div className='logo-container2'>
-            <img src='/images/title-icon.png' alt="logo" className='login-logo-image2'   />
+            <img 
+              src='/images/tick-box.png' 
+              alt="logo" 
+              className='login-logo-image2'
+              loading="eager"
+              decoding="sync"
+            />
           </div>
           <div className='login-logo-text2'>
             <img src="/images/T3all.png" alt="" width={120} />

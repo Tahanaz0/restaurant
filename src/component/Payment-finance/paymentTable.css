@@ -380,7 +380,7 @@ select option:checked {
 .modal {
   background: #fff;
   border-radius: 12px;
-  padding: 24px;
+  padding: 0px 10px;
   width: 480px;
   max-width: 95%;
   box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2);
@@ -391,7 +391,7 @@ select option:checked {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
+  /* margin-bottom: 16px; */
 }
 
 .close-btn {
@@ -429,7 +429,7 @@ select option:checked {
 }
 
 .modal-footer {
-  margin-top: 20px;
+  /* margin-top: 20px; */
   display: flex;
   justify-content: flex-end;
   gap: 10px;
