@@ -87,7 +87,7 @@ const MarketTable = () => {
                     </td>
                     <td className="actions">
                       <FaEdit className="edit" />
-                      <FaTrashAlt className="delete" />
+                      <FaTrashAlt className="deleteM" />
                     </td>
                   </tr>
                 ))

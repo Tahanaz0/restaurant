@@ -152,8 +152,8 @@
   color: #374151;
 }
 
-.delete {
-  color: #6b7280 !important;
+.deleteM {
+  color:#dc2626;
   cursor: pointer;
   padding: 8px;
   border-radius: 4px;
@@ -168,7 +168,7 @@
   opacity: 1 !important;
 }
 
-.delete:hover {
+.deleteM:hover {
   background-color: #fef2f2;
   color: #dc2626;
 }
