@@ -209,16 +209,16 @@ const UserTable = () => {
                                     <input type="checkbox" />
                                 </td>
                                 <td style={{ color: 'black' }}>
-                                    <img 
-                                        src={user.image} 
-                                        alt="Customer" 
-                                        style={{ 
-                                            width: '24px', 
-                                            height: '24px', 
-                                            marginRight: '15px', 
+                                    <img
+                                        src={user.image}
+                                        alt="Customer"
+                                        style={{
+                                            width: '24px',
+                                            height: '24px',
+                                            marginRight: '15px',
                                             verticalAlign: 'middle',
                                             borderRadius: '50%'
-                                        }} 
+                                        }}
                                     />
                                     {user.name} <span style={{ color: '#666', fontWeight: 'normal' }}>{user.customerCode}</span>
                                 </td>
@@ -228,15 +228,15 @@ const UserTable = () => {
                                 <td style={{ color: 'black' }}>{user.userType}</td>
 
                                 <td className="actions-cell">
-                                    <span className="dots" onMouseDown={(e)=>e.stopPropagation()} onClick={(e) => { e.stopPropagation(); handleToggleDropdown(index, e); }}>
+                                    <span className="dots" onMouseDown={(e) => e.stopPropagation()} onClick={(e) => { e.stopPropagation(); handleToggleDropdown(index, e); }}>
                                         ⋮
                                     </span>
                                     {openDropdown === index && (
-                                        <div className="dropdown" ref={dropdownRef} onMouseDown={(e)=>e.stopPropagation()} onClick={(e) => e.stopPropagation()} style={{ top: `${dropdownPosition.top}px`, right: `${dropdownPosition.right}px` }}>
-                                            <button onMouseDown={(e)=>e.stopPropagation()} onClick={(e) => { e.stopPropagation(); handleEditUser(index); }}>
+                                        <div className="dropdown" ref={dropdownRef} onMouseDown={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()} style={{ top: `${dropdownPosition.top}px`, right: `${dropdownPosition.right}px` }}>
+                                            <button onMouseDown={(e) => e.stopPropagation()} onClick={(e) => { e.stopPropagation(); handleEditUser(index); }}>
                                                 <FiEdit /> Edit
                                             </button>
-                                            <button onMouseDown={(e)=>e.stopPropagation()} onClick={(e)=>{ e.stopPropagation(); handleAskDelete(index); }}>
+                                            <button onMouseDown={(e) => e.stopPropagation()} onClick={(e) => { e.stopPropagation(); handleAskDelete(index); }}>
                                                 <FiTrash style={{ color: 'black' }} /> Delete
                                             </button>
                                         </div>
@@ -254,7 +254,7 @@ const UserTable = () => {
                         <div className="modal-header">
                             <h2>Edit User</h2>
                             <button className="close-btn" onClick={handleCloseModal}>
-                                <FiX /> 
+                                <FiX />
                             </button>
                         </div>
                         <div className="modal-body">
@@ -391,8 +391,9 @@ const UserTable = () => {
                         <h4>Delete this user?</h4>
                         <p>This action cannot be undone.</p>
                         <div className="ud-actions">
-                            <button className="ud-confirm" onClick={() => { handleDeleteUser(deleteIndex); setDeleteIndex(null); }}>Delete</button>
                             <button className="ud-cancel" onClick={() => setDeleteIndex(null)}>Cancel</button>
+                            <button className="ud-confirm" onClick={() => { handleDeleteUser(deleteIndex); setDeleteIndex(null); }}>Delete</button>
+
                         </div>
                     </div>
                 </div>

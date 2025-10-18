@@ -282,11 +282,13 @@ select option:checked {
 }
 
 .dropdown-btn.delete-btn {
-  color: #b91c1c;
+  color: #FF6D6D;
+  font-weight: 500;
 }
 
 .dropdown-btn.delete-btn:hover {
-  background-color: #fef2f2;
+  background-color: #ffe6e6;
+  color: #ff5252;
 }
 
 /* ================= Delete Modal ================= */
@@ -296,11 +298,12 @@ select option:checked {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 5000;
+  backdrop-filter: blur(2px);
 }
 
 .ud-modal {
@@ -309,22 +312,38 @@ select option:checked {
   padding: 24px 28px;
   width: 380px;
   max-width: 90%;
-  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   text-align: center;
-  animation: fadeIn 0.25s ease-in-out;
+  animation: modalSlideIn 0.3s ease-out;
+  font-family: 'Nunito', sans-serif;
+  border: 1px solid #e5e7eb;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .ud-modal h4 {
   margin-bottom: 10px;
-  font-size: 20px;
-  font-weight: 600;
-  color: #333;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1f2937;
+  font-family: 'Nunito', sans-serif;
 }
 
 .ud-modal p {
   margin-bottom: 20px;
   font-size: 14px;
-  color: #666;
+  color: #374151;
+  font-family: 'Nunito', sans-serif;
+  line-height: 1.5;
 }
 
 .ud-actions {
@@ -334,33 +353,46 @@ select option:checked {
 }
 
 .ud-confirm {
-  background: #e63946;
+  background: #FF6D6D;
   color: #fff;
   border: none;
-  padding: 8px 18px;
+  padding: 10px 20px;
   border-radius: 6px;
   cursor: pointer;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
+  font-family: 'Nunito', sans-serif;
+  transition: all 0.2s ease;
+  min-width: 80px;
 }
 
 .ud-confirm:hover {
-  background: #d62828;
+  background: #ff5252;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 109, 109, 0.3);
+}
+
+.ud-confirm:active {
+  transform: scale(0.98);
 }
 
 .ud-cancel {
-  background: #f1f1f1;
-  color: #333;
-  border: none;
-  padding: 8px 18px;
+  background: #f3f4f6;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  padding: 10px 20px;
   border-radius: 6px;
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
+  font-family: 'Nunito', sans-serif;
+  transition: all 0.2s ease;
+  min-width: 80px;
 }
 
 .ud-cancel:hover {
-  background: #e0e0e0;
+  background: #e5e7eb;
+  color: #1f2937;
 }
 
 /* ================= Edit Modal ================= */

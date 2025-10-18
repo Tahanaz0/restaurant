@@ -3,28 +3,41 @@ import { CiSearch } from "react-icons/ci";
 import MarketTable from "./marketTable";
 import Order from "./order";
 import Gallery from "./Gallery";
-import Select from "react-select"; 
+import Select from "react-select";
 import "./MarketTable.css";
 import "./supperMarket.css";
 
 const SupperMarket = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newItem, setNewItem] = useState({
-    id: "",
     name: "",
+    description: "",
     category: "",
     price: "",
-    stock: "",
-    restaurant: "",
-    status: "Preparing",
+    preparationTime: "",
+    availability: true,
+    image: null,
   });
   const [activeTab, setActiveTab] = useState("item");
 
   // ✅ React Select options
-  const statusOptions = [
-    { value: "Preparing", label: "Preparing" },
-    { value: "Pending", label: "Pending" },
-    { value: "Out for Delivery", label: "Out for Delivery" },
+  const categoryOptions = [
+    { value: "Cleaning", label: "Cleaning" },
+    { value: "Personal Care", label: "Personal Care" },
+    { value: "Beverages", label: "Beverages" },
+    { value: "Snacks", label: "Snacks" },
+    { value: "Dairy & Eggs", label: "Dairy & Eggs" },
+    { value: "Groceries", label: "Groceries" },
+  ];
+
+  const preparationTimeOptions = [
+    { value: "5 minutes", label: "5 minutes" },
+    { value: "10 minutes", label: "10 minutes" },
+    { value: "15 minutes", label: "15 minutes" },
+    { value: "20 minutes", label: "20 minutes" },
+    { value: "30 minutes", label: "30 minutes" },
+    { value: "45 minutes", label: "45 minutes" },
+    { value: "1 hour", label: "1 hour" },
   ];
 
   return (
@@ -61,7 +74,7 @@ const SupperMarket = () => {
               />
             </div>
             <button className="user-btn" onClick={() => setIsModalOpen(true)}>
-              + Add item
+              + Add Items
             </button>
           </div>
         </div>
@@ -74,7 +87,7 @@ const SupperMarket = () => {
           <div className="modal-overlay">
             <div className="modal">
               <div className="modal-header">
-                <h2>Add Item</h2>
+                <h2>Add New Item</h2>
                 <button
                   className="close-btn"
                   onClick={() => setIsModalOpen(false)}
@@ -84,106 +97,161 @@ const SupperMarket = () => {
               </div>
               <div className="modal-body addd-form">
                 <div className="form-group">
-                  <label>Item ID</label>
-                  <input
-                    value={newItem.id}
-                    onChange={(e) =>
-                      setNewItem({ ...newItem, id: e.target.value })
-                    }
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Name</label>
+                  <label>Item Name</label>
                   <input
                     value={newItem.name}
                     onChange={(e) =>
                       setNewItem({ ...newItem, name: e.target.value })
                     }
+                    placeholder="Surf Excel Detergent (1kg)"
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Description</label>
+                  <input
+                    value={newItem.description}
+                    onChange={(e) =>
+                      setNewItem({ ...newItem, description: e.target.value })
+                    }
+                    placeholder="Powerful stain remover, suitable for machine & hand wash"
                   />
                 </div>
                 <div className="form-group">
                   <label>Category</label>
-                  <input
-                    value={newItem.category}
-                    onChange={(e) =>
-                      setNewItem({ ...newItem, category: e.target.value })
+                  <Select
+                    options={categoryOptions}
+                    value={categoryOptions.find(
+                      (opt) => opt.value === newItem.category
+                    )}
+                    onChange={(selected) =>
+                      setNewItem({ ...newItem, category: selected.value })
                     }
+                    placeholder="Select category"
+                    menuPortalTarget={document.body}
+                    isSearchable={false}
+                    styles={{
+                      menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                      control: (base) => ({
+                        ...base,
+                        borderColor: "#ccc",
+                        borderRadius: "6px",
+                        padding: "2px",
+                        fontSize: "14px",
+                        boxShadow: "none",
+                        backgroundColor: "#f9fafb",
+                      }),
+                      menu: (base) => ({
+                        ...base,
+                        backgroundColor: "#f3f4f6",
+                        borderRadius: "6px",
+                        marginTop: "4px",
+                      }),
+                      option: (base, state) => ({
+                        ...base,
+                        backgroundColor: state.isFocused ? "#e5e7eb" : "#f3f4f6",
+                        color: "#111827",
+                        cursor: "pointer",
+                      }),
+                      singleValue: (base) => ({
+                        ...base,
+                        color: "#111827",
+                      }),
+                    }}
                   />
                 </div>
                 <div className="form-group">
                   <label>Price</label>
                   <input
-                    type="number"
+                    type="text"
                     value={newItem.price}
                     onChange={(e) =>
                       setNewItem({ ...newItem, price: e.target.value })
                     }
+                    placeholder="$15.99"
                   />
                 </div>
                 <div className="form-group">
-                  <label>Stock</label>
-                  <input
-                    type="number"
-                    value={newItem.stock}
-                    onChange={(e) =>
-                      setNewItem({ ...newItem, stock: e.target.value })
-                    }
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Restaurant</label>
-                  <input
-                    value={newItem.restaurant}
-                    onChange={(e) =>
-                      setNewItem({ ...newItem, restaurant: e.target.value })
-                    }
-                  />
-                </div>
-
-            
-                <div className="form-group">
-                  <label>Status</label>
+                  <label>How long will this order take to prepare?</label>
                   <Select
-  options={statusOptions}
-  value={statusOptions.find(
-    (opt) => opt.value === newItem.status
-  )}
-  onChange={(selected) =>
-    setNewItem({ ...newItem, status: selected.value })
-  }
-  placeholder="Select Status"
-  menuPortalTarget={document.body}
-  isSearchable={false}   // ✅ ye line cursor / typing hatayegi
-  styles={{
-    menuPortal: (base) => ({ ...base, zIndex: 9999 }),
-    control: (base) => ({
-      ...base,
-      borderColor: "#ccc",
-      borderRadius: "6px",
-      padding: "2px",
-      fontSize: "14px",
-      boxShadow: "none",
-      backgroundColor: "#f9fafb",
-    }),
-    menu: (base) => ({
-      ...base,
-      backgroundColor: "#f3f4f6",
-      borderRadius: "6px",
-      marginTop: "4px",
-    }),
-    option: (base, state) => ({
-      ...base,
-      backgroundColor: state.isFocused ? "#e5e7eb" : "#f3f4f6",
-      color: "#111827",
-      cursor: "pointer",
-    }),
-    singleValue: (base) => ({
-      ...base,
-      color: "#111827",
-    }),
-  }}
-/>
+                    options={preparationTimeOptions}
+                    value={preparationTimeOptions.find(
+                      (opt) => opt.value === newItem.preparationTime
+                    )}
+                    onChange={(selected) =>
+                      setNewItem({ ...newItem, preparationTime: selected.value })
+                    }
+                    placeholder="15 minutes"
+                    menuPortalTarget={document.body}
+                    isSearchable={false}
+                    styles={{
+                      menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                      control: (base) => ({
+                        ...base,
+                        borderColor: "#ccc",
+                        borderRadius: "6px",
+                        padding: "2px",
+                        fontSize: "14px",
+                        boxShadow: "none",
+                        backgroundColor: "#f9fafb",
+                      }),
+                      menu: (base) => ({
+                        ...base,
+                        backgroundColor: "#f3f4f6",
+                        borderRadius: "6px",
+                        marginTop: "4px",
+                      }),
+                      option: (base, state) => ({
+                        ...base,
+                        backgroundColor: state.isFocused ? "#e5e7eb" : "#f3f4f6",
+                        color: "#111827",
+                        cursor: "pointer",
+                      }),
+                      singleValue: (base) => ({
+                        ...base,
+                        color: "#111827",
+                      }),
+                    }}
+                  />
+                </div>
+                <div  className="form-group-item">
 
+                  <div className="form-group">
+                    <label>Availability Status</label>
+                    <div className="availability-section">
+                      <div className="toggle-container">
+                       
+                        <span className="toggle-label">
+                          {newItem.availability ? "Available" : "Unavailable"}
+                        </span>
+                      </div>
+                      <label className="toggle-switch">
+                          <input
+                            type="checkbox"
+                            checked={newItem.availability}
+                            onChange={(e) =>
+                              setNewItem({ ...newItem, availability: e.target.checked })
+                            }
+                          />
+                          <span className="toggle-slider"></span>
+                        </label>
+                      <p className="availability-description">
+                        Item will be available for ordering immediately
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="form-group">
+                    <label>Item Image</label>
+                    <div className="image-upload-section">
+                      <div className="image-upload-area">
+                        <div className="upload-icon">☁️</div>
+                        <p>Drag and drop images here or click to upload</p>
+                      </div>
+                      <button className="upload-btn">
+                        📤 Upload Image
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="modal-footer">
@@ -197,7 +265,7 @@ const SupperMarket = () => {
                   className="btn-save"
                   onClick={() => setIsModalOpen(false)}
                 >
-                  Save
+                  Save Item
                 </button>
               </div>
             </div>

@@ -162,8 +162,9 @@ const PaymentTable = () => {
                         <h4>Delete this record?</h4>
                         <p>This action cannot be undone.</p>
                         <div className="ud-actions">
-                            <button className="ud-confirm" onClick={handleConfirmDelete}>Delete</button>
                             <button className="ud-cancel" onClick={() => setDeleteId(null)}>Cancel</button>
+                            <button className="ud-confirm" onClick={handleConfirmDelete}>Delete</button>
+                            
                         </div>
                     </div>
                 </div>
