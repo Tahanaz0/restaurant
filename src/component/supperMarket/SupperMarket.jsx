@@ -4,6 +4,10 @@ import MarketTable from "./marketTable";
 import Order from "./order";
 import Gallery from "./Gallery";
 import Select from "react-select";
+import { IoImageOutline } from "react-icons/io5";
+import { MdOutlineFileDownload } from "react-icons/md";
+
+
 import "./MarketTable.css";
 import "./supperMarket.css";
 
@@ -96,147 +100,153 @@ const SupperMarket = () => {
                 </button>
               </div>
               <div className="modal-body addd-form">
-                <div className="form-group">
-                  <label>Item Name</label>
-                  <input
-                    value={newItem.name}
-                    onChange={(e) =>
-                      setNewItem({ ...newItem, name: e.target.value })
-                    }
-                    placeholder="Surf Excel Detergent (1kg)"
-                  />
+                <div className="input-sec">
+                  <div className="form-group">
+                    <label>Item Name</label>
+                    <input
+                      value={newItem.name}
+                      onChange={(e) =>
+                        setNewItem({ ...newItem, name: e.target.value })
+                      }
+                      placeholder="Surf Excel Detergent (1kg)"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Description</label>
+                    <input
+                      value={newItem.description}
+                      onChange={(e) =>
+                        setNewItem({ ...newItem, description: e.target.value })
+                      }
+                      placeholder="Powerful stain remover, suitable for machine & hand wash"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Category</label>
+                    <Select
+                      options={categoryOptions}
+                      value={categoryOptions.find(
+                        (opt) => opt.value === newItem.category
+                      )}
+                      onChange={(selected) =>
+                        setNewItem({ ...newItem, category: selected.value })
+                      }
+                      placeholder="Select category"
+                      isSearchable={false}
+                      styles={{
+                        control: (base) => ({
+                          ...base,
+                          borderColor: "#ccc",
+                          borderRadius: "6px",
+                          padding: "2px",
+                          fontSize: "14px",
+                          boxShadow: "none",
+                          backgroundColor: "#f9fafb",
+                        }),
+                        menu: (base) => ({
+                          ...base,
+                          backgroundColor: "#f3f4f6",
+                          borderRadius: "6px",
+                          marginTop: "4px",
+                          zIndex: 1000,
+                        }),
+                        option: (base, state) => ({
+                          ...base,
+                          backgroundColor: state.isFocused ? "#e5e7eb" : "#f3f4f6",
+                          color: "#111827",
+                          cursor: "pointer",
+                        }),
+                        singleValue: (base) => ({
+                          ...base,
+                          color: "#111827",
+                        }),
+                      }}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Price</label>
+                    <input
+                      type="text"
+                      value={newItem.price}
+                      onChange={(e) =>
+                        setNewItem({ ...newItem, price: e.target.value })
+                      }
+                      placeholder="$15.99"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>How long will this order take to prepare?</label>
+                    <Select
+                      options={preparationTimeOptions}
+                      value={preparationTimeOptions.find(
+                        (opt) => opt.value === newItem.preparationTime
+                      )}
+                      onChange={(selected) =>
+                        setNewItem({ ...newItem, preparationTime: selected.value })
+                      }
+                      placeholder="15 minutes"
+                      isSearchable={false}
+                      styles={{
+                        control: (base) => ({
+                          ...base,
+                          borderColor: "#ccc",
+                          borderRadius: "6px",
+                          padding: "2px",
+                          fontSize: "14px",
+                          boxShadow: "none",
+                          backgroundColor: "#f9fafb",
+                        }),
+                        menu: (base) => ({
+                          ...base,
+                          backgroundColor: "#f3f4f6",
+                          borderRadius: "6px",
+                          marginTop: "4px",
+                          zIndex: 1000,
+                        }),
+                        option: (base, state) => ({
+                          ...base,
+                          backgroundColor: state.isFocused ? "#e5e7eb" : "#f3f4f6",
+                          color: "#111827",
+                          cursor: "pointer",
+                        }),
+                        singleValue: (base) => ({
+                          ...base,
+                          color: "#111827",
+                        }),
+                      }}
+                    />
+                  </div>
                 </div>
-                <div className="form-group">
-                  <label>Description</label>
-                  <input
-                    value={newItem.description}
-                    onChange={(e) =>
-                      setNewItem({ ...newItem, description: e.target.value })
-                    }
-                    placeholder="Powerful stain remover, suitable for machine & hand wash"
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Category</label>
-                  <Select
-                    options={categoryOptions}
-                    value={categoryOptions.find(
-                      (opt) => opt.value === newItem.category
-                    )}
-                    onChange={(selected) =>
-                      setNewItem({ ...newItem, category: selected.value })
-                    }
-                    placeholder="Select category"
-                    menuPortalTarget={document.body}
-                    isSearchable={false}
-                    styles={{
-                      menuPortal: (base) => ({ ...base, zIndex: 9999 }),
-                      control: (base) => ({
-                        ...base,
-                        borderColor: "#ccc",
-                        borderRadius: "6px",
-                        padding: "2px",
-                        fontSize: "14px",
-                        boxShadow: "none",
-                        backgroundColor: "#f9fafb",
-                      }),
-                      menu: (base) => ({
-                        ...base,
-                        backgroundColor: "#f3f4f6",
-                        borderRadius: "6px",
-                        marginTop: "4px",
-                      }),
-                      option: (base, state) => ({
-                        ...base,
-                        backgroundColor: state.isFocused ? "#e5e7eb" : "#f3f4f6",
-                        color: "#111827",
-                        cursor: "pointer",
-                      }),
-                      singleValue: (base) => ({
-                        ...base,
-                        color: "#111827",
-                      }),
-                    }}
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Price</label>
-                  <input
-                    type="text"
-                    value={newItem.price}
-                    onChange={(e) =>
-                      setNewItem({ ...newItem, price: e.target.value })
-                    }
-                    placeholder="$15.99"
-                  />
-                </div>
-                <div className="form-group">
-                  <label>How long will this order take to prepare?</label>
-                  <Select
-                    options={preparationTimeOptions}
-                    value={preparationTimeOptions.find(
-                      (opt) => opt.value === newItem.preparationTime
-                    )}
-                    onChange={(selected) =>
-                      setNewItem({ ...newItem, preparationTime: selected.value })
-                    }
-                    placeholder="15 minutes"
-                    menuPortalTarget={document.body}
-                    isSearchable={false}
-                    styles={{
-                      menuPortal: (base) => ({ ...base, zIndex: 9999 }),
-                      control: (base) => ({
-                        ...base,
-                        borderColor: "#ccc",
-                        borderRadius: "6px",
-                        padding: "2px",
-                        fontSize: "14px",
-                        boxShadow: "none",
-                        backgroundColor: "#f9fafb",
-                      }),
-                      menu: (base) => ({
-                        ...base,
-                        backgroundColor: "#f3f4f6",
-                        borderRadius: "6px",
-                        marginTop: "4px",
-                      }),
-                      option: (base, state) => ({
-                        ...base,
-                        backgroundColor: state.isFocused ? "#e5e7eb" : "#f3f4f6",
-                        color: "#111827",
-                        cursor: "pointer",
-                      }),
-                      singleValue: (base) => ({
-                        ...base,
-                        color: "#111827",
-                      }),
-                    }}
-                  />
-                </div>
-                <div  className="form-group-item">
+                <h2>Image & status </h2>
+                <div className="form-group-item">
+
 
                   <div className="form-group">
                     <label>Availability Status</label>
                     <div className="availability-section">
-                      <div className="toggle-container">
-                       
-                        <span className="toggle-label">
-                          {newItem.availability ? "Available" : "Unavailable"}
-                        </span>
-                      </div>
                       <label className="toggle-switch">
-                          <input
-                            type="checkbox"
-                            checked={newItem.availability}
-                            onChange={(e) =>
-                              setNewItem({ ...newItem, availability: e.target.checked })
-                            }
-                          />
-                          <span className="toggle-slider"></span>
-                        </label>
-                      <p className="availability-description">
-                        Item will be available for ordering immediately
-                      </p>
+                        <input
+                          type="checkbox"
+                          checked={newItem.availability}
+                          onChange={(e) =>
+                            setNewItem({ ...newItem, availability: e.target.checked })
+                          }
+                        />
+                        <span className="toggle-slider"></span>
+                      </label>
+                      <div>
+                        <div className="toggle-container">
+
+                          <span className="toggle-label">
+                            {newItem.availability ? "Available" : "Unavailable"}
+                          </span>
+                        </div>
+
+                        <p className="availability-description">
+                          Item will be available for ordering immediately
+                        </p>
+                      </div>
+
                     </div>
                   </div>
 
@@ -244,11 +254,13 @@ const SupperMarket = () => {
                     <label>Item Image</label>
                     <div className="image-upload-section">
                       <div className="image-upload-area">
-                        <div className="upload-icon">☁️</div>
+                        <div className="upload-icon"><IoImageOutline />
+                        </div>
                         <p>Drag and drop images here or click to upload</p>
                       </div>
                       <button className="upload-btn">
-                        📤 Upload Image
+                        <MdOutlineFileDownload />
+                        Upload Image
                       </button>
                     </div>
                   </div>
