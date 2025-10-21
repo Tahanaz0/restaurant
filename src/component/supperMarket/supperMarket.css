@@ -251,6 +251,7 @@ input:checked + .toggle-slider:before {
     display: flex;
     justify-content: space-between;
     align-items: center;
+	gap: 5px;
 	margin-bottom: 10px;
     width: 100%;
 }
@@ -325,6 +326,13 @@ input:checked + .toggle-slider:before {
 		margin: 0%; 
 		padding: 0px; 
 		width: 100%;
+	}
+	.support-management{
+		width: 100%;
+		justify-content: space-between;
+	}
+	.sup-btn{
+		width: 50%;
 	}
 	/* .modal {
 		 width: 92%; 

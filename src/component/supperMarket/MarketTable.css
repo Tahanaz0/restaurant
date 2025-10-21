@@ -293,7 +293,7 @@ tr{
   }
   
   .table {
-    min-width: 600px;
+    min-width: 700px; /* force full table horizontal scroll to avoid overlap */
     table-layout: fixed;
   }
   
@@ -344,6 +344,7 @@ tr{
 
   .actions {
     gap: 6px;
+    min-width: 70px;
   }
 }
 
@@ -361,7 +362,7 @@ tr{
   }
   
   .table {
-    min-width: 500px;
+    min-width: 600px; /* ensure scroll instead of squeezing cells */
     font-size: 12px;
     table-layout: fixed;
   }
@@ -414,6 +415,16 @@ tr{
 
   .actions {
     gap: 4px;
+    min-width: 64px;
+  }
+
+  /* Reduce status area density to prevent collision */
+  .status-toggle {
+    gap: 6px;
+  }
+  /* Hide status text on very small screens to avoid overlap; toggle still visible */
+  .status-toggle .status-text {
+    display: none;
   }
 }
 /* Toggle + text side by side */

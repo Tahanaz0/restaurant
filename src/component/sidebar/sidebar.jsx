@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { HiUsers, HiOutlineShoppingCart } from "react-icons/hi2";
 import {  FaSignOutAlt, FaBars } from "react-icons/fa";
 import { PiCurrencyDollarSimple } from "react-icons/pi";
@@ -8,6 +8,7 @@ import './sidebar.css';
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const sidebarRef = useRef(null);
 
   // Sidebar toggle
   const toggleSidebar = () => {
@@ -19,6 +20,25 @@ const Sidebar = () => {
     setIsOpen(false);
   };
 
+  // Click outside to close sidebar
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isOpen && sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    // Add event listener when sidebar is open
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    // Cleanup event listener
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen]);
+
   return (
     <>
       {/* Hamburger for small screens */}
@@ -27,7 +47,7 @@ const Sidebar = () => {
       </div>
 
       {/* Sidebar */}
-      <div className={`sidebar-container ${isOpen ? "open" : ""}`}>
+      <div className={`sidebar-container ${isOpen ? "open" : ""}`} ref={sidebarRef}>
 
         {/* Logo */}
         <div className="sidebar-logo">
