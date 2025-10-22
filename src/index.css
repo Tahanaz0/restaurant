@@ -27,7 +27,7 @@ body {
 }
 
 .main-content {
-  margin-left: 17%;    
+  margin-left: 17.5%;    
   flex: 1;
   /* padding: 15%; */
   width: 90%;
@@ -49,8 +49,23 @@ body {
 @media (max-width: 2638px){
   .main-content{
     width: 90%;
+    margin-left: 17%;
+  
   }
 }
+@media (max-width:2818px) {
+  .main-content{
+    margin-left:17%;
+    width: 90%;
+  }
+}
+@media (max-width:2560px) {
+  .main-content{
+    margin-left: 17%;
+    width: 90%;
+  }
+}
+@media (max-width:2048px) {
 @media (max-width: 994px) {
   .header-fixed {
     left: 200px;
