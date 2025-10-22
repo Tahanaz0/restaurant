@@ -1,5 +1,7 @@
 /* global */
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
   margin: 0;
 }
@@ -7,7 +9,8 @@ html, body, #root {
 
 body {
   overflow-y: auto;
-  overflow-x: hidden; /* prevent page-level horizontal cut */
+  overflow-x: hidden;
+  /* prevent page-level horizontal cut */
 }
 
 /* app layout container */
@@ -21,77 +24,82 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  width: 200px;      
+  width: 200px;
   height: 100vh;
   z-index: 1000;
 }
 
 .main-content {
-  margin-left: 17.5%;    
+  margin-left: 17.5%;
   flex: 1;
-  /* padding: 15%; */
   width: 90%;
   margin-top: 0px;
   min-height: auto;
-  overflow-y: auto;       
-  overflow-x: auto;    
+  overflow-y: auto;
+  overflow-x: auto;
 }
 
 
 .header-fixed {
   position: fixed;
   top: 0;
-  left: 220px;          
+  left: 220px;
   right: 0;
   height: 80px;
   z-index: 1100;
 }
-@media (max-width: 2638px){
-  .main-content{
+
+@media (max-width: 2638px) {
+  .main-content {
     width: 90%;
     margin-left: 17%;
-  
+
   }
 }
+
 @media (max-width:2818px) {
-  .main-content{
-    margin-left:17%;
-    width: 90%;
-  }
-}
-@media (max-width:2560px) {
-  .main-content{
+  .main-content {
     margin-left: 17%;
     width: 90%;
   }
 }
+
+@media (max-width:2560px) {
+  .main-content {
+    margin-left: 17%;
+    width: 90%;
+  }
+}
+
 @media (max-width:2048px) {
-@media (max-width: 994px) {
-  .header-fixed {
-    left: 200px;
-  }
-  .main-content{
-    margin-left: 175px;
-    width: 88%;
-  }
-}
-@media (max-width: 768px) {
- 
-  .main-content{
-   width: 100%;
-   margin-left: 0px;
-   overflow-x: auto;
+  @media (max-width: 994px) {
+    .header-fixed {
+      left: 200px;
+    }
 
+    .main-content {
+      margin-left: 175px;
+      width: 88%;
+    }
   }
-}
+
+  @media (max-width: 768px) {
+
+    .main-content {
+      width: 100%;
+      margin-left: 0px;
+      overflow-x: auto;
+
+    }
+  }
 
 
-/* .main-content.with-fixed-header {
+  /* .main-content.with-fixed-header {
   padding-top: 80px;    
 } */
 
 
-/* :root {
+  /* :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;

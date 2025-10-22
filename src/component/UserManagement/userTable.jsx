@@ -215,7 +215,8 @@ const UserTable = () => {
                                         style={{
                                             width: '24px',
                                             height: '24px',
-                                            marginRight: '15px',
+                                            marginRight: document.dir === 'ltr' ? '15px' : '0',
+                                            marginLeft: document.dir === 'rtl' ? '15px' : '0',
                                             verticalAlign: 'middle',
                                             borderRadius: '50%'
                                         }}

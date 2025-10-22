@@ -17,6 +17,14 @@
   box-sizing: border-box;
 }
 
+/* RTL Support for Sidebar */
+[dir="rtl"] .sidebar-container {
+  left: auto;
+  right: 0;
+  border-right: none;
+  border-left: 1px solid #e5e5e5;
+}
+
 /* Sidebar visible */
 .sidebar-container.open {
   transform: translateX(0);
@@ -99,6 +107,12 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+/* RTL Support for Sidebar Items */
+[dir="rtl"] .sidebar-item {
+  flex-direction: row-reverse;
+  text-align: right;
+}
 .sidebar-item2{
   display: flex;
   align-items: center;
@@ -115,6 +129,12 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+/* RTL Support for Logout Item */
+[dir="rtl"] .sidebar-item2 {
+  flex-direction: row-reverse;
+  text-align: right;
 }
 
 .sidebar-item:hover {
@@ -189,6 +209,12 @@
   color: #0047AB;
 }
 
+/* RTL Support for Hamburger */
+[dir="rtl"] .hamburger {
+  left: auto;
+  right: 20px;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .sidebar-container {
@@ -213,6 +239,18 @@
   .login-logo-image2 {
     width: 20px;
     height: 20px;
+  }
+  
+  /* RTL Support for Mobile */
+  [dir="rtl"] .sidebar-container {
+    transform: translateX(100%);
+  }
+  [dir="rtl"] .sidebar-container.open {
+    transform: translateX(0);
+  }
+  [dir="rtl"] .hamburger {
+    left: auto;
+    right: 15px;
   }
 }
 @media (min-width:2560px){

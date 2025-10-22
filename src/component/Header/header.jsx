@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { IoNotifications } from "react-icons/io5";
 import { FaPlus, FaUser } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
@@ -51,7 +51,10 @@ const Header = () => {
   const location = useLocation();
   const [profilePic, setProfilePic] = useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [selectedLang, setSelectedLang] = useState("English"); // default lang
+  const [selectedLang, setSelectedLang] = useState(() => {
+    // Load saved language from localStorage or default to English
+    return localStorage.getItem('selectedLanguage') || "English";
+  });
   const fileInputRef = useRef(null);
 
   const titles = {
@@ -73,6 +76,18 @@ const Header = () => {
   const pageTitle = titles[location.pathname] || "User Management";
   const pageDescription = descriptions[location.pathname] || "Manage all the users and their access in the system.";
 
+  // Load saved direction on component mount
+  useEffect(() => {
+    const savedLang = localStorage.getItem('selectedLanguage');
+    if (savedLang) {
+      if (savedLang === "Arabic") {
+        document.documentElement.setAttribute("dir", "rtl");
+      } else {
+        document.documentElement.setAttribute("dir", "ltr");
+      }
+    }
+  }, []);
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -83,12 +98,19 @@ const Header = () => {
   const handleSelectLang = (lang) => {
     setSelectedLang(lang);
     setDropdownOpen(false);
-    console.log("Language Selected:", lang);
+    
+    // Save language to localStorage
+    localStorage.setItem('selectedLanguage', lang);
+    
     if (lang === "Arabic") {
       document.documentElement.setAttribute("dir", "rtl"); // Right-to-left
     } else {
       document.documentElement.setAttribute("dir", "ltr"); // Left-to-right
+      
     }
+    
+    // Dispatch custom event to notify other components
+    window.dispatchEvent(new CustomEvent('languageChanged', { detail: { language: lang } }));
   };
 
   return (
@@ -102,17 +124,17 @@ const Header = () => {
         <div className='header-right'>
           {/* Notification */}
           <NavLink to='/notification'>
-          <div>
-            <IoNotifications size={25}  style={{
-                color:'GrayText'
-            }}/>
-          </div>
+            <div>
+              <IoNotifications size={25} style={{
+                color: 'GrayText'
+              }} />
+            </div>
           </NavLink>
 
           {/* Translate Dropdown */}
           <div className="dropdown-container">
-            <div 
-              className="translate-icon" 
+            <div
+              className="translate-icon"
               onClick={() => setDropdownOpen(!dropdownOpen)}
             >
               <MdOutlineGTranslate size={25} />
@@ -120,9 +142,9 @@ const Header = () => {
             {dropdownOpen && (
               <ul className="dropdown-menu">
                 {["English", "Arabic", "Hebrew"].map((lang) => (
-                  <li 
-                    key={lang} 
-                    className="dropdown-item" 
+                  <li
+                    key={lang}
+                    className="dropdown-item"
                     onClick={() => handleSelectLang(lang)}
                   >
                     {lang}
@@ -133,8 +155,8 @@ const Header = () => {
           </div>
 
           {/* Profile */}
-          <div 
-            className="profile-circle" 
+          <div
+            className="profile-circle"
             onClick={() => fileInputRef.current.click()}
           >
             {profilePic ? (
