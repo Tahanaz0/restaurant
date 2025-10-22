@@ -106,11 +106,7 @@ const Header = () => {
       document.documentElement.setAttribute("dir", "rtl"); // Right-to-left
     } else {
       document.documentElement.setAttribute("dir", "ltr"); // Left-to-right
-      
     }
-    
-    // Dispatch custom event to notify other components
-    window.dispatchEvent(new CustomEvent('languageChanged', { detail: { language: lang } }));
   };
 
   return (

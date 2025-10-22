@@ -8,10 +8,6 @@ import './sidebar.css';
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedLang, setSelectedLang] = useState(() => {
-    // Load saved language from localStorage or default to English
-    return localStorage.getItem('selectedLanguage') || "English";
-  });
   const sidebarRef = useRef(null);
 
   // Sidebar toggle
@@ -42,39 +38,6 @@ const Sidebar = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isOpen]);
-
-  // Handle direction changes based on language
-  useEffect(() => {
-    const handleLanguageChange = () => {
-      const savedLang = localStorage.getItem('selectedLanguage');
-      if (savedLang) {
-        setSelectedLang(savedLang);
-        if (savedLang === "Arabic") {
-          document.documentElement.setAttribute("dir", "rtl");
-        } else {
-          document.documentElement.setAttribute("dir", "ltr");
-        }
-      }
-    };
-
-    // Listen for language changes from header
-    window.addEventListener('languageChanged', handleLanguageChange);
-    
-    // Load saved direction on component mount
-    const savedLang = localStorage.getItem('selectedLanguage');
-    if (savedLang) {
-      setSelectedLang(savedLang);
-      if (savedLang === "Arabic") {
-        document.documentElement.setAttribute("dir", "rtl");
-      } else {
-        document.documentElement.setAttribute("dir", "ltr");
-      }
-    }
-
-    return () => {
-      window.removeEventListener('languageChanged', handleLanguageChange);
-    };
-  }, []);
 
   return (
     <>
