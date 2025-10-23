@@ -4,14 +4,17 @@ import {  FaSignOutAlt, FaBars } from "react-icons/fa";
 import { PiCurrencyDollarSimple } from "react-icons/pi";
 import { MdOutlineNotifications } from "react-icons/md";
 import { NavLink } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 import './sidebar.css';
-// detect language direction from html tag
-const isRTL = document.documentElement.getAttribute("dir") === "rtl";
 
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const sidebarRef = useRef(null);
+  const { t } = useTranslation();
+  const language = useSelector((state) => state.translation.language);
+  const isRTL = language === 'ar' || language === 'he';
 
   // Sidebar toggle
   const toggleSidebar = () => {
@@ -85,7 +88,7 @@ const Sidebar = () => {
           >
             <div className="sidebar-item">
               <div className='sidebar-icon-container'><HiUsers className="sidebar-icon" size={22} /></div>
-              <div className='sidebar-text1'>User Management</div>
+              <div className='sidebar-text1'>{t('userManagement')}</div>
             </div>
           </NavLink>
 
@@ -96,7 +99,7 @@ const Sidebar = () => {
           >
             <div className="sidebar-item">
               <div className='sidebar-icon-container'><HiOutlineShoppingCart className="sidebar-icon" size={22} /></div>
-              <div className='sidebar-text1'>Super Market</div>
+              <div className='sidebar-text1'>{t('supermarket')}</div>
             </div>
           </NavLink>
 
@@ -108,7 +111,7 @@ const Sidebar = () => {
             <div className="sidebar-item">
               <div className='sidebar-icon-container'><PiCurrencyDollarSimple  size={22}/>
               </div>
-              <div className='sidebar-text1'>Payments $ finance</div>
+              <div className='sidebar-text1'>{t('payments')}</div>
             </div>
           </NavLink>
 
@@ -119,7 +122,7 @@ const Sidebar = () => {
           >
             <div className="sidebar-item">
               <div className='sidebar-icon-container'><MdOutlineNotifications className="sidebar-icon" size={24} /></div>
-              <div className='sidebar-text1'>Notification</div>
+              <div className='sidebar-text1'>{t('notification')}</div>
             </div>
           </NavLink>
           <div className="sidebar-logout">
@@ -132,7 +135,7 @@ const Sidebar = () => {
             >
               <div className='sidebar-item2'>
                 <div><FaSignOutAlt className="sidebar-icon logout-icon" size={18} /></div>
-                <div className='sidebar-text1'>Logout</div>
+                <div className='sidebar-text1'>{t('logout')}</div>
               </div>
             </NavLink>
           </div>

@@ -13,6 +13,12 @@
   box-sizing: border-box;
 }
 
+/* RTL Support */
+[dir="rtl"] .header-container {
+  margin-left: 0;
+  margin-right: 17%;
+}
+
 .header-left {
   display: flex;
   align-items: center;
@@ -51,6 +57,12 @@
     gap: 24px;
   }
 
+  /* RTL Support for tablet */
+  [dir="rtl"] .header-container {
+    margin-left: 0;
+    margin-right: 170px;
+  }
+
   .header-right img {
     width: 28px;
     height: 28px;
@@ -66,6 +78,12 @@
     padding: 24px;
     gap: 16px;
     box-sizing: border-box;
+  }
+
+  /* RTL Support for mobile */
+  [dir="rtl"] .header-container {
+    margin-left: 0;
+    margin-right: 4%;
   }
 
   .header-right {
