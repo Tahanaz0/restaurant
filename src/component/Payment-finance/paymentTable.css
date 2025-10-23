@@ -590,6 +590,12 @@ select option:checked {
 .submit-btn:hover {
   background: #1e40af;
 }
+html[dir="rtl"] .dropdown {
+  right: auto !important;
+  left: 0 !important;
+  text-align: right;
+}
+
 
 /* @media(min-width:425px){
     .{

@@ -108,10 +108,21 @@ const PaymentTable = () => {
                                     onClick={(e) => {
                                         e.stopPropagation();
                                         const rect = e.target.getBoundingClientRect();
-                                        setDropdownPosition({
+                                        const isRTL = document.documentElement.dir === "rtl";
+                                        if (isRTL) {
+                                          // In RTL, use "left" instead of "right"
+                                          setDropdownPosition({
+                                            top: rect.bottom + window.scrollY + 5,
+                                            left: rect.left + window.scrollX
+                                          });
+                                        } else {
+                                          // In LTR, keep the current right positioning
+                                          setDropdownPosition({
                                             top: rect.bottom + window.scrollY + 5,
                                             right: window.innerWidth - rect.right - window.scrollX
-                                        });
+                                          });
+                                        }
+                                        
                                         setOpenMenuIndex(openMenuIndex === idx ? null : idx);
                                     }}
                                 >

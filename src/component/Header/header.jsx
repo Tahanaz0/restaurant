@@ -5,6 +5,7 @@ import { FaPlus, FaUser } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
 import { MdOutlineGTranslate } from "react-icons/md";
 import { NavLink } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import './header.css';
 
@@ -84,14 +85,13 @@ const Header = () => {
   const handleSelectLang = (lang) => {
     setSelectedLang(lang);
     setDropdownOpen(false);
-    console.log("Language Selected:", lang);
   
-    if (lang === "Arabic") {
+    if (lang === "Arabic" || lang === "Hebrew") {
       document.documentElement.setAttribute("dir", "rtl");
-      document.body.setAttribute("dir", "rtl"); // ✅ added line
+      document.body.setAttribute("dir", "rtl");
     } else {
       document.documentElement.setAttribute("dir", "ltr");
-      document.body.setAttribute("dir", "ltr"); // ✅ added line
+      document.body.setAttribute("dir", "ltr");
     }
   };
   

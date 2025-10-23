@@ -5,6 +5,9 @@ import { PiCurrencyDollarSimple } from "react-icons/pi";
 import { MdOutlineNotifications } from "react-icons/md";
 import { NavLink } from 'react-router-dom';
 import './sidebar.css';
+// detect language direction from html tag
+const isRTL = document.documentElement.getAttribute("dir") === "rtl";
+
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -43,11 +46,13 @@ const Sidebar = () => {
     <>
       {/* Hamburger for small screens */}
       <div className="hamburger" onClick={toggleSidebar}>
+
         <FaBars />
       </div>
 
       {/* Sidebar */}
-      <div className={`sidebar-container ${isOpen ? "open" : ""}`} ref={sidebarRef}>
+      <div className={`sidebar-container ${isOpen ? "open" : ""}`} ref={sidebarRef} dir={isRTL ? "rtl" : "ltr"}>
+
 
         {/* Logo */}
         <div className="sidebar-logo">

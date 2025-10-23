@@ -249,4 +249,35 @@
 
   }
 }
+/* RTL Support for Sidebar */
+[dir="rtl"] .sidebar-container {
+  left: auto;
+  right: 0;
+  border-right: none;
+  border-left: 1px solid #e5e5e5;
+}
+
+/* Hide sidebar only on small screens when closed */
+@media (max-width: 768px) {
+  [dir="rtl"] .sidebar-container {
+    transform: translateX(100%);
+  }
+
+  [dir="rtl"] .sidebar-container.open {
+    transform: translateX(0);
+  }
+
+  [dir="rtl"] .hamburger {
+    left: auto;
+    right: 15px;
+  }
+}
+
+/* For large screens — always visible */
+@media (min-width: 769px) {
+  [dir="rtl"] .sidebar-container {
+    transform: translateX(0);
+  }
+}
+
 
