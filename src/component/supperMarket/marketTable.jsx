@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaTrashAlt, FaEdit, FaTimes } from "react-icons/fa";
+import { useTranslation } from 'react-i18next';
 import Select from "react-select";
 
-const data = {
+const getData = (t) => ({
   "Cleaning & Household": [
     {
       name: "Surf Excel Detergent (1kg)",
-      description: "Powerful stain remover, suitable for machine & hand wash",
+      description: t('surfExcelDescription'),
       price: "$5.25",
       status: true,
     },
@@ -14,7 +15,7 @@ const data = {
   "Personal Care": [
     {
       name: "ChickColgate Toothpaste (120g)",
-      description: "Cavity protection, refreshing mint flavor",
+      description: t('colgateDescription'),
       price: "$2.75",
       status: true,
     },
@@ -22,7 +23,7 @@ const data = {
   Beverages: [
     {
       name: "Pepsi (1.5L)",
-      description: "Sparkling soft drink with bold taste",
+      description: t('pepsiDescription'),
       price: "$1.99",
       status: false,
     },
@@ -30,17 +31,23 @@ const data = {
   Snacks: [
     {
       name: "Oreo Biscuits (Pack of 6)",
-      description: "Chocolate cookies with creamy filling",
+      description: t('oreoDescription'),
       price: "$2.25",
       status: true,
     },
   ],
   "Dairy & Breakfast": [],
   "Grocery Essentials": [],
-};
+});
 
 const MarketTable = () => {
-  const [items, setItems] = useState(data);
+  const { t } = useTranslation();
+  const [items, setItems] = useState(getData(t));
+
+  // Update data when language changes
+  useEffect(() => {
+    setItems(getData(t));
+  }, [t]);
   const [deleteModal, setDeleteModal] = useState({
     isOpen: false,
     category: '',
@@ -96,11 +103,11 @@ const MarketTable = () => {
             <table className="table">
               <thead>
                 <tr>
-                  <th>Item Name</th>
-                  <th>Description</th>
-                  <th>Price</th>
-                  <th>Status</th>
-                  <th>Action</th>
+                  <th>{t('itemName')}</th>
+                  <th>{t('description')}</th>
+                  <th>{t('price')}</th>
+                  <th>{t('status')}</th>
+                  <th>{t('action')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -108,7 +115,7 @@ const MarketTable = () => {
                   items[category].map((item, i) => (
                     <tr key={i}>
                       <td>{item.name}</td>
-                      <td className="desc">{item.description}</td>
+                      <td className="desc">{t(item.description)}</td>
                       <td>{item.price}</td>
                       <td>
                         <div className="status-toggle">
@@ -121,7 +128,7 @@ const MarketTable = () => {
                             <span className="slider round"></span>
                           </label>
                           <span className={`status-text ${item.status ? "available" : "unavailable"}`}>
-                            {item.status ? "Available" : "Unavailable"}
+                            {item.status ? t('available') : t('unavailable')}
                           </span>
                         </div>
                       </td>
@@ -147,15 +154,15 @@ const MarketTable = () => {
         <div className="modal-overlay">
           <div className="delete-modal">
             <div className="modal-header">
-              <h3>Delete Item</h3>
+              <h3>{t('deleteItem')}</h3>
               <FaTimes className="close-btn" onClick={closeDeleteModal} />
             </div>
             <div className="modal-body">
-              <p>Are you sure you want to delete <strong>"{deleteModal.itemName}"</strong>?</p>
+              <p>{t('deleteItemConfirm')} <strong>"{deleteModal.itemName}"</strong>?</p>
             </div>
             <div className="modal-footer">
-              <button className="cancel-btn" onClick={closeDeleteModal}>Cancel</button>
-              <button className="delete-btn" onClick={handleDelete}>Delete</button>
+              <button className="cancel-btn" onClick={closeDeleteModal}>{t('cancel')}</button>
+              <button className="delete-btn" onClick={handleDelete}>{t('delete')}</button>
             </div>
           </div>
         </div>
@@ -166,29 +173,29 @@ const MarketTable = () => {
         <div className="modal-overlay">
           <div className="edit-modal">
             <div className="modal-header">
-              <h3>Edit Item</h3>
+              <h3>{t('editItem')}</h3>
               <FaTimes className="close-btn" onClick={closeEditModal} />
             </div>
             <div className="modal-body">
               <div className="form-group">
-                <label>Item Name</label>
-                <input type="text" value={editModal.item?.name || ''} onChange={(e) => handleEditChange('name', e.target.value)} placeholder="Enter item name" />
+                <label>{t('itemName')}</label>
+                <input type="text" value={editModal.item?.name || ''} onChange={(e) => handleEditChange('name', e.target.value)} placeholder={t('enterItemName')} />
               </div>
               <div className="form-group">
-                <label>Description</label>
-                <textarea value={editModal.item?.description || ''} onChange={(e) => handleEditChange('description', e.target.value)} placeholder="Enter item description" rows="3" />
+                <label>{t('description')}</label>
+                <textarea value={editModal.item?.description || ''} onChange={(e) => handleEditChange('description', e.target.value)} placeholder={t('enterItemDescription')} rows="3" />
               </div>
               <div className="form-group">
-                <label>Price</label>
-                <input type="text" value={editModal.item?.price || ''} onChange={(e) => handleEditChange('price', e.target.value)} placeholder="Enter price (e.g., $5.25)" />
+                <label>{t('price')}</label>
+                <input type="text" value={editModal.item?.price || ''} onChange={(e) => handleEditChange('price', e.target.value)} placeholder={t('enterPrice')} />
               </div>
               <div className="form-group">
-                <label>Status</label>
+                <label>{t('status')}</label>
                 <Select
-                  options={[{ value: true, label: 'Available' }, { value: false, label: 'Unavailable' }]}
-                  value={{ value: editModal.item?.status, label: editModal.item?.status ? 'Available' : 'Unavailable' }}
+                  options={[{ value: true, label: t('available') }, { value: false, label: t('unavailable') }]}
+                  value={{ value: editModal.item?.status, label: editModal.item?.status ? t('available') : t('unavailable') }}
                   onChange={(selected) => handleEditChange('status', selected.value)}
-                  placeholder="Select status"
+                  placeholder={t('selectStatus')}
                   menuPortalTarget={document.body}
                   styles={{
                     menuPortal: base => ({ ...base, zIndex: 9999 }),

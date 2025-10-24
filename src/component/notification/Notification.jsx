@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import { useTranslation } from 'react-i18next';
 import "./notification.css";
 
 const initialNotifications = [
@@ -50,6 +51,7 @@ const Dot = ({ type }) => {
 };
 
 const Notification = () => {
+  const { t } = useTranslation();
   const [items, setItems] = useState(initialNotifications);
 
   const clearAll = () => setItems([]);
@@ -58,21 +60,21 @@ const Notification = () => {
     <div className="notif-container">
       <div className="notif-header">
         <div>
-          <h2 className="notif-title">Notifications</h2>
+          <h2 className="notif-title">{t('notifications')}</h2>
           <p className="notif-subtitle">
-            Send notifications and announcements to users
+            {t('sendNotificationsToUsers')}
           </p>
         </div>
         {items.length > 0 && (
           <button className="notif-clear" onClick={clearAll}>
-            Clear all
+            {t('clearAll')}
           </button>
         )}
       </div>
 
       <div className="notif-list">
         {items.length === 0 ? (
-          <div className="notif-empty">No notifications</div>
+          <div className="notif-empty">{t('noNotifications')}</div>
         ) : (
           items.map((n) => (
             <div key={n.id} className="notif-item">
@@ -80,7 +82,7 @@ const Notification = () => {
                 <Dot type={n.type} />
               </div>
               <div className="notif-item-body">
-                <div className="notif-item-title">{n.title}</div>
+                <div className="notif-item-title">{t(n.title.toLowerCase().replace(/\s+/g, ''))}</div>
                 <div className="notif-item-desc">{n.description}</div>
                 <div className="notif-item-time">{n.time}</div>
               </div>

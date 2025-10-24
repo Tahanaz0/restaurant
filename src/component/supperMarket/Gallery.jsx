@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { useTranslation } from 'react-i18next';
 import "./gallery.css";
 import { MdOutlineArrowForwardIos } from "react-icons/md";
 import { MdOutlineArrowBackIos } from "react-icons/md";
@@ -14,6 +15,7 @@ const defaultImages = [
 ];
 
 const Gallery = () => {
+    const { t } = useTranslation();
     const [images, setImages] = useState(defaultImages);
     const [active, setActive] = useState(0);
     const [isDragging, setIsDragging] = useState(false);
@@ -91,12 +93,12 @@ const Gallery = () => {
                     />
                     <div className="uploader-inner">
                         <span className="uploader-icon">📷</span>
-                        <p>Drag and drop images here or click to upload</p>
+                        <p>{t('dragDropImages')}</p>
                     </div>
 
                 </div>
                 <div className="uploader-actions">
-                    <button className="btn-save" onClick={save}>Save</button>
+                    <button className="btn-save" onClick={save}>{t('save')}</button>
                 </div>
             </div>
             {images.length > 0 && (
@@ -107,7 +109,7 @@ const Gallery = () => {
                     )}
                     <div className="slide">
                         <img src={images[active]} alt="gallery" />
-                        <button className="delete" title="Remove" onClick={handleDelete}><RiDeleteBin6Line />
+                        <button className="delete" title={t('remove')} onClick={handleDelete}><RiDeleteBin6Line />
                         </button>
                     </div>
                     {images.length > 1 && (

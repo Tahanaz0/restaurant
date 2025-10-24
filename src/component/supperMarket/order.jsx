@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Select from "react-select";
+import { useTranslation } from 'react-i18next';
 import "./order.css";
 
 const initialOrders = [
@@ -30,6 +31,7 @@ const initialOrders = [
 ];
 
 const Order = () => {
+    const { t } = useTranslation();
     const [orders, setOrders] = useState(initialOrders);
     const [prepModalFor, setPrepModalFor] = useState(null);
     const [prepTime, setPrepTime] = useState('15 minutes');
@@ -59,19 +61,19 @@ const Order = () => {
 
     return (
         <div className="order-top">
-            <h2 className="order-heading">Ready for Collection Delivery</h2>
+            <h2 className="order-heading">{t('readyForCollection')}</h2>
 
             <div className="order-grid">
                 {orders.map((order) => (
                     <div key={order.id} className="order-card">
                         <div className="order-card-header">
-                            <strong>Order #{order.id}</strong>
+                            <strong>{t('order')} #{order.id}</strong>
                             <span>${order.total}</span>
                         </div>
 
                         <div className="order-card-body">
-                            <div className="customer-name">{order.customer}</div>
-                            <div className="customer-phone">{order.phone}</div>
+                            <div className="customer-name">{t('customer')}: {order.customer}</div>
+                            <div className="customer-phone">{t('phone')}: {order.phone}</div>
                             {order.items.map((it, idx) => (
                                 <div key={idx} className="order-item">
                                     <span>x {it}</span>
@@ -83,10 +85,10 @@ const Order = () => {
                             {order.status === "new" && (
                                 <>
                                     <button onClick={() => onAccept(order)} className="btn-accept">
-                                        Accept
+                                        {t('accept')}
                                     </button>
                                     <button onClick={() => onReject(order)} className="btn-reject">
-                                        Reject
+                                        {t('reject')}
                                     </button>
                                 </>
                             )}
@@ -96,12 +98,12 @@ const Order = () => {
                                     onClick={() => completeOrder(order)}
                                     className="btn-complete"
                                 >
-                                    Complete
+                                    {t('complete')}
                                 </button>
                             )}
 
                             {order.status === "completed" && (
-                                <span className="completed-text">Completed</span>
+                                <span className="completed-text">{t('completed')}</span>
                             )}
                         </div>
                     </div>
@@ -112,13 +114,13 @@ const Order = () => {
                 <div className="modal-overlay">
                     <div className="modal">
                         <div className="modal-header">
-                            <h3>Set Preparation Time</h3>
+                            <h3>{t('setPreparationTime')}</h3>
                             <button className="close-btn" onClick={() => setPrepModalFor(null)}>
                                 ×
                             </button>
                         </div>
                         <div className="modal-body">
-                            <label>How long will this order take to prepare?</label>
+                            <label>{t('howLongToPrepare')}</label>
                             <Select
                                 options={[
                                     { value: '10 minutes', label: '10 minutes' },
@@ -158,10 +160,10 @@ const Order = () => {
                         </div>
                         <div className="modal-footer">
                             <button className="btn-cancel" onClick={() => setPrepModalFor(null)}>
-                                Cancel
+                                {t('cancel')}
                             </button>
                             <button className="btn-save" onClick={confirmPreparationTime}>
-                                Preparation Time
+                                {t('preparationTime')}
                             </button>
                         </div>
                     </div>

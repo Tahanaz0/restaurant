@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { CiSearch } from "react-icons/ci";
+import { useTranslation } from 'react-i18next';
 import MarketTable from "./marketTable";
 import Order from "./order";
 import Gallery from "./Gallery";
@@ -12,6 +13,7 @@ import "./MarketTable.css";
 import "./supperMarket.css";
 
 const SupperMarket = () => {
+  const { t } = useTranslation();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newItem, setNewItem] = useState({
     name: "",
@@ -26,22 +28,22 @@ const SupperMarket = () => {
 
   // ✅ React Select options
   const categoryOptions = [
-    { value: "Cleaning", label: "Cleaning" },
-    { value: "Personal Care", label: "Personal Care" },
-    { value: "Beverages", label: "Beverages" },
-    { value: "Snacks", label: "Snacks" },
-    { value: "Dairy & Eggs", label: "Dairy & Eggs" },
-    { value: "Groceries", label: "Groceries" },
+    { value: "Cleaning", label: t('cleaning') },
+    { value: "Personal Care", label: t('personalCare') },
+    { value: "Beverages", label: t('beverages') },
+    { value: "Snacks", label: t('snacks') },
+    { value: "Dairy & Eggs", label: t('dairyEggs') },
+    { value: "Groceries", label: t('groceries') },
   ];
 
   const preparationTimeOptions = [
-    { value: "5 minutes", label: "5 minutes" },
-    { value: "10 minutes", label: "10 minutes" },
-    { value: "15 minutes", label: "15 minutes" },
-    { value: "20 minutes", label: "20 minutes" },
-    { value: "30 minutes", label: "30 minutes" },
-    { value: "45 minutes", label: "45 minutes" },
-    { value: "1 hour", label: "1 hour" },
+    { value: "5 minutes", label: t('fiveMinutes') },
+    { value: "10 minutes", label: t('tenMinutes') },
+    { value: "15 minutes", label: t('fifteenMinutes') },
+    { value: "20 minutes", label: t('twentyMinutes') },
+    { value: "30 minutes", label: t('thirtyMinutes') },
+    { value: "45 minutes", label: t('fortyFiveMinutes') },
+    { value: "1 hour", label: t('oneHour') },
   ];
 
   return (
@@ -53,19 +55,19 @@ const SupperMarket = () => {
               className={`sup-btn ${activeTab === "item" ? "active" : ""}`}
               onClick={() => setActiveTab("item")}
             >
-              Item
+              {t('item')}
             </button>
             <button
               className={`sup-btn ${activeTab === "order" ? "active" : ""}`}
               onClick={() => setActiveTab("order")}
             >
-              Order
+              {t('order')}
             </button>
             <button
               className={`sup-btn ${activeTab === "gallery" ? "active" : ""}`}
               onClick={() => setActiveTab("gallery")}
             >
-              Gallery
+              {t('gallery')}
             </button>
           </div>
           <div className="user-second">
@@ -73,12 +75,12 @@ const SupperMarket = () => {
               <CiSearch className="user-icon" />
               <input
                 type="text"
-                placeholder="Search by name email or phone..."
+                placeholder={t('searchPlaceholder')}
                 className="user-input"
               />
             </div>
             <button className="user-btn" onClick={() => setIsModalOpen(true)}>
-              + Add Items
+              + {t('addItems')}
             </button>
           </div>
         </div>
@@ -91,7 +93,7 @@ const SupperMarket = () => {
           <div className="modal-overlay">
             <div className="modal">
               <div className="modal-header">
-                <h2>Add New Item</h2>
+                <h2>{t('addNewItem')}</h2>
                 <button
                   className="close-btn"
                   onClick={() => setIsModalOpen(false)}
@@ -102,27 +104,27 @@ const SupperMarket = () => {
               <div className="modal-body addd-form">
                 <div className="input-sec">
                   <div className="form-group">
-                    <label>Item Name</label>
+                    <label>{t('itemName')}</label>
                     <input
                       value={newItem.name}
                       onChange={(e) =>
                         setNewItem({ ...newItem, name: e.target.value })
                       }
-                      placeholder="Surf Excel Detergent (1kg)"
+                      placeholder={t('itemNamePlaceholder')}
                     />
                   </div>
                   <div className="form-group">
-                    <label>Description</label>
+                    <label>{t('description')}</label>
                     <input
                       value={newItem.description}
                       onChange={(e) =>
                         setNewItem({ ...newItem, description: e.target.value })
                       }
-                      placeholder="Powerful stain remover, suitable for machine & hand wash"
+                      placeholder={t('descriptionPlaceholder')}
                     />
                   </div>
                   <div className="form-group">
-                    <label>Category</label>
+                    <label>{t('category')}</label>
                     <Select
                       options={categoryOptions}
                       value={categoryOptions.find(

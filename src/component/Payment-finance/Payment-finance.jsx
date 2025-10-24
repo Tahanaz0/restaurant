@@ -1,10 +1,12 @@
 import React from "react";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import { FiClock } from "react-icons/fi";
+import { useTranslation } from 'react-i18next';
 import './payment.css'
 import PaymentTable from "./paymentTable";
 
 const PaymentFinance = () => {
+    const { t } = useTranslation();
     return (
         <>
             <div className="payment-container">
@@ -21,11 +23,11 @@ const PaymentFinance = () => {
                             }} />
                         </div>
                         <div className="payment">
-                            Total Revenue
+                            {t('totalRevenue')}
                         </div>
                         <div className="doller">$45,680</div>
                         <div
-                            className="week">+12% from last week</div>
+                            className="week">{t('twelvePercentFromLastWeek')}</div>
 
 
                     </div>
@@ -42,11 +44,11 @@ const PaymentFinance = () => {
                                 }} />
                         </div>
                         <div className="payment">
-                        Pending Payouts
+                        {t('pendingPayouts')}
                         </div>
                         <div className="doller">$12,340</div>
                         <div
-                            className="week">Awaiting approval</div>
+                            className="week">{t('awaitingApproval')}</div>
 
                     </div>
                 </div>

@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import './paymentTable.css';
 import Select from "react-select";
 
-const statusOptions = [
-    { value: "Pending", label: "Pending" },
-    { value: "Completed", label: "Completed" }
+const getStatusOptions = (t) => [
+    { value: "Pending", label: t('pending') },
+    { value: "Completed", label: t('completed') }
 ];
 
 const statusStyles = {
@@ -12,7 +13,7 @@ const statusStyles = {
     Completed: { background: '#D1FAE5', color: '#065F46' }
 };
 
-function StatusBadge({ status }) {
+function StatusBadge({ status, t }) {
     const style = statusStyles[status] || { background: '#e5e7eb', color: '#374151' };
     return (
         <span style={{
@@ -23,12 +24,13 @@ function StatusBadge({ status }) {
             display: 'inline-block',
             ...style
         }}>
-            {status}
+            {t(status.toLowerCase())}
         </span>
     );
 }
 
 const PaymentTable = () => {
+    const { t } = useTranslation();
     const [rows, setRows] = useState([
         { id: 1, user: 'Alex Rodriguez', type: 'Delivery', earnings: 1062.92, status: 'Pending', time: 'Week 1 - Jan 2024' },
         { id: 2, user: 'Sarah Wilson', type: 'Taxi', earnings: 2106.72, status: 'Completed', time: 'Week 1 - Jan 2024' },
@@ -76,18 +78,18 @@ const PaymentTable = () => {
 
     return (
         <div className="payment-table-container">
-            <h3 style={{ margin: '10px 0 6px 10px', fontWeight: 700 }}>Payment History</h3>
+            <h3 style={{ margin: '10px 0 6px 10px', fontWeight: 700 }}>{t('paymentHistory')}</h3>
             <table className="payment-table">
                 <thead>
                     <tr className="th">
                         <th>
                             <input type="checkbox" />
                         </th>
-                        <th>User Name</th>
-                        <th>Type</th>
-                        <th>Total Earnings</th>
-                        <th>Status</th>
-                        <th>Time</th>
+                        <th>{t('userName')}</th>
+                        <th>{t('type')}</th>
+                        <th>{t('totalEarnings')}</th>
+                        <th>{t('status')}</th>
+                        <th>{t('time')}</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -98,9 +100,9 @@ const PaymentTable = () => {
                                 <input type="checkbox" />
                             </td>
                             <td style={{ color: 'black' }}>{row.user}</td>
-                            <td style={{ color: 'black' }}>{row.type}</td>
+                            <td style={{ color: 'black' }}>{t(row.type.toLowerCase())}</td>
                             <td style={{ color: 'black' }}>{`$${row.earnings}`}</td>
-                            <td><StatusBadge status={row.status} /></td>
+                            <td><StatusBadge status={row.status} t={t} /></td>
                             <td style={{ color: 'black' }}>{row.time}</td>
                             <td className="actions-cell" style={{ position: 'relative' }}>
                                 <span
@@ -146,7 +148,7 @@ const PaymentTable = () => {
                                             }}
                                             className="dropdown-btn"
                                         >
-                                            Edit
+                                            {t('edit')}
                                         </button>
                                         <button
                                             onClick={(e) => {
@@ -155,7 +157,7 @@ const PaymentTable = () => {
                                             }}
                                             className="dropdown-btn delete-btn"
                                         >
-                                            Delete
+                                            {t('delete')}
                                         </button>
                                     </div>
                                 )}
@@ -170,11 +172,11 @@ const PaymentTable = () => {
             {deleteId !== null && (
                 <div className="ud-backdrop">
                     <div className="ud-modal">
-                        <h4>Delete this record?</h4>
-                        <p>This action cannot be undone.</p>
+                        <h4>{t('deleteRecord')}</h4>
+                        <p>{t('cannotBeUndone')}</p>
                         <div className="ud-actions">
-                            <button className="ud-cancel" onClick={() => setDeleteId(null)}>Cancel</button>
-                            <button className="ud-confirm" onClick={handleConfirmDelete}>Delete</button>
+                            <button className="ud-cancel" onClick={() => setDeleteId(null)}>{t('cancel')}</button>
+                            <button className="ud-confirm" onClick={handleConfirmDelete}>{t('delete')}</button>
                             
                         </div>
                     </div>
@@ -186,27 +188,27 @@ const PaymentTable = () => {
                 <div className="modal-overlay">
                     <div className="modal">
                         <div className="modal-header">
-                            <h3>Edit Payment</h3>
+                            <h3>{t('editPayment')}</h3>
                             <button className="close-btn" onClick={() => setEditRow(null)}>×</button>
                         </div>
                         <div className="modal-body addd-form">
                             <div className="form-group">
-                                <label>User Name</label>
+                                <label>{t('userName')}</label>
                                 <input value={editRow.user} onChange={(e) => setEditRow({ ...editRow, user: e.target.value })} />
                             </div>
                             <div className="form-group">
-                                <label>Type</label>
+                                <label>{t('type')}</label>
                                 <input value={editRow.type} onChange={(e) => setEditRow({ ...editRow, type: e.target.value })} />
                             </div>
                             <div className="form-group">
-                                <label>Total Earnings</label>
+                                <label>{t('totalEarnings')}</label>
                                 <input type="number" value={editRow.earnings} onChange={(e) => setEditRow({ ...editRow, earnings: Number(e.target.value) })} />
                             </div>
                             <div className="form-group">
-                                <label>Status</label>
+                                <label>{t('status')}</label>
                                 <Select
-                                    options={statusOptions}
-                                    value={statusOptions.find(opt => opt.value === editRow.status)}
+                                    options={getStatusOptions(t)}
+                                    value={getStatusOptions(t).find(opt => opt.value === editRow.status)}
                                     onChange={(selected) => setEditRow({ ...editRow, status: selected.value })}
                                     isSearchable={false}
                                     menuPlacement="auto"
@@ -252,13 +254,13 @@ const PaymentTable = () => {
                                 />
                             </div>
                             <div className="form-group">
-                                <label>Time</label>
+                                <label>{t('time')}</label>
                                 <input value={editRow.time} onChange={(e) => setEditRow({ ...editRow, time: e.target.value })} />
                             </div>
                         </div>
                         <div className="modal-footer">
-                            <button className="btn-cancel" onClick={() => setEditRow(null)}>Cancel</button>
-                            <button className="btn-save" onClick={handleSaveEdit}>Save</button>
+                            <button className="btn-cancel" onClick={() => setEditRow(null)}>{t('cancel')}</button>
+                            <button className="btn-save" onClick={handleSaveEdit}>{t('save')}</button>
                         </div>
                     </div>
                 </div>

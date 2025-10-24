@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import './userManagement.css';
 import { CiSearch } from "react-icons/ci";
+import { useTranslation } from 'react-i18next';
 import AddUserModal from "./AddUserModal";
 import UserTable from "./userTable";
 
 const UserManagement = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [direction, setDirection] = useState("ltr");
+  const { t } = useTranslation();
 
   useEffect(() => {
     // Get current document direction (either 'ltr' or 'rtl')
@@ -44,21 +46,21 @@ const UserManagement = () => {
       <div className={`user-management-container `} style={{ width: direction === "ltr" ? "93%" : "92%" }}>
         <div className="user-first1">
           <div className="user-management">
-            <button className="right-btn">Customers</button>
-            <button className="right-btn">Driver</button>
-            <button className="right-btn">Restaurant</button>
+            <button className="right-btn">{t('customers')}</button>
+            <button className="right-btn">{t('driver')}</button>
+            <button className="right-btn">{t('restaurant')}</button>
           </div>
           <div className="user-second">
             <div className="input-wrapper">
               <CiSearch className="user-icon" />
               <input
                 type="text"
-                placeholder="Search by name email or phone..."
+                placeholder={t('searchPlaceholder')}
                 className="user-input"
               />
             </div>
             <button className="user-btn" onClick={() => setIsModalOpen(true)}>
-              + Add user
+              + {t('addUser')}
             </button>
           </div>
         </div>

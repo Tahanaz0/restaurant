@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Select from 'react-select';
 import './userTable.css';
+import { useTranslation } from 'react-i18next';
 // import UserAddForm from './UserAddForm';
 import UserDelete from './UserDelete';
 import { FiEdit, FiTrash, FiX, FiUser } from 'react-icons/fi';
 
 const UserTable = () => {
+    const { t } = useTranslation();
     const [users, setUsers] = useState([
         {
             name: 'John',
@@ -109,19 +111,19 @@ const UserTable = () => {
     const [deleteIndex, setDeleteIndex] = useState(null);
 
     const genderOptions = [
-        { value: 'Male', label: 'Male' },
-        { value: 'Female', label: 'Female' },
-        { value: 'Other', label: 'Other' },
+        { value: 'Male', label: t('male') },
+        { value: 'Female', label: t('female') },
+        { value: 'Other', label: t('other') },
     ];
     const userTypeOptions = [
-        { value: 'Admin', label: 'Admin' },
-        { value: 'User', label: 'User' },
-        { value: 'Provider', label: 'Provider' },
+        { value: 'Admin', label: t('admin') },
+        { value: 'User', label: t('user') },
+        { value: 'Provider', label: t('provider') },
     ];
     const statusOptions = [
-        { value: 'Active', label: 'Active' },
-        { value: 'Moderate', label: 'Moderate' },
-        { value: 'Decline', label: 'Decline' },
+        { value: 'Active', label: t('active') },
+        { value: 'Moderate', label: t('moderate') },
+        { value: 'Decline', label: t('decline') },
     ];
 
     const handleToggleDropdown = (index, event) => {
@@ -192,11 +194,11 @@ const UserTable = () => {
                             <th>
                                 <input type="checkbox" />
                             </th>
-                            <th>Customer</th>
-                            <th>Email </th>
-                            <th>Contact</th>
-                            <th>Adress</th>
-                            <th>Type</th>
+                            <th>{t('customer')}</th>
+                            <th>{t('email')}</th>
+                            <th>{t('contact')}</th>
+                            <th>{t('address')}</th>
+                            <th>{t('type')}</th>
                             <th></th>
 
 
@@ -218,15 +220,16 @@ const UserTable = () => {
                                             marginRight: document.dir === 'ltr' ? '15px' : '0',
                                             marginLeft: document.dir === 'rtl' ? '15px' : '0',
                                             verticalAlign: 'middle',
-                                            borderRadius: '50%'
+                                            borderRadius: '50%',
+                                            padding: '5px',
                                         }}
                                     />
                                     {user.name} <span style={{ color: '#666', fontWeight: 'normal' }}>{user.customerCode}</span>
                                 </td>
                                 <td style={{ color: 'black' }}>{user.email}</td>
                                 <td style={{ color: 'black' }}>{user.phone}</td>
-                                <td style={{ color: 'black' }}>{user.adress}</td>
-                                <td style={{ color: 'black' }}>{user.userType}</td>
+                                <td style={{ color: 'black' }}>{t(user.adress.toLowerCase())}</td>
+                                <td style={{ color: 'black' }}>{t(user.userType.toLowerCase())}</td>
 
                                 <td className="actions-cell">
                                     <span className="dots" onMouseDown={(e) => e.stopPropagation()} onClick={(e) => { e.stopPropagation(); handleToggleDropdown(index, e); }}>
@@ -235,10 +238,10 @@ const UserTable = () => {
                                     {openDropdown === index && (
                                         <div className="dropdown" ref={dropdownRef} onMouseDown={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()} style={{ top: `${dropdownPosition.top}px`, right: `${dropdownPosition.right}px` }}>
                                             <button onMouseDown={(e) => e.stopPropagation()} onClick={(e) => { e.stopPropagation(); handleEditUser(index); }}>
-                                                <FiEdit /> Edit
+                                                <FiEdit /> {t('edit')}
                                             </button>
                                             <button onMouseDown={(e) => e.stopPropagation()} onClick={(e) => { e.stopPropagation(); handleAskDelete(index); }}>
-                                                <FiTrash style={{ color: 'black' }} /> Delete
+                                                <FiTrash style={{ color: 'black' }} /> {t('delete')}
                                             </button>
                                         </div>
                                     )}
@@ -253,26 +256,26 @@ const UserTable = () => {
                 <div className="modal-overlay">
                     <div className="modal">
                         <div className="modal-header">
-                            <h2>Edit User</h2>
+                            <h2>{t('editUser')}</h2>
                             <button className="close-btn" onClick={handleCloseModal}>
                                 <FiX />
                             </button>
                         </div>
                         <div className="modal-body">
                             <div className="form-group">
-                                <label>Name</label>
+                                <label>{t('name')}</label>
                                 <input name="name" value={editUser.name} onChange={handleChange} />
                             </div>
                             <div className="form-group">
-                                <label>Email Address</label>
+                                <label>{t('emailAddress')}</label>
                                 <input name="email" value={editUser.email} onChange={handleChange} />
                             </div>
                             <div className="form-group">
-                                <label>Phone No</label>
+                                <label>{t('phoneNo')}</label>
                                 <input name="phone" value={editUser.phone} onChange={handleChange} />
                             </div>
                             <div className="form-group">
-                                <label>Gender</label>
+                                <label>{t('gender')}</label>
                                 <Select
                                     options={genderOptions}
                                     value={genderOptions.find(o => o.value === editUser.gender)}
@@ -306,7 +309,7 @@ const UserTable = () => {
                                 />
                             </div>
                             <div className="form-group">
-                                <label>User Type</label>
+                                <label>{t('userType')}</label>
                                 <Select
                                     options={userTypeOptions}
                                     value={userTypeOptions.find(o => o.value === editUser.userType)}
@@ -340,7 +343,7 @@ const UserTable = () => {
                                 />
                             </div>
                             <div className="form-group">
-                                <label>Status</label>
+                                <label>{t('status')}</label>
                                 <Select
                                     options={statusOptions}
                                     value={statusOptions.find(o => o.value === editUser.status)}
@@ -376,10 +379,10 @@ const UserTable = () => {
                         </div>
                         <div className="modal-footer">
                             <button className="btn-cancel" onClick={handleCloseModal}>
-                                Cancel
+                                {t('cancel')}
                             </button>
                             <button className="btn-save" onClick={handleSaveEdit}>
-                                Save Changes
+                                {t('saveChanges')}
                             </button>
                         </div>
                     </div>
@@ -389,11 +392,11 @@ const UserTable = () => {
             {deleteIndex !== null && (
                 <div className="ud-backdrop">
                     <div className="ud-modal">
-                        <h4>Delete this user?</h4>
-                        <p>This action cannot be undone.</p>
+                        <h4>{t('deleteUserConfirm')}</h4>
+                        <p>{t('deleteWarning')}</p>
                         <div className="ud-actions">
-                            <button className="ud-cancel" onClick={() => setDeleteIndex(null)}>Cancel</button>
-                            <button className="ud-confirm" onClick={() => { handleDeleteUser(deleteIndex); setDeleteIndex(null); }}>Delete</button>
+                            <button className="ud-cancel" onClick={() => setDeleteIndex(null)}>{t('cancel')}</button>
+                            <button className="ud-confirm" onClick={() => { handleDeleteUser(deleteIndex); setDeleteIndex(null); }}>{t('delete')}</button>
 
                         </div>
                     </div>

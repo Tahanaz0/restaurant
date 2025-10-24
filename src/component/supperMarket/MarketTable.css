@@ -97,6 +97,11 @@
   text-overflow: ellipsis;
 }
 
+/* RTL Support for table headers */
+[dir="rtl"] .table th {
+  text-align: right;
+}
+
 .table th:nth-child(1) {
   min-width: 150px;
   width: 25%;
@@ -135,6 +140,11 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+/* RTL Support for table cells */
+[dir="rtl"] .table td {
+  text-align: right;
 }
 
 .table td:nth-child(3) {
