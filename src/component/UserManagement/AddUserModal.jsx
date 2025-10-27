@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import Select from "react-select";
+import { useTranslation } from 'react-i18next';
 import "./addUserModal.css";
 
 const AddUserModal = ({ onClose }) => {
+  const { t } = useTranslation();
   const [userType, setUserType] = useState(null);
 
   const options = [
-    { value: "Customer", label: "Customer" },
-    { value: "Driver", label: "Driver" },
-    { value: "Restaurant", label: "Restaurant" },
+    { value: "Customer", label: t('customer') },
+    { value: "Driver", label: t('driver') },
+    { value: "Restaurant", label: t('restaurant') },
   ];
 
   return (
@@ -17,36 +19,36 @@ const AddUserModal = ({ onClose }) => {
         <span className="modal-close" onClick={onClose}>
           &times;
         </span>
-        <h2>Add New User</h2>
+        <h2>{t('addNewUser')}</h2>
 
         <form className="modal-form">
           <label>
-            Customer Name
-            <input type="text" placeholder="John Doe" />
+            {t('customerName')}
+            <input type="text" placeholder={t('customerNamePlaceholder')} />
           </label>
 
           <label>
-            Email
-            <input type="email" placeholder="john@example.com" />
+            {t('email')}
+            <input type="email" placeholder={t('emailPlaceholder')} />
           </label>
 
           <label>
-            Contact
-            <input type="text" placeholder="+92 300 1234567" />
+            {t('contact')}
+            <input type="text" placeholder={t('contactPlaceholder')} />
           </label>
 
           <label>
-            Address
-            <input type="text" placeholder="Lahore, Pakistan" />
+            {t('address')}
+            <input type="text" placeholder={t('addressPlaceholder')} />
           </label>
 
           <label>
-            Type
+            {t('type')}
             <Select
               options={options}
               value={userType}
               onChange={setUserType}
-              placeholder="Select type"
+              placeholder={t('selectType')}
               menuPortalTarget={document.body}
               styles={{
                 menuPortal: base => ({ ...base, zIndex: 9999 }),
@@ -74,10 +76,10 @@ const AddUserModal = ({ onClose }) => {
 
           <div className="modal-actions">
             <button type="button" onClick={onClose}>
-              Cancel
+              {t('cancel')}
             </button>
             <button type="submit" className="add-btn">
-              Add User
+              {t('addUser')}
             </button>
           </div>
         </form>

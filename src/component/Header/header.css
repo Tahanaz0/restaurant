@@ -16,8 +16,9 @@
 /* RTL Support */
 [dir="rtl"] .header-container {
   margin-left: 0;
-  margin-right: 16%;
+  margin-right: 17%;
 }
+
 
 .header-left {
   display: flex;
@@ -214,6 +215,7 @@
 .dropdown-container {
   position: relative;
   display: inline-block;
+  /* left: 10px; */
 }
 
 .translate-icon {
@@ -282,9 +284,11 @@ html[dir="rtl"] .add-icon {
 }
 
 html[dir="rtl"] .dropdown-menu {
-  left: 0;
-  right: auto;
+  left: 60px;
+  background-color: aqua;
+
 }
+
 /* 📱 Arabic layout fix when sidebar is hidden (small screens) */
 @media (max-width: 768px) {
   html[dir="rtl"] .header-container,
@@ -295,7 +299,15 @@ html[dir="rtl"] .dropdown-menu {
 
   html[dir="rtl"] .main-content,
   body[dir="rtl"] .main-content {
-    /* margin-right: 5%!important; */
     width: 100% !important;
+  }
+}
+
+
+
+@media (max-width: 768px) {
+  html[dir="rtl"] .dropdown-menu {
+    left: 10px !important;
+    transform: translateX(-5px);
   }
 }

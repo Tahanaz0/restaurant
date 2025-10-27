@@ -138,5 +138,12 @@
   "clearAll": "Clear all",
   "noNotifications": "No notifications",
   "neworderreceived": "New order received",
-  "driverassigned": "Driver assigned"
+  "driverassigned": "Driver assigned",
+  "addNewUser": "Add New User",
+  "customerName": "Customer Name",
+  "customerNamePlaceholder": "John Doe",
+  "emailPlaceholder": "john@example.com",
+  "contactPlaceholder": "+92 300 1234567",
+  "addressPlaceholder": "Lahore, Pakistan",
+  "selectType": "Select type"
 }

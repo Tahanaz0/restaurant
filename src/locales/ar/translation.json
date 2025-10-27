@@ -137,5 +137,12 @@
   "clearAll": "مسح الكل",
   "noNotifications": "لا توجد إشعارات",
   "neworderreceived": "تم استلام طلب جديد",
-  "driverassigned": "تم تعيين السائق"
+  "driverassigned": "تم تعيين السائق",
+  "addNewUser": "إضافة مستخدم جديد",
+  "customerName": "اسم العميل",
+  "customerNamePlaceholder": "أحمد محمد",
+  "emailPlaceholder": "ahmed@example.com",
+  "contactPlaceholder": "+92 300 1234567",
+  "addressPlaceholder": "الرياض، السعودية",
+  "selectType": "اختر النوع"
 }

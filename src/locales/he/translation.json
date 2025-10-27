@@ -135,5 +135,12 @@
   "clearAll": "נקה הכל",
   "noNotifications": "אין התראות",
   "neworderreceived": "הזמנה חדשה התקבלה",
-  "driverassigned": "נהג הוקצה"
+  "driverassigned": "נהג הוקצה",
+  "addNewUser": "הוסף משתמש חדש",
+  "customerName": "שם לקוח",
+  "customerNamePlaceholder": "יוסי כהן",
+  "emailPlaceholder": "yossi@example.com",
+  "contactPlaceholder": "+972 50 1234567",
+  "addressPlaceholder": "תל אביב, ישראל",
+  "selectType": "בחר סוג"
 }
