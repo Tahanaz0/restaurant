@@ -1,5 +1,5 @@
 
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { IoNotifications } from "react-icons/io5";
 import { FaPlus, FaUser } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
@@ -22,6 +22,12 @@ const Header = () => {
   const dispatch = useDispatch();
   const language = useSelector((state) => state.translation.language);
 
+  useEffect(() => {
+    const isRtl = ["ar", "he"].includes(i18n.language);
+    document.documentElement.dir = isRtl ? "rtl" : "ltr";
+    document.documentElement.lang = i18n.language || "en";
+  }, [i18n.language]);
+  
   const titles = {
     "/userManagement": t('userManagement'),
     "/supperMarket": t('supermarket'),
@@ -47,12 +53,20 @@ const Header = () => {
       setProfilePic(URL.createObjectURL(file));
     }
   };
-
   const handleSelectLang = (lang) => {
     dispatch(setLanguage(lang));
     i18n.changeLanguage(lang);
+  
+    // Direction set karein
+    if (lang === 'ar' || lang === 'he') {
+      document.body.dir = 'rtl';
+    } else {
+      document.body.dir = 'ltr';
+    }
+  
     setDropdownOpen(false);
   };
+  
   
 
   return (

@@ -590,11 +590,18 @@ select option:checked {
 .submit-btn:hover {
   background: #1e40af;
 }
-html[dir="rtl"] .dropdown {
+/* html[dir="rtl"] .dropdown {
+  direction: rtl;
+  text-align: right;
+  transform-origin: top right;
+} */
+
+
+/* html[dir="rtl"] .dropdown {
   right: auto !important;
   left: 0 !important;
   text-align: right;
-}
+} */
 
 
 /* @media(min-width:425px){
@@ -603,16 +610,24 @@ html[dir="rtl"] .dropdown {
       overflow-y: auto;
     }
   } */
-  html[dir="rtl"] .dropdown {
-    right: auto !important;
-    left: 0 !important;
-    text-align: right;
-    transform: translateX(-15px);
-  }
-  
-  @media (max-width: 768px) {
-    html[dir="rtl"] .dropdown {
-      transform: translateX(-10px);
-    }
-  }
+/* ✅ RTL layout fix for dropdown (Arabic, Hebrew etc.) */
+/* ✅ RTL layout (Arabic, Hebrew) ke liye dropdown LEFT side pe khulega */
+/* ✅ RTL layout (Arabic, Hebrew) — thoda left se hatkar dropdown */
+html[dir="rtl"] .dropdown {
+  right: auto !important;
+  left: 10px !important; /* ← jitna chaho utna increase kar sakte ho */
+  text-align: right;
+  direction: rtl;
+  transform: translateX(10px); /* thoda sa smooth shift */
+}
+
+
+/* ✅ LTR layout (English etc.) ke liye normal right side pe khulega */
+html[dir="ltr"] .dropdown {
+  left: auto !important;
+  right: 10px !important;
+  text-align: left;
+  direction: ltr;
+}
+
   

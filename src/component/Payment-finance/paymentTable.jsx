@@ -108,25 +108,33 @@ const PaymentTable = () => {
                     e.stopPropagation();
                     const rect = e.target.getBoundingClientRect();
                     const isRTL = document.documentElement.dir === "rtl";
-
+                    const dropdownWidth = 150;
+                    const viewportWidth = window.innerWidth;
+                  
+                    let top = rect.bottom + window.scrollY + 5;
+                    let left = "auto";
+                    let right = "auto";
+                  
                     if (isRTL) {
-                      // RTL → show dropdown to the left side
-                      setDropdownPosition({
-                        top: rect.bottom + window.scrollY + 5,
-                        left: rect.left + window.scrollX - 120,
-                        right: "auto",
-                      });
+                      // RTL layout — dropdown left se cut na ho
+                      left = rect.left + window.scrollX - dropdownWidth + 10;
+                      if (left < 10) left = 10; // screen se bahar na jaye
                     } else {
-                      // LTR → show dropdown to the right side
-                      setDropdownPosition({
-                        top: rect.bottom + window.scrollY + 5,
-                        right: window.innerWidth - rect.right - window.scrollX,
-                        left: "auto",
-                      });
+                      // LTR layout — dropdown right side se cut na ho
+                      const rightSpace = viewportWidth - rect.right;
+                      if (rightSpace < dropdownWidth) {
+                        // agar right side kam jagah hai to left side me khol do
+                        left = rect.left + window.scrollX - dropdownWidth + 10;
+                        if (left < 10) left = 10;
+                      } else {
+                        right = viewportWidth - rect.right - window.scrollX - 10;
+                      }
                     }
-
+                  
+                    setDropdownPosition({ top, left, right });
                     setOpenMenuIndex(openMenuIndex === idx ? null : idx);
                   }}
+                  
                 >
                   ⋮
                 </span>

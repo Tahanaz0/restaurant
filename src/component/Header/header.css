@@ -222,11 +222,12 @@
   cursor: pointer;
 }
 
+/* base dropdown */
 .dropdown-menu {
   position: absolute;
   top: 28px;
   list-style: none;
-  right: 0;
+  inset-inline-end: 0; /* logical property handles LTR/RTL */
   background: #fff;
   border: 1px solid #ddd;
   border-radius: 6px;
@@ -235,6 +236,20 @@
   padding: 6px 0;
   z-index: 100;
 }
+
+/* ✅ specifically handle RTL (Arabic & Hebrew both) */
+html[dir="rtl"] .dropdown-container {
+  direction: rtl;
+}
+
+html[dir="rtl"] .dropdown-menu {
+  inset-inline-start: 0; /* moves dropdown to the right place in RTL */
+  inset-inline-end: auto;
+  right: auto;
+  left: 0;
+  text-align: right;
+}
+
 
 .dropdown-item {
   padding: 8px 12px;
@@ -283,11 +298,7 @@ html[dir="rtl"] .add-icon {
   right: 20px;
 }
 
-html[dir="rtl"] .dropdown-menu {
-  left: 60px;
-  background-color: aqua;
 
-}
 
 /* 📱 Arabic layout fix when sidebar is hidden (small screens) */
 @media (max-width: 768px) {
@@ -311,3 +322,5 @@ html[dir="rtl"] .dropdown-menu {
     transform: translateX(-5px);
   }
 }
+
+
