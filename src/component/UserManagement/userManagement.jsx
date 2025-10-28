@@ -43,7 +43,7 @@ const UserManagement = () => {
 
   return (
     <>
-      <div className={`user-management-container `} style={{ width: direction === "ltr" ? "93%" : "92%" }}>
+      <div className={`user-management-container `} >
         <div className="user-first1">
           <div className="user-management">
             <button className="right-btn">{t('customers')}</button>

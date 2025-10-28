@@ -281,3 +281,15 @@
 }
 
 
+/* Fix for LTR (English) layout */
+[dir="ltr"] .sidebar-item,
+[dir="ltr"] .sidebar-item2 {
+  flex-direction: row;          /* icon on left, text on right */
+  text-align: left;
+}
+
+[dir="rtl"] .sidebar-item,
+[dir="rtl"] .sidebar-item2 {
+  flex-direction: row-reverse;  /* icon on right, text on left */
+  text-align: right;
+}
