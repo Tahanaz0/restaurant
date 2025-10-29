@@ -27,14 +27,14 @@ body {
 }
 
 .main-content {
-  margin-left: 17.5%;    
+  margin-left: 17.5%;
   flex: 1;
-  /* padding: 15%; */
   width: 90%;
   margin-top: 0px;
   min-height: auto;
-  overflow-y: auto;       
-  overflow-x: auto;    
+  overflow-y: auto;
+  overflow-x: auto;
+  box-sizing: border-box;
 }
 
 
@@ -53,24 +53,32 @@ body[dir="rtl"] .main-content {
   margin-right: 40%;  /* same gap as LTR but on opposite side */
   margin-left: 0;
 }
+/* ✅ LTR large screens — add right safe space to avoid cut */
+html[dir="ltr"] .main-content,
+body[dir="ltr"] .main-content {
+  padding-right: 2% !important;
+  box-sizing: border-box;
+}
 
 @media (max-width: 2638px){
   .main-content{
     width: 90%;
     margin-left: 17%;
-  
+    box-sizing: border-box;
   }
 }
 @media (max-width:2818px) {
   .main-content{
     margin-left:17%;
     width: 90%;
+    box-sizing: border-box;
   }
 }
 @media (max-width:2560px) {
   .main-content{
     margin-left: 17%;
     width: 90%;
+    box-sizing: border-box;
   }
 }
 
@@ -97,6 +105,8 @@ html[dir="rtl"] .main-content,
 body[dir="rtl"] .main-content {
   margin-right: 17.5% !important;
   margin-left: 0 !important;
+  padding-left: 2% !important; /* reduced safe space from left edge */
+  box-sizing: border-box;
 }
 
 /* ✅ Sidebar RTL positioning */

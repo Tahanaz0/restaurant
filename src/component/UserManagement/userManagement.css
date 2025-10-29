@@ -41,6 +41,12 @@
   /* margin: 10px; */
 }
 
+/* RTL large screen spacing to avoid left cut */
+html[dir="rtl"] .user-management-container{
+  padding-left: 2%;
+  box-sizing: border-box;
+}
+
 .user-second {
   display: flex;
   gap: 10px;

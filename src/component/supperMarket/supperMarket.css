@@ -4,6 +4,12 @@
 	/* margin: 10px;  */
 }
 
+/* RTL large screen spacing to avoid left cut */
+html[dir="rtl"] .support-manag {
+	padding-left: 2%;
+	box-sizing: border-box;
+}
+
 .modal-overlay {
 	position: fixed;
 	top: 0;

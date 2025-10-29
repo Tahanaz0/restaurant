@@ -207,8 +207,8 @@ const MarketTable = () => {
               </div>
             </div>
             <div className="modal-footer">
-              <button className="cancel-btn" onClick={closeEditModal}>Cancel</button>
-              <button className="save-btn" onClick={handleSaveEdit}>Save Changes</button>
+              <button className="cancel-btn" onClick={closeEditModal}>{t('cancel')}</button>
+              <button className="save-btn" onClick={handleSaveEdit}>{t('save')}</button>
             </div>
           </div>
         </div>

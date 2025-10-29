@@ -14,17 +14,14 @@
 .product-table::-webkit-scrollbar {
   height: 8px;
 }
-
 .product-table::-webkit-scrollbar-track {
   background: #f7fafc;
   border-radius: 4px;
 }
-
 .product-table::-webkit-scrollbar-thumb {
   background: #cbd5e0;
   border-radius: 4px;
 }
-
 .product-table::-webkit-scrollbar-thumb:hover {
   background: #a0aec0;
 }
@@ -33,12 +30,19 @@
   background: #fff;
   border-radius: 8px;
   overflow: hidden;
+  margin-bottom: 20px;
 }
-
+.no-items{
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  padding: 10px;
+}
 /* Wrapper ensures horizontal scrolling */
 .table-wrapper {
   width: 100%;
-  overflow-x: auto;
+  overflow-x: auto !important;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
@@ -281,17 +285,20 @@ input:checked + .slider:before {
 
 /* Responsive: Prevent overlap — force scroll */
 @media (max-width: 992px) {
-  .table { min-width: 800px; }
+  .table-wrapper { overflow-x: auto !important; }
+  .table { min-width: 900px; display: block; }
 }
 @media (max-width: 768px) {
-  .table { min-width: 700px; }
+  .table-wrapper { overflow-x: auto !important; }
+  .table { min-width: 800px; display: block; }
   .table th, .table td {
     padding: 8px 6px;
     font-size: 13px;
   }
 }
 @media (max-width: 480px) {
-  .table { min-width: 600px; font-size: 12px; }
+  .table-wrapper { overflow-x: scroll !important; }
+  .table { min-width: 650px; display: block; }
   .table th, .table td {
     padding: 6px 4px;
     font-size: 12px;

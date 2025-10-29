@@ -281,8 +281,13 @@ const UserTable = () => {
                                     value={genderOptions.find(o => o.value === editUser.gender)}
                                     onChange={(selected) => setEditUser({ ...editUser, gender: selected.value })}
                                     isSearchable={false}
+                                        placeholder={t('selectGender')}
+                                        menuPlacement="auto"
+                                        menuPosition="absolute"
+                                        menuShouldBlockScroll={false}
                                     menuPlacement="auto"
                                     styles={{
+                                            menu: (base) => ({ ...base, zIndex: 10000, position: 'absolute' }),
                                         control: (base, state) => ({
                                             ...base,
                                             borderColor: state.isFocused ? '#2F985A' : '#ccc',
@@ -315,8 +320,13 @@ const UserTable = () => {
                                     value={userTypeOptions.find(o => o.value === editUser.userType)}
                                     onChange={(selected) => setEditUser({ ...editUser, userType: selected.value })}
                                     isSearchable={false}
+                                        placeholder={t('selectUserType')}
+                                        menuPlacement="auto"
+                                        menuPosition="absolute"
+                                        menuShouldBlockScroll={false}
                                     menuPlacement="auto"
                                     styles={{
+                                            menu: (base) => ({ ...base, zIndex: 10000, position: 'absolute' }),
                                         control: (base, state) => ({
                                             ...base,
                                             borderColor: state.isFocused ? '#2F985A' : '#ccc',
@@ -349,8 +359,13 @@ const UserTable = () => {
                                     value={statusOptions.find(o => o.value === editUser.status)}
                                     onChange={(selected) => setEditUser({ ...editUser, status: selected.value })}
                                     isSearchable={false}
+                                        placeholder={t('selectStatus')}
+                                        menuPlacement="auto"
+                                        menuPosition="absolute"
+                                        menuShouldBlockScroll={false}
                                     menuPlacement="auto"
                                     styles={{
+                                            menu: (base) => ({ ...base, zIndex: 10000, position: 'absolute' }),
                                         control: (base, state) => ({
                                             ...base,
                                             borderColor: state.isFocused ? '#2F985A' : '#ccc',

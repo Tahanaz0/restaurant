@@ -101,6 +101,8 @@
   "enterItemDescription": "הזן תיאור פריט",
   "enterPrice": "הזן מחיר (למשל: $5.25)",
   "selectStatus": "בחר סטטוס",
+  "selectGender": "בחר מין",
+  "selectUserType": "בחר סוג משתמש",
   "surfExcelDescription": "מסיר כתמים חזק, מתאים לכביסה ידנית ומכונתית",
   "colgateDescription": "הגנה מפני חורים, טעם מנטה מרענן",
   "pepsiDescription": "משקה קל תוסס עם טעם נועז",

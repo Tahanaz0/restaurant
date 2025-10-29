@@ -133,7 +133,7 @@ const SupperMarket = () => {
                       onChange={(selected) =>
                         setNewItem({ ...newItem, category: selected.value })
                       }
-                      placeholder="Select category"
+                      placeholder={t('selectCategory')}
                       isSearchable={false}
                       styles={{
                         control: (base) => ({
@@ -166,18 +166,18 @@ const SupperMarket = () => {
                     />
                   </div>
                   <div className="form-group">
-                    <label>Price</label>
+                    <label>{t('price')}</label>
                     <input
                       type="text"
                       value={newItem.price}
                       onChange={(e) =>
                         setNewItem({ ...newItem, price: e.target.value })
                       }
-                      placeholder="$15.99"
+                      placeholder={t('enterPrice')}
                     />
                   </div>
                   <div className="form-group">
-                    <label>How long will this order take to prepare?</label>
+                    <label>{t('preparationTime')}</label>
                     <Select
                       options={preparationTimeOptions}
                       value={preparationTimeOptions.find(
@@ -186,7 +186,7 @@ const SupperMarket = () => {
                       onChange={(selected) =>
                         setNewItem({ ...newItem, preparationTime: selected.value })
                       }
-                      placeholder="15 minutes"
+                      placeholder={t('selectPreparationTime')}
                       isSearchable={false}
                       styles={{
                         control: (base) => ({
@@ -219,12 +219,12 @@ const SupperMarket = () => {
                     />
                   </div>
                 </div>
-                <h2>Image & status </h2>
+                <h2>{t('gallery')}</h2>
                 <div className="form-group-item">
 
 
                   <div className="form-group">
-                    <label>Availability Status</label>
+                    <label>{t('availability')}</label>
                     <div className="availability-section">
                       <label className="toggle-switch">
                         <input
@@ -239,30 +239,26 @@ const SupperMarket = () => {
                       <div>
                         <div className="toggle-container">
 
-                          <span className="toggle-label">
-                            {newItem.availability ? "Available" : "Unavailable"}
-                          </span>
+                          <span className="toggle-label">{newItem.availability ? t('available') : t('unavailable')}</span>
                         </div>
 
-                        <p className="availability-description">
-                          Item will be available for ordering immediately
-                        </p>
+                        
                       </div>
 
                     </div>
                   </div>
 
                   <div className="form-group">
-                    <label>Item Image</label>
+                    <label>{t('itemImage')}</label>
                     <div className="image-upload-section">
                       <div className="image-upload-area">
                         <div className="upload-icon"><IoImageOutline />
                         </div>
-                        <p>Drag and drop images here or click to upload</p>
+                        <p>{t('dragDropImages')}</p>
                       </div>
                       <button className="upload-btn">
                         <MdOutlineFileDownload />
-                        Upload Image
+                        {t('uploadImage')}
                       </button>
                     </div>
                   </div>
@@ -273,13 +269,13 @@ const SupperMarket = () => {
                   className="btn-cancel"
                   onClick={() => setIsModalOpen(false)}
                 >
-                  Cancel
+                  {t('cancel')}
                 </button>
                 <button
                   className="btn-save"
                   onClick={() => setIsModalOpen(false)}
                 >
-                  Save Item
+                  {t('save')}
                 </button>
               </div>
             </div>

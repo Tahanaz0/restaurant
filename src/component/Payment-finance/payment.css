@@ -5,6 +5,12 @@
     /* margin: 10px; */
 }
 
+/* RTL large screen spacing to avoid left cut */
+html[dir="rtl"] .payment-container{
+    padding-left: 2%;
+    box-sizing: border-box;
+}
+
 .payment-box{
     display: flex;
     /* justify-content: center; */

@@ -49,9 +49,11 @@ const AddUserModal = ({ onClose }) => {
               value={userType}
               onChange={setUserType}
               placeholder={t('selectType')}
-              menuPortalTarget={document.body}
+              menuShouldScrollIntoView
+              menuShouldBlockScroll={false}
+              menuPlacement="auto"
+              menuPosition="absolute"
               styles={{
-                menuPortal: base => ({ ...base, zIndex: 9999 }),
                 control: base => ({
                   ...base,
                   borderColor: "#ccc",
@@ -59,6 +61,11 @@ const AddUserModal = ({ onClose }) => {
                   padding: "2px",
                   fontSize: "14px",
                   boxShadow: "none",
+                }),
+                menu: (base) => ({
+                  ...base,
+                  zIndex: 10000,
+                  position: 'absolute'
                 }),
                 option: (base, state) => ({
                   ...base,
