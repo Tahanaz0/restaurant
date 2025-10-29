@@ -282,10 +282,9 @@ const UserTable = () => {
                                     onChange={(selected) => setEditUser({ ...editUser, gender: selected.value })}
                                     isSearchable={false}
                                         placeholder={t('selectGender')}
-                                        menuPlacement="auto"
                                         menuPosition="absolute"
                                         menuShouldBlockScroll={false}
-                                    menuPlacement="auto"
+                                        menuPlacement="auto"
                                     styles={{
                                             menu: (base) => ({ ...base, zIndex: 10000, position: 'absolute' }),
                                         control: (base, state) => ({
@@ -321,10 +320,9 @@ const UserTable = () => {
                                     onChange={(selected) => setEditUser({ ...editUser, userType: selected.value })}
                                     isSearchable={false}
                                         placeholder={t('selectUserType')}
-                                        menuPlacement="auto"
                                         menuPosition="absolute"
                                         menuShouldBlockScroll={false}
-                                    menuPlacement="auto"
+                                        menuPlacement="auto"
                                     styles={{
                                             menu: (base) => ({ ...base, zIndex: 10000, position: 'absolute' }),
                                         control: (base, state) => ({
@@ -360,10 +358,9 @@ const UserTable = () => {
                                     onChange={(selected) => setEditUser({ ...editUser, status: selected.value })}
                                     isSearchable={false}
                                         placeholder={t('selectStatus')}
-                                        menuPlacement="auto"
                                         menuPosition="absolute"
                                         menuShouldBlockScroll={false}
-                                    menuPlacement="auto"
+                                        menuPlacement="auto"
                                     styles={{
                                             menu: (base) => ({ ...base, zIndex: 10000, position: 'absolute' }),
                                         control: (base, state) => ({
