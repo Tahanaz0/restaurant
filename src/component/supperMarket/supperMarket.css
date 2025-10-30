@@ -345,7 +345,7 @@ input:checked + .toggle-slider:before {
 		max-height: 80vh; } */
 }
 
-@media (max-width: 480px) {
+/* @media (max-width: 480px) {
 	.modal { width: 95%; max-height: 78vh; }
 	.modal-body .form-group { padding: 8px; }
-}
+} */

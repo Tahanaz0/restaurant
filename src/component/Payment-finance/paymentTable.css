@@ -282,13 +282,14 @@ select option:checked {
 }
 
 .dropdown-btn.delete-btn {
-  color: #FF6D6D;
+  /* color: #FF6D6D; */
   font-weight: 500;
 }
 
 .dropdown-btn.delete-btn:hover {
-  background-color: #ffe6e6;
-  color: #ff5252;
+  background-color: #f3f4f6 !important;
+  color: #111827 !important;
+  box-shadow: none !important;
 }
 
 /* ================= Delete Modal ================= */
@@ -353,7 +354,7 @@ select option:checked {
 }
 
 .ud-confirm {
-  background: #FF6D6D;
+  background-color: #16a34a;
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -367,7 +368,7 @@ select option:checked {
 }
 
 .ud-confirm:hover {
-  background: #ff5252;
+  background-color: #1cba56;
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(255, 109, 109, 0.3);
 }

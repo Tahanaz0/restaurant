@@ -409,7 +409,7 @@ input:checked + .slider:before {
 }
 
 /* Responsive modals */
-@media (max-width: 480px) {
+/* @media (max-width: 480px) {
   .delete-modal, .edit-modal {
     width: 95%;
     margin: 20px;
@@ -420,4 +420,4 @@ input:checked + .slider:before {
   .cancel-btn, .delete-btn, .save-btn {
     width: 100%;
   }
-}
+} */

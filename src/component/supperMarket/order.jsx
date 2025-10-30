@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Select from "react-select";
 import { useTranslation } from 'react-i18next';
 import "./order.css";
@@ -35,6 +35,30 @@ const Order = () => {
     const [orders, setOrders] = useState(initialOrders);
     const [prepModalFor, setPrepModalFor] = useState(null);
     const [prepTime, setPrepTime] = useState('15 minutes');
+    const selectRef = useRef(null);
+    const modalRef = useRef(null);
+
+    useEffect(() => {
+        const modalElement = modalRef.current;
+        if (!modalElement || !selectRef.current?.state.menuIsOpen) {
+            return;
+        }
+
+        const handleWheel = (event) => {
+            const menuList = selectRef.current?.select?.menuListRef;
+            if (menuList) {
+                event.preventDefault();
+                menuList.scrollTop += event.deltaY;
+            }
+        };
+
+        modalElement.addEventListener('wheel', handleWheel);
+
+        return () => {
+            modalElement.removeEventListener('wheel', handleWheel);
+        };
+    }, [prepModalFor, selectRef.current?.state.menuIsOpen]);
+
 
     const onAccept = (order) => {
         setPrepModalFor(order);
@@ -112,7 +136,7 @@ const Order = () => {
 
             {prepModalFor && (
                 <div className="modal-overlay">
-                    <div className="modal">
+                    <div className="modal" ref={modalRef}>
                         <div className="modal-header">
                             <h3>{t('setPreparationTime')}</h3>
                             <button className="close-btn" onClick={() => setPrepModalFor(null)}>
@@ -122,13 +146,15 @@ const Order = () => {
                         <div className="modal-body">
                             <label>{t('howLongToPrepare')}</label>
                             <Select
+                                ref={selectRef}
                                 options={[
-                                    { value: '10 minutes', label: '10 minutes' },
-                                    { value: '15 minutes', label: '15 minutes' },
-                                    { value: '20 minutes', label: '20 minutes' },
-                                    { value: '30 minutes', label: '30 minutes' },
+                                    { value: '10 minutes', label: t('tenMinutes') },
+                                    { value: '15 minutes', label: t('fifteenMinutes') },
+                                    { value: '20 minutes', label: t('twentyMinutes') },
+                                    { value: '30 minutes', label: t('thirtyMinutes') },
                                 ]}
-                                value={{ value: prepTime, label: prepTime }}
+                                value={{ value: prepTime, label: t(
+                                    prepTime === '10 minutes' ? 'tenMinutes' : prepTime === '15 minutes' ? 'fifteenMinutes' : prepTime === '20 minutes' ? 'twentyMinutes' : prepTime === '30 minutes' ? 'thirtyMinutes' : '') }}
                                 onChange={(selected) => setPrepTime(selected.value)}
                                 isSearchable={false}
                                 menuPlacement="auto"

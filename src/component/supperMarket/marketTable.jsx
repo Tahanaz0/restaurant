@@ -151,18 +151,13 @@ const MarketTable = () => {
 
       {/* Delete Modal */}
       {deleteModal.isOpen && (
-        <div className="modal-overlay">
-          <div className="delete-modal">
-            <div className="modal-header">
-              <h3>{t('deleteItem')}</h3>
-              <FaTimes className="close-btn" onClick={closeDeleteModal} />
-            </div>
-            <div className="modal-body">
-              <p>{t('deleteItemConfirm')} <strong>"{deleteModal.itemName}"</strong>?</p>
-            </div>
-            <div className="modal-footer">
-              <button className="cancel-btn" onClick={closeDeleteModal}>{t('cancel')}</button>
-              <button className="delete-btn" onClick={handleDelete}>{t('delete')}</button>
+        <div className="ud-backdrop">
+          <div className="ud-modal">
+            <h4>{t('deleteRecord') || 'Delete Item?'}</h4>
+            <p>{t('cannotBeUndone') || 'This action cannot be undone.'}</p>
+            <div className="ud-actions">
+              <button className="ud-cancel" onClick={closeDeleteModal}>{t('cancel')}</button>
+              <button className="ud-confirm" onClick={handleDelete}>{t('delete')}</button>
             </div>
           </div>
         </div>

@@ -146,5 +146,8 @@
   "emailPlaceholder": "ahmed@example.com",
   "contactPlaceholder": "+92 300 1234567",
   "addressPlaceholder": "الرياض، السعودية",
-  "selectType": "اختر النوع"
+  "selectType": "اختر النوع",
+  "selectCategory": "اختر الفئة",
+  "selectPreparationTime": "اختر وقت التحضير",
+  "preparationTime": "اختر وقت التحضير"
 }

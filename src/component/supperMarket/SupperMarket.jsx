@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { CiSearch } from "react-icons/ci";
 import { useTranslation } from 'react-i18next';
 import MarketTable from "./marketTable";
@@ -45,6 +45,23 @@ const SupperMarket = () => {
     { value: "45 minutes", label: t('fortyFiveMinutes') },
     { value: "1 hour", label: t('oneHour') },
   ];
+
+  const fileInputRef = useRef();
+  const handleImageChange = (e) => {
+    const file = e.target.files?.[0];
+    if (file && file.type.startsWith("image/")) {
+      setNewItem((prev) => ({ ...prev, image: { url: URL.createObjectURL(file), file } }));
+    }
+  };
+  const handleAreaClick = () => fileInputRef.current && fileInputRef.current.click();
+  const handleDrop = (e) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files?.[0];
+    if (file && file.type.startsWith("image/")) {
+      setNewItem((prev) => ({ ...prev, image: { url: URL.createObjectURL(file), file } }));
+    }
+  };
+  const handleDragOver = (e) => e.preventDefault();
 
   return (
     <div className="support-manag">
@@ -251,15 +268,41 @@ const SupperMarket = () => {
                   <div className="form-group">
                     <label>{t('itemImage')}</label>
                     <div className="image-upload-section">
-                      <div className="image-upload-area">
-                        <div className="upload-icon"><IoImageOutline />
-                        </div>
+                      {/* Drag & drop area (no click) */}
+                      <div
+                        className="image-upload-area"
+                        onDrop={handleDrop}
+                        onDragOver={handleDragOver}
+                        tabIndex={0}
+                        style={{ marginBottom: 10, cursor: 'copy' }}
+                      >
+                        <div className="upload-icon"><IoImageOutline /></div>
                         <p>{t('dragDropImages')}</p>
                       </div>
-                      <button className="upload-btn">
-                        <MdOutlineFileDownload />
-                        {t('uploadImage')}
+                      {/* Upload button (only click) */}
+                      <button
+                        type="button"
+                        className="upload-btn"
+                        onClick={(e) => { e.preventDefault(); fileInputRef.current && fileInputRef.current.click(); }}
+                        style={{ margin: '0 auto', display: 'block', minWidth: '80px' }}
+                      >
+                        <MdOutlineFileDownload style={{ marginRight: 4 }} />{t('uploadImage')}
                       </button>
+                      {/* Hidden file input */}
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept="image/*"
+                        style={{ display: "none" }}
+                        onChange={handleImageChange}
+                      />
+                      {/* Image preview (if selected) */}
+                      {newItem.image && (
+                        <>
+                          <img src={newItem.image.url} alt="preview" style={{ maxWidth: 80, maxHeight: 80, borderRadius: 6, margin: "8px auto", display: "block" }} />
+                          <button type="button" className="upload-btn" style={{ background: '#eee', color: '#dc2626', border: 'none', width: 'auto', minWidth: 0, margin: '6px auto', display: 'block' }} onClick={(e) => { e.preventDefault(); setNewItem(prev => ({ ...prev, image: null })); }}>{t('remove') || 'Remove'}</button>
+                        </>
+                      )}
                     </div>
                   </div>
                 </div>

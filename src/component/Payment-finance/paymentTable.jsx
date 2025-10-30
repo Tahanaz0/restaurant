@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './paymentTable.css';
 import Select from "react-select";
+import { FiEdit, FiTrash } from 'react-icons/fi';
 
 const getStatusOptions = (t) => [
   { value: "Pending", label: t('pending') },
@@ -157,9 +158,8 @@ const PaymentTable = () => {
                       }}
                       className="dropdown-btn"
                     >
-                      {t('edit')}
+                      <FiEdit /> {t('edit')}
                     </button>
-
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
@@ -167,7 +167,7 @@ const PaymentTable = () => {
                       }}
                       className="dropdown-btn delete-btn"
                     >
-                      {t('delete')}
+                      <FiTrash style={{ color: 'black' }} /> {t('delete')}
                     </button>
                   </div>
                 )}

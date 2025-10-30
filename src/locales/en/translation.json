@@ -147,5 +147,7 @@
   "emailPlaceholder": "john@example.com",
   "contactPlaceholder": "+92 300 1234567",
   "addressPlaceholder": "Lahore, Pakistan",
-  "selectType": "Select type"
+  "selectType": "Select type",
+  "selectCategory": "Select category",
+  "selectPreparationTime": "Select preparation time"
 }
