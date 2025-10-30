@@ -3,7 +3,6 @@ import Select from 'react-select';
 import './userTable.css';
 import { useTranslation } from 'react-i18next';
 // import UserAddForm from './UserAddForm';
-import UserDelete from './UserDelete';
 import { FiEdit, FiTrash, FiX, FiUser } from 'react-icons/fi';
 
 const UserTable = () => {
