@@ -8,14 +8,17 @@ import Select from "react-select";
 import { IoImageOutline } from "react-icons/io5";
 import { MdOutlineFileDownload } from "react-icons/md";
 
-
+// Page-level styles for SuperMarket section
 import "./MarketTable.css";
 import "./supperMarket.css";
 
+// SuperMarket main screen: tabs (Item/Order/Gallery) + Add Item modal
 const SupperMarket = () => {
   const { t } = useTranslation();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newItem, setNewItem] = useState({
+
+  // ===== Modal + Form state =====
+  const [isModalOpen, setIsModalOpen] = useState(false); // add-item modal visibility
+  const [newItem, setNewItem] = useState({ // add-item form model
     name: "",
     description: "",
     category: "",
@@ -24,9 +27,11 @@ const SupperMarket = () => {
     availability: true,
     image: null,
   });
+
+  // Current active tab: "item" | "order" | "gallery"
   const [activeTab, setActiveTab] = useState("item");
 
-  // ✅ React Select options
+  // ===== Select dropdown options =====
   const categoryOptions = [
     { value: "Cleaning", label: t('cleaning') },
     { value: "Personal Care", label: t('personalCare') },
@@ -46,14 +51,18 @@ const SupperMarket = () => {
     { value: "1 hour", label: t('oneHour') },
   ];
 
+  // ===== Image upload handlers (single image) =====
   const fileInputRef = useRef();
+  // Triggered when file selected via hidden input
   const handleImageChange = (e) => {
     const file = e.target.files?.[0];
     if (file && file.type.startsWith("image/")) {
       setNewItem((prev) => ({ ...prev, image: { url: URL.createObjectURL(file), file } }));
     }
   };
+  // Opens hidden file picker
   const handleAreaClick = () => fileInputRef.current && fileInputRef.current.click();
+  // Accepts drop from drag-and-drop area
   const handleDrop = (e) => {
     e.preventDefault();
     const file = e.dataTransfer.files?.[0];
@@ -61,13 +70,16 @@ const SupperMarket = () => {
       setNewItem((prev) => ({ ...prev, image: { url: URL.createObjectURL(file), file } }));
     }
   };
+  // Prevents default browser behavior while dragging over dropzone
   const handleDragOver = (e) => e.preventDefault();
 
   return (
     <div className="support-manag">
       <div>
+        {/* ===== Tabs + Search + Add button header ===== */}
         <div className="user-first">
           <div className="support-management">
+            {/* Tabs */}
             <button
               className={`sup-btn ${activeTab === "item" ? "active" : ""}`}
               onClick={() => setActiveTab("item")}
@@ -87,6 +99,8 @@ const SupperMarket = () => {
               {t('gallery')}
             </button>
           </div>
+
+          {/* Search input + Add Item */}
           <div className="user-second">
             <div className="input-wrapper">
               <CiSearch className="user-icon" />
@@ -102,13 +116,16 @@ const SupperMarket = () => {
           </div>
         </div>
 
+        {/* ===== Tab content ===== */}
         {activeTab === "item" && <MarketTable />}
         {activeTab === "order" && <Order />}
         {activeTab === "gallery" && <Gallery />}
 
+        {/* ===== Add Item Modal ===== */}
         {isModalOpen && (
           <div className="modal-overlay">
             <div className="modal">
+              {/* Modal header */}
               <div className="modal-header">
                 <h2>{t('addNewItem')}</h2>
                 <button
@@ -118,7 +135,10 @@ const SupperMarket = () => {
                   ×
                 </button>
               </div>
+
+              {/* Modal body */}
               <div className="modal-body addd-form">
+                {/* Left column: item inputs */}
                 <div className="input-sec">
                   <div className="form-group">
                     <label>{t('itemName')}</label>
@@ -236,9 +256,10 @@ const SupperMarket = () => {
                     />
                   </div>
                 </div>
+
+                {/* Right column: availability + image upload */}
                 <h2>{t('gallery')}</h2>
                 <div className="form-group-item">
-
 
                   <div className="form-group">
                     <label>{t('availability')}</label>
@@ -255,16 +276,13 @@ const SupperMarket = () => {
                       </label>
                       <div>
                         <div className="toggle-container">
-
                           <span className="toggle-label">{newItem.availability ? t('available') : t('unavailable')}</span>
                         </div>
-
-                        
                       </div>
-
                     </div>
                   </div>
 
+                  {/* Image selection: separate drag-n-drop + upload button */}
                   <div className="form-group">
                     <label>{t('itemImage')}</label>
                     <div className="image-upload-section">
@@ -307,6 +325,8 @@ const SupperMarket = () => {
                   </div>
                 </div>
               </div>
+
+              {/* Modal footer buttons */}
               <div className="modal-footer">
                 <button
                   className="btn-cancel"

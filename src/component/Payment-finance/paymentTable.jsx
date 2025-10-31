@@ -4,16 +4,19 @@ import './paymentTable.css';
 import Select from "react-select";
 import { FiEdit, FiTrash } from 'react-icons/fi';
 
+// Returns translated status options for the edit modal
 const getStatusOptions = (t) => [
   { value: "Pending", label: t('pending') },
   { value: "Completed", label: t('completed') }
 ];
 
+// Badge colors for status in the table rows
 const statusStyles = {
   Pending: { background: '#FEF3C7', color: '#92400e' },
   Completed: { background: '#D1FAE5', color: '#065F46' }
 };
 
+// Small visual component for status chips used in the table
 function StatusBadge({ status, t }) {
   const style = statusStyles[status] || { background: '#e5e7eb', color: '#374151' };
   return (
@@ -32,18 +35,24 @@ function StatusBadge({ status, t }) {
 
 const PaymentTable = () => {
   const { t } = useTranslation();
+
+  // Table data (local state for demo). In real app, this would load from API
   const [rows, setRows] = useState([
     { id: 1, user: 'Alex Rodriguez', type: 'Delivery', earnings: 1062.92, status: 'Pending', time: 'Week 1 - Jan 2024' },
     { id: 2, user: 'Sarah Wilson', type: 'Taxi', earnings: 2106.72, status: 'Completed', time: 'Week 1 - Jan 2024' },
     { id: 3, user: 'Tom Brown', type: 'Delivery', earnings: 756.71, status: 'Pending', time: 'Week 1 - Jan 2024' },
   ]);
 
+  // UI state: dropdown menu index, delete id, and edit row data
   const [openMenuIndex, setOpenMenuIndex] = useState(null);
   const [deleteId, setDeleteId] = useState(null);
   const [editRow, setEditRow] = useState(null);
+
+  // Dynamic position for the 3-dot dropdown (supports RTL/LTR)
   const [dropdownPosition, setDropdownPosition] = useState({ top: 0, right: 0, left: 'auto' });
   const menuRef = useRef(null);
 
+  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (menuRef.current && !menuRef.current.contains(e.target)) {
@@ -54,21 +63,25 @@ const PaymentTable = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  // Ask for delete confirmation (opens small confirm modal)
   const handleAskDelete = (row) => {
     setDeleteId(row.id);
     setOpenMenuIndex(null);
   };
 
+  // Confirm deletion; removes row from table data
   const handleConfirmDelete = () => {
     setRows((prev) => prev.filter((row) => row.id !== deleteId));
     setDeleteId(null);
   };
 
+  // Open edit modal and prefill row data
   const handleEdit = (row) => {
     setEditRow({ ...row });
     setOpenMenuIndex(null);
   };
 
+  // Save edits back into table state
   const handleSaveEdit = () => {
     setRows(prev => prev.map(r => r.id === editRow.id ? editRow : r));
     setEditRow(null);
@@ -76,8 +89,10 @@ const PaymentTable = () => {
 
   return (
     <div className="payment-table-container">
+      {/* Section title */}
       <h3 style={{ margin: '10px 0 6px 10px', fontWeight: 700 }}>{t('paymentHistory')}</h3>
 
+      {/* Main payments table */}
       <table className="payment-table">
         <thead>
           <tr>
@@ -101,12 +116,14 @@ const PaymentTable = () => {
               <td><StatusBadge status={row.status} t={t} /></td>
               <td style={{ color: 'black' }}>{row.time}</td>
 
-              {/* 3-dot menu cell */}
+              {/* Actions column (3-dot menu) */}
               <td className="actions-cell" style={{ position: 'relative' }}>
                 <span
                   className="dots"
                   onClick={(e) => {
                     e.stopPropagation();
+
+                    // Compute dropdown position that avoids clipping for both LTR and RTL
                     const rect = e.target.getBoundingClientRect();
                     const isRTL = document.documentElement.dir === "rtl";
                     const dropdownWidth = 150;
@@ -117,14 +134,13 @@ const PaymentTable = () => {
                     let right = "auto";
                   
                     if (isRTL) {
-                      // RTL layout — dropdown left se cut na ho
+                      // RTL: open to the left side without cutting off-screen
                       left = rect.left + window.scrollX - dropdownWidth + 10;
-                      if (left < 10) left = 10; // screen se bahar na jaye
+                      if (left < 10) left = 10;
                     } else {
-                      // LTR layout — dropdown right side se cut na ho
+                      // LTR: if not enough space to the right, flip to the left
                       const rightSpace = viewportWidth - rect.right;
                       if (rightSpace < dropdownWidth) {
-                        // agar right side kam jagah hai to left side me khol do
                         left = rect.left + window.scrollX - dropdownWidth + 10;
                         if (left < 10) left = 10;
                       } else {
@@ -135,11 +151,11 @@ const PaymentTable = () => {
                     setDropdownPosition({ top, left, right });
                     setOpenMenuIndex(openMenuIndex === idx ? null : idx);
                   }}
-                  
                 >
                   ⋮
                 </span>
 
+                {/* The actual dropdown with Edit/Delete */}
                 {openMenuIndex === idx && (
                   <div
                     ref={menuRef}
@@ -177,7 +193,7 @@ const PaymentTable = () => {
         </tbody>
       </table>
 
-      {/* Delete Modal */}
+      {/* Delete confirm modal */}
       {deleteId !== null && (
         <div className="ud-backdrop">
           <div className="ud-modal">
@@ -191,7 +207,7 @@ const PaymentTable = () => {
         </div>
       )}
 
-      {/* Edit Modal */}
+      {/* Edit modal for a row */}
       {editRow && (
         <div className="modal-overlay">
           <div className="modal">
@@ -200,18 +216,22 @@ const PaymentTable = () => {
               <button className="close-btn" onClick={() => setEditRow(null)}>×</button>
             </div>
             <div className="modal-body addd-form">
+              {/* Username */}
               <div className="form-group">
                 <label>{t('userName')}</label>
                 <input value={editRow.user} onChange={(e) => setEditRow({ ...editRow, user: e.target.value })} />
               </div>
+              {/* Type */}
               <div className="form-group">
                 <label>{t('type')}</label>
                 <input value={editRow.type} onChange={(e) => setEditRow({ ...editRow, type: e.target.value })} />
               </div>
+              {/* Earnings */}
               <div className="form-group">
                 <label>{t('totalEarnings')}</label>
                 <input type="number" value={editRow.earnings} onChange={(e) => setEditRow({ ...editRow, earnings: Number(e.target.value) })} />
               </div>
+              {/* Status */}
               <div className="form-group">
                 <label>{t('status')}</label>
                 <Select
@@ -223,6 +243,7 @@ const PaymentTable = () => {
                   menuShouldScrollIntoView
                 />
               </div>
+              {/* Time */}
               <div className="form-group">
                 <label>{t('time')}</label>
                 <input value={editRow.time} onChange={(e) => setEditRow({ ...editRow, time: e.target.value })} />
