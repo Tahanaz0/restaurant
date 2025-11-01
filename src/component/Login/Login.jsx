@@ -1,6 +1,9 @@
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from "../../firebase";
+
 import './Login.css';
 
 const Login = () => {
@@ -9,9 +12,10 @@ const Login = () => {
   // form fields ke liye state
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(false); // 👈 ye missing tha
+  const [rememberMe, setRememberMe] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (email.trim() === "" || password.trim() === "") {
@@ -19,7 +23,25 @@ const Login = () => {
       return;
     }
 
-    navigate("/UserManagement");
+    try {
+      setLoading(true);
+      // ✅ Firebase login
+      await signInWithEmailAndPassword(auth, email, password);
+
+      // Optionally remember user
+      if (rememberMe) {
+        localStorage.setItem("userEmail", email);
+      } else {
+        localStorage.removeItem("userEmail");
+      }
+
+      alert("Login successful!");
+      navigate("/UserManagement"); // ✅ redirect after login
+    } catch (error) {
+      alert(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -78,8 +100,9 @@ const Login = () => {
               </div>
             </div>
 
-
-            <button type='submit' className='login-form-button'>Continue</button>
+            <button type='submit' className='login-form-button' disabled={loading}>
+              {loading ? "Logging in..." : "Continue"}
+            </button>
           </form>
         </div>
       </div>
