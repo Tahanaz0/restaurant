@@ -32,14 +32,14 @@ const Login = () => {
     }
 
     try {
-      // setLoading(true);
-      // await signInWithEmailAndPassword(auth, email, password);
+      setLoading(true);
+      await signInWithEmailAndPassword(auth, email, password);
 
-      // if (rememberMe) {
-      //   localStorage.setItem("userEmail", email);
-      // } else {
-      //   localStorage.removeItem("userEmail");
-      // }
+      if (rememberMe) {
+        localStorage.setItem("userEmail", email);
+      } else {
+        localStorage.removeItem("userEmail");
+      }
 
       navigate("/UserManagement");
     } catch (error) {
