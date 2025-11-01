@@ -1,210 +1,263 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import './paymentTable.css';
+import Select from "react-select";
+import { FiEdit, FiTrash } from 'react-icons/fi';
 
+// Returns translated status options for the edit modal
+const getStatusOptions = (t) => [
+  { value: "Pending", label: t('pending') },
+  { value: "Completed", label: t('completed') }
+];
+
+// Badge colors for status in the table rows
 const statusStyles = {
-    Pending: { background: '#FEF3C7', color: '#92400e' },
-    Completed: { background: '#D1FAE5', color: '#065F46' }
+  Pending: { background: '#FEF3C7', color: '#92400e' },
+  Completed: { background: '#D1FAE5', color: '#065F46' }
 };
 
-function StatusBadge({ status }) {
-    const style = statusStyles[status] || { background: '#e5e7eb', color: '#374151' };
-    return (
-        <span style={{
-            padding: '4px 10px',
-            borderRadius: '12px',
-            fontSize: '12px',
-            fontWeight: 600,
-            display: 'inline-block',
-            ...style
-        }}>
-            {status}
-        </span>
-    );
+// Small visual component for status chips used in the table
+function StatusBadge({ status, t }) {
+  const style = statusStyles[status] || { background: '#e5e7eb', color: '#374151' };
+  return (
+    <span style={{
+      padding: '4px 10px',
+      borderRadius: '12px',
+      fontSize: '12px',
+      fontWeight: 600,
+      display: 'inline-block',
+      ...style
+    }}>
+      {t(status.toLowerCase())}
+    </span>
+  );
 }
 
 const PaymentTable = () => {
-    const [rows, setRows] = useState([
-        { id: 1, user: 'Alex Rodriguez', type: 'Delivery', earnings: 1062.92, status: 'Pending', time: 'Week 1 - Jan 2024' },
-        { id: 2, user: 'Sarah Wilson', type: 'Taxi', earnings: 2106.72, status: 'Completed', time: 'Week 1 - Jan 2024' },
-        { id: 3, user: 'Tom Brown', type: 'Delivery', earnings: 756.71, status: 'Pending', time: 'Week 1 - Jan 2024' },
-        { id: 4, user: 'Alex Rodriguez', type: 'Delivery', earnings: 1062.92, status: 'Pending', time: 'Week 1 - Jan 2024' },
-        { id: 5, user: 'Sarah Wilson', type: 'Taxi', earnings: 2106.72, status: 'Completed', time: 'Week 1 - Jan 2024' },
-        { id: 6, user: 'Tom Brown', type: 'Delivery', earnings: 756.71, status: 'Pending', time: 'Week 1 - Jan 2024' }
-    ]);
+  const { t } = useTranslation();
 
-    const [openMenuIndex, setOpenMenuIndex] = useState(null);
-    const [deleteId, setDeleteId] = useState(null);
-    const [editRow, setEditRow] = useState(null);
-    const [dropdownPosition, setDropdownPosition] = useState({ top: 0, right: 0 });
-    const menuRef = useRef(null);
+  // Table data (local state for demo). In real app, this would load from API
+  const [rows, setRows] = useState([
+    { id: 1, user: 'Alex Rodriguez', type: 'Delivery', earnings: 1062.92, status: 'Pending', time: 'Week 1 - Jan 2024' },
+    { id: 2, user: 'Sarah Wilson', type: 'Taxi', earnings: 2106.72, status: 'Completed', time: 'Week 1 - Jan 2024' },
+    { id: 3, user: 'Tom Brown', type: 'Delivery', earnings: 756.71, status: 'Pending', time: 'Week 1 - Jan 2024' },
+  ]);
 
-    useEffect(() => {
-        const handleClickOutside = (e) => {
-            if (menuRef.current && !menuRef.current.contains(e.target)) {
-                setOpenMenuIndex(null);
-            }
-        };
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, []);
+  // UI state: dropdown menu index, delete id, and edit row data
+  const [openMenuIndex, setOpenMenuIndex] = useState(null);
+  const [deleteId, setDeleteId] = useState(null);
+  const [editRow, setEditRow] = useState(null);
 
-    const handleAskDelete = (row) => {
-        setDeleteId(row.id);
+  // Dynamic position for the 3-dot dropdown (supports RTL/LTR)
+  const [dropdownPosition, setDropdownPosition] = useState({ top: 0, right: 0, left: 'auto' });
+  const menuRef = useRef(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
         setOpenMenuIndex(null);
+      }
     };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
-    const handleConfirmDelete = () => {
-        setRows((prev) => prev.filter((row) => row.id !== deleteId));
-        setDeleteId(null);
-    };
+  // Ask for delete confirmation (opens small confirm modal)
+  const handleAskDelete = (row) => {
+    setDeleteId(row.id);
+    setOpenMenuIndex(null);
+  };
 
-    const handleEdit = (row) => {
-        setEditRow({ ...row });
-        setOpenMenuIndex(null);
-    };
+  // Confirm deletion; removes row from table data
+  const handleConfirmDelete = () => {
+    setRows((prev) => prev.filter((row) => row.id !== deleteId));
+    setDeleteId(null);
+  };
 
-    const handleSaveEdit = () => {
-        setRows(prev => prev.map(r => r.id === editRow.id ? editRow : r));
-        setEditRow(null);
-    };
+  // Open edit modal and prefill row data
+  const handleEdit = (row) => {
+    setEditRow({ ...row });
+    setOpenMenuIndex(null);
+  };
 
-    return (
-        <div className="payment-table-container">
-            <h3 style={{ margin: '10px 0 6px 10px', fontWeight: 700 }}>Payment History</h3>
-            <table className="payment-table">
-                <thead>
-                    <tr className="th">
-                        <th>
-                            <input type="checkbox" />
-                        </th>
-                        <th>User Name</th>
-                        <th>Type</th>
-                        <th>Total Earnings</th>
-                        <th>Status</th>
-                        <th>Time</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {rows.map((row, idx) => (
-                        <tr key={row.id}>
-                            <td>
-                                <input type="checkbox" />
-                            </td>
-                            <td style={{ color: 'black' }}>{row.user}</td>
-                            <td style={{ color: 'black' }}>{row.type}</td>
-                            <td style={{ color: 'black' }}>{`$${row.earnings}`}</td>
-                            <td><StatusBadge status={row.status} /></td>
-                            <td style={{ color: 'black' }}>{row.time}</td>
-                            <td className="actions-cell" style={{ position: 'relative' }}>
-                                <span
-                                    className="dots"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        const rect = e.target.getBoundingClientRect();
-                                        setDropdownPosition({
-                                            top: rect.bottom + window.scrollY + 5,
-                                            right: window.innerWidth - rect.right - window.scrollX
-                                        });
-                                        setOpenMenuIndex(openMenuIndex === idx ? null : idx);
-                                    }}
-                                >
-                                    ⋮
-                                </span>
+  // Save edits back into table state
+  const handleSaveEdit = () => {
+    setRows(prev => prev.map(r => r.id === editRow.id ? editRow : r));
+    setEditRow(null);
+  };
 
-                                {openMenuIndex === idx && (
-                                    <div 
-                                        ref={menuRef} 
-                                        className="dropdown"
-                                        style={{
-                                            top: `${dropdownPosition.top}px`,
-                                            right: `${dropdownPosition.right}px`
-                                        }}
-                                        onClick={(e) => e.stopPropagation()}
-                                    >
-                                        <button 
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                handleEdit(row);
-                                            }} 
-                                            className="dropdown-btn"
-                                        >
-                                            Edit
-                                        </button>
-                                        <button 
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                handleAskDelete(row);
-                                            }} 
-                                            className="dropdown-btn delete-btn"
-                                        >
-                                            Delete
-                                        </button>
-                                    </div>
-                                )}
-                            </td>
+  return (
+    <div className="payment-table-container">
+      {/* Section title */}
+      <h3 style={{ margin: '10px 0 6px 10px', fontWeight: 700 }}>{t('paymentHistory')}</h3>
 
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+      {/* Main payments table */}
+      <table className="payment-table">
+        <thead>
+          <tr>
+            <th><input type="checkbox" /></th>
+            <th>{t('userName')}</th>
+            <th>{t('type')}</th>
+            <th>{t('totalEarnings')}</th>
+            <th>{t('status')}</th>
+            <th>{t('time')}</th>
+            <th></th>
+          </tr>
+        </thead>
 
-            {/* Delete confirm modal */}
-            {deleteId !== null && (
-                <div className="ud-backdrop">
-                    <div className="ud-modal">
-                        <h4>Delete this record?</h4>
-                        <p>This action cannot be undone.</p>
-                        <div className="ud-actions">
-                            <button className="ud-confirm" onClick={handleConfirmDelete}>Delete</button>
-                            <button className="ud-cancel" onClick={() => setDeleteId(null)}>Cancel</button>
-                        </div>
-                    </div>
-                </div>
-            )}
+        <tbody>
+          {rows.map((row, idx) => (
+            <tr key={row.id}>
+              <td><input type="checkbox" /></td>
+              <td style={{ color: 'black' }}>{row.user}</td>
+              <td style={{ color: 'black' }}>{t(row.type.toLowerCase())}</td>
+              <td style={{ color: 'black' }}>{`$${row.earnings}`}</td>
+              <td><StatusBadge status={row.status} t={t} /></td>
+              <td style={{ color: 'black' }}>{row.time}</td>
 
-            {/* Edit modal */}
-            {editRow && (
-                <div className="modal-overlay">
-                    <div className="modal">
-                        <div className="modal-header">
-                            <h3>Edit Payment</h3>
-                            <button className="close-btn" onClick={() => setEditRow(null)}>×</button>
-                        </div>
-                        <div className="modal-body addd-form">
-                            <div className="form-group">
-                                <label>User Name</label>
-                                <input value={editRow.user} onChange={(e) => setEditRow({ ...editRow, user: e.target.value })} />
-                            </div>
-                            <div className="form-group">
-                                <label>Type</label>
-                                <input value={editRow.type} onChange={(e) => setEditRow({ ...editRow, type: e.target.value })} />
-                            </div>
-                            <div className="form-group">
-                                <label>Total Earnings</label>
-                                <input type="number" value={editRow.earnings} onChange={(e) => setEditRow({ ...editRow, earnings: Number(e.target.value) })} />
-                            </div>
-                            <div className="form-group">
-                                <label>Status</label>
-                                <select value={editRow.status} onChange={(e) => setEditRow({ ...editRow, status: e.target.value })}>
-                                    <option>Pending</option>
-                                    <option>Completed</option>
-                                </select>
-                            </div>
-                            <div className="form-group">
-                                <label>Time</label>
-                                <input value={editRow.time} onChange={(e) => setEditRow({ ...editRow, time: e.target.value })} />
-                            </div>
-                        </div>
-                        <div className="modal-footer">
-                            <button className="btn-cancel" onClick={() => setEditRow(null)}>Cancel</button>
-                            <button className="btn-save" onClick={handleSaveEdit}>Save</button>
-                        </div>
-                    </div>
-                </div>
-            )}
+              {/* Actions column (3-dot menu) */}
+              <td className="actions-cell" style={{ position: 'relative' }}>
+                <span
+                  className="dots"
+                  onClick={(e) => {
+                    e.stopPropagation();
+
+                    // Compute dropdown position that avoids clipping for both LTR and RTL
+                    const rect = e.target.getBoundingClientRect();
+                    const isRTL = document.documentElement.dir === "rtl";
+                    const dropdownWidth = 150;
+                    const viewportWidth = window.innerWidth;
+                  
+                    let top = rect.bottom + window.scrollY + 5;
+                    let left = "auto";
+                    let right = "auto";
+                  
+                    if (isRTL) {
+                      // RTL: open to the left side without cutting off-screen
+                      left = rect.left + window.scrollX - dropdownWidth + 10;
+                      if (left < 10) left = 10;
+                    } else {
+                      // LTR: if not enough space to the right, flip to the left
+                      const rightSpace = viewportWidth - rect.right;
+                      if (rightSpace < dropdownWidth) {
+                        left = rect.left + window.scrollX - dropdownWidth + 10;
+                        if (left < 10) left = 10;
+                      } else {
+                        right = viewportWidth - rect.right - window.scrollX - 10;
+                      }
+                    }
+                  
+                    setDropdownPosition({ top, left, right });
+                    setOpenMenuIndex(openMenuIndex === idx ? null : idx);
+                  }}
+                >
+                  ⋮
+                </span>
+
+                {/* The actual dropdown with Edit/Delete */}
+                {openMenuIndex === idx && (
+                  <div
+                    ref={menuRef}
+                    className="dropdown"
+                    style={{
+                      top: `${dropdownPosition.top}px`,
+                      right: dropdownPosition.right,
+                      left: dropdownPosition.left,
+                    }}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleEdit(row);
+                      }}
+                      className="dropdown-btn"
+                    >
+                      <FiEdit /> {t('edit')}
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleAskDelete(row);
+                      }}
+                      className="dropdown-btn delete-btn"
+                    >
+                      <FiTrash style={{ color: 'black' }} /> {t('delete')}
+                    </button>
+                  </div>
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      {/* Delete confirm modal */}
+      {deleteId !== null && (
+        <div className="ud-backdrop">
+          <div className="ud-modal">
+            <h4>{t('deleteRecord')}</h4>
+            <p>{t('cannotBeUndone')}</p>
+            <div className="ud-actions">
+              <button className="ud-cancel" onClick={() => setDeleteId(null)}>{t('cancel')}</button>
+              <button className="ud-confirm" onClick={handleConfirmDelete}>{t('delete')}</button>
+            </div>
+          </div>
         </div>
-    );
+      )}
+
+      {/* Edit modal for a row */}
+      {editRow && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <div className="modal-header">
+              <h3>{t('editPayment')}</h3>
+              <button className="close-btn" onClick={() => setEditRow(null)}>×</button>
+            </div>
+            <div className="modal-body addd-form">
+              {/* Username */}
+              <div className="form-group">
+                <label>{t('userName')}</label>
+                <input value={editRow.user} onChange={(e) => setEditRow({ ...editRow, user: e.target.value })} />
+              </div>
+              {/* Type */}
+              <div className="form-group">
+                <label>{t('type')}</label>
+                <input value={editRow.type} onChange={(e) => setEditRow({ ...editRow, type: e.target.value })} />
+              </div>
+              {/* Earnings */}
+              <div className="form-group">
+                <label>{t('totalEarnings')}</label>
+                <input type="number" value={editRow.earnings} onChange={(e) => setEditRow({ ...editRow, earnings: Number(e.target.value) })} />
+              </div>
+              {/* Status */}
+              <div className="form-group">
+                <label>{t('status')}</label>
+                <Select
+                  options={getStatusOptions(t)}
+                  value={getStatusOptions(t).find(opt => opt.value === editRow.status)}
+                  onChange={(selected) => setEditRow({ ...editRow, status: selected.value })}
+                  isSearchable={false}
+                  menuPlacement="auto"
+                  menuShouldScrollIntoView
+                />
+              </div>
+              {/* Time */}
+              <div className="form-group">
+                <label>{t('time')}</label>
+                <input value={editRow.time} onChange={(e) => setEditRow({ ...editRow, time: e.target.value })} />
+              </div>
+            </div>
+            <div className="modal-footer">
+              <button className="btn-cancel" onClick={() => setEditRow(null)}>{t('cancel')}</button>
+              <button className="btn-save" onClick={handleSaveEdit}>{t('save')}</button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default PaymentTable;

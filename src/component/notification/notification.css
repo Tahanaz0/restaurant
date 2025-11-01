@@ -1,15 +1,20 @@
 /* Container */
 .notif-container {
-  width: 90%;
-  max-width: 1000px;
-  /* margin: 0 auto; */
-  /* padding: 16px 18px; */
+  width: 100%;
+  /* max-width: 1000px; */
   padding: 10px;
-  margin: 20px;
+  /* margin: 10px; */
   font-family: "Nunito", sans-serif;
   box-sizing: border-box;
 }
 
+/* remove extra paddings introduced earlier */
+.payment-table input[type="checkbox"] {
+  /* width: 16px;
+  height: 16px; */
+  accent-color: #2563eb; /* ✅ Primary color for check */
+  cursor: pointer;
+}
 /* Header */
 .notif-header {
   display: flex;
@@ -62,12 +67,13 @@
   padding: 14px 16px;
   background: #ffffff;
   border: 1px solid #e5e7eb;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .notif-item-left {
   display: flex;
   align-items: center;
+  padding: 5px;
   height: 100%;
 }
 
@@ -98,12 +104,27 @@
   font-size: 12px;
   margin-top: 6px;
 }
-
+@media (max-width: 2560px) {
+  .notif-container {
+    width: 93%;
+  }
+}
+@media (max-width: 2640px) {
+  .notif-container {
+    width: 93%;
+  }
+}
+@media (max-width: 480px) {
+  .notif-container {
+    padding: 8px;
+    width: 100%;
+  }
+}
 /* Responsive */
 @media (max-width: 768px) {
   .notif-container {
     padding: 12px;
-    width: 90%;
+    width: 100%;
   }
   .notif-header {
     align-items: flex-start;

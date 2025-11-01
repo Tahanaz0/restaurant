@@ -36,26 +36,33 @@
 }
 
 .user-management-container {
-  width: 94%;
+  width: 93%;
   padding: 10px;
-  margin: 10px;
+  /* margin: 10px; */
+}
+
+/* RTL large screen spacing to avoid left cut */
+html[dir="rtl"] .user-management-container{
+  padding-left: 2%;
+  box-sizing: border-box;
 }
 
 .user-second {
   display: flex;
-  gap: 15px;
+  gap: 10px;
   width: 50%;
   flex-wrap: wrap;
   /* margin-left: 20%; */
   /* background-color: aquamarine; */
-  padding: 5px;
+  /* padding: 5px; */
   /* background-color: aqua; */
 }
 
 .input-wrapper {
   position: relative;
   display: inline-block;
-  width: 250px;
+  /* width: 250px; */
+  flex: 1;
   /* input ki width */
 }
 
@@ -111,9 +118,7 @@
     width: 100%;
     /* gap: 26%; */
     flex-wrap: wrap;
-    justify-content: space-between;
+    /* justify-content: space-between; */
   }
-  .user-btn{
-    margin-right: 15px;
-  }
+
 }

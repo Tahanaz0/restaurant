@@ -1,120 +1,326 @@
 .header-container {
-    width: 83% ;
-    margin-left: 17%;        /* push by sidebar width */
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-bottom: 1px solid #D9D9D9;
-    font-family: 'Nunito', sans-serif;
-    padding:35px;
-    gap: 50px;
-    background: #fff;
+  width: 83%;
+  margin-left: 17%; /* pushed by sidebar */
+  height: 40px;
+  display: flex;
+  justify-content: space-between; /* ✅ fix */
+  align-items: center;
+  border-bottom: 1px solid #D9D9D9;
+  font-family: 'Nunito', sans-serif;
+  padding: 35px;
+  gap: 50px;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+/* RTL Support */
+[dir="rtl"] .header-container {
+  margin-left: 0;
+  margin-right: 17%;
+}
+
+
+.header-left {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 700;
+  flex: 1;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.header-right img {
+  width: 32px;
+  height: 32px;
+}
+
+.header-title {
+  display: flex;
+  flex-direction: column;
+}
+
+.header-title p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 400;
+  color: #555;
+}
+
+/* 📱 Tablet (≤ 992px) */
+@media (max-width: 992px) {
+  .header-container {
+    margin-left: 170px;
+    gap: 24px;
+  }
+
+  /* RTL Support for tablet */
+  [dir="rtl"] .header-container {
+    margin-left: 0;
+    margin-right: 170px;
+  }
+
+  .header-right img {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+/* 📱 Mobile (≤ 768px) */
+@media (max-width: 768px) {
+  .header-container {
+    width: 100% !important; /* ✅ full width when sidebar hidden */
+    margin-left: 4%;
+    height: 70px;
+    padding: 24px;
+    gap: 16px;
     box-sizing: border-box;
   }
-  
-  .header-left {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-weight: 700;
-    font-size: 22px;
-    flex: 1;
+
+  /* RTL Support for mobile */
+  [dir="rtl"] .header-container {
+    margin-left: 0;
+    margin-right: 4%;
   }
-  
+
   .header-right {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+    gap: 10px;
   }
-  
+
+  /* ✅ RTL version fix (Arabic) */
+  html[dir="rtl"] .header-container {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 12px 16px !important;
+    flex-direction: row-reverse !important;
+    justify-content: space-between !important;
+  }
+
+  html[dir="rtl"] .header-right {
+    flex-direction: row-reverse !important;
+    justify-content: flex-start;
+    gap: 10px !important;
+  }
+
+  html[dir="rtl"] .header-left {
+    flex-direction: row-reverse !important;
+    justify-content: space-between !important;
+  }
+}
+
+/* 📱 Small Mobile (≤ 576px) */
+@media (max-width: 576px) {
+  .header-container {
+    flex-direction: row;
+    justify-content: space-between;
+    height: auto;
+    padding: 10px 25px;
+
+    margin-left: 5%;
+  }
+
+  .header-left {
+    font-size: 16px;
+  }
+
+  .header-right {
+    gap: 8px;
+  }
+
   .header-right img {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
+    width: 24px;
+    height: 24px;
   }
-  .header-title {
-    display: flex;
-    flex-direction: column;
+}
+
+/* Smaller widths (≤375px, ≤320px) */
+@media (max-width: 375px) {
+  .header-container {
+    margin-left:5%;
   }
-  
-  .header-title p {
-    margin: 0;
-    font-size: 14px;
-    font-weight: 400;
-    color: #555;
+}
+
+@media (max-width: 320px) {
+  .header-container {
+    margin-left: 5% !important;
   }
-  
-  
-  /* 📱 Tablet (≤ 992px) */
-  @media (max-width: 992px) {
-    .header-container {
-      width: calc(100% - 200px);
-      margin-left: 200px;
-      padding: 20px;
-      gap: 24px;
-    }
-    .header-left {
-      font-size: 20px;
-    }
-    .header-right img {
-      width: 28px;
-      height: 28px;
-    }
+}
+
+/* Profile image area */
+.profile-frame {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.frame-img {
+  width: 100%;
+  height: 100%;
+}
+
+.profile-pic {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.hidden-input {
+  display: none;
+}
+
+.profile-circle {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.profile-placeholder {
+  font-size: 18px;
+  color: #888;
+}
+
+.add-icon {
+  position: absolute;
+  bottom: 0px;
+  right: 3px;
+  left: 20px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  border: 1px solid #ddd;
+}
+
+.dropdown-container {
+  position: relative;
+  display: inline-block;
+  /* left: 10px; */
+}
+
+.translate-icon {
+  cursor: pointer;
+}
+
+/* base dropdown */
+.dropdown-menu {
+  position: absolute;
+  top: 28px;
+  list-style: none;
+  inset-inline-end: 0; /* logical property handles LTR/RTL */
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  width: 120px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 6px 0;
+  z-index: 100;
+}
+
+/* ✅ specifically handle RTL (Arabic & Hebrew both) */
+html[dir="rtl"] .dropdown-container {
+  direction: rtl;
+}
+
+html[dir="rtl"] .dropdown-menu {
+  inset-inline-start: 0; /* moves dropdown to the right place in RTL */
+  inset-inline-end: auto;
+  right: auto;
+  left: 0;
+  text-align: right;
+}
+
+
+.dropdown-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.dropdown-item:hover {
+  background: #f0f0f0;
+}
+
+/* ✅ Full RTL Layout + Icon Order Fix */
+html[dir="rtl"] .header-container {
+  flex-direction: row-reverse !important;
+  margin-left: 0 !important;
+  margin-right: 17% !important;
+  text-align: right;
+}
+
+html[dir="rtl"] .header-left {
+  flex-direction: row-reverse !important;
+  justify-content: space-between !important;
+}
+
+html[dir="rtl"] .header-right {
+  order: -1;
+  display: flex;
+  flex-direction: row-reverse !important;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px !important;
+}
+
+html[dir="rtl"] .header-right > *:nth-child(1) { order: 3; } /* notification */
+html[dir="rtl"] .header-right > *:nth-child(2) { order: 2; } /* translate */
+html[dir="rtl"] .header-right > *:nth-child(3) { order: 1; } /* profile */
+
+html[dir="rtl"] .header-title {
+  text-align: right;
+  margin-right: 20px;
+  margin-left: 0;
+}
+
+html[dir="rtl"] .add-icon {
+  left: 3px;
+  right: 20px;
+}
+
+
+
+/* 📱 Arabic layout fix when sidebar is hidden (small screens) */
+@media (max-width: 768px) {
+  html[dir="rtl"] .header-container,
+  body[dir="rtl"] .header-container {
+    margin-right: 2%!important;
+    width: 100% !important;
   }
-  @media (max-width: 768px) {
-    .header-container {
-      width: 90%;
-      margin-left: 5%;
-      height: 70px;
-      padding: 12px 14px;
-      gap: 16px;
-    }
+
+  html[dir="rtl"] .main-content,
+  body[dir="rtl"] .main-content {
+    width: 100% !important;
   }
-  /* 📱 Mobile (≤ 768px) */
-  @media (max-width: 768px) {
-/* .header-container {
-      padding: 8px 12px;
-      height: 45px;
-      margin-left: 5%;
-    }  */
-    .header-right {
-      gap: 10px;
-    }
+}
+
+
+
+@media (max-width: 768px) {
+  html[dir="rtl"] .dropdown-menu {
+    left: 10px !important;
+    transform: translateX(-5px);
   }
-  
-  /* 📱 Small Mobile (≤ 576px) */
-  @media (max-width: 576px) {
-    .header-container {
-      flex-direction: row;
-      justify-content: space-between;
-      height: auto;
-      padding: 8px 10px;
-      margin-left: 10%;
-    }
-  
-    .header-left {
-      font-size: 16px;
-      
-    }
-  
-    .header-right {
-      gap: 8px;
-    }
-  
-    .header-right img {
-      width: 24px;
-      height: 24px;
-    }
-  }
-   @media (max-width:375px){
-    .header-container{
-      margin-left: 10%;
-    }
-  }
-  @media (max-width:320px){
-    .header-container{
-      margin-left: 10%;
-    }
-  }
- 
+}
+
+

@@ -1,36 +1,52 @@
 import React from "react";
-import { FaArrowTrendUp } from "react-icons/fa6";
-import { FiClock } from "react-icons/fi";
-import './payment.css'
-import PaymentTable from "./paymentTable";
+import { FaArrowTrendUp } from "react-icons/fa6"; // 📈 Revenue icon
+import { FiClock } from "react-icons/fi"; // ⏰ Pending payouts icon
+import { useTranslation } from 'react-i18next'; // 🌐 For language translation
+import './payment.css';
+import PaymentTable from "./paymentTable"; // 💰 Table component for payment data
 
+// ✅ Main PaymentFinance component
 const PaymentFinance = () => {
+    // Translation hook from i18next
+    const { t } = useTranslation();
+
     return (
         <>
             <div className="payment-container">
+                {/* ===== Summary Boxes Section ===== */}
                 <div className="payment-box">
+                    
+                    {/* ===== Total Revenue Card ===== */}
                     <div className="payment-boxes">
-                        <div><FaArrowTrendUp
-                            style={{
-                                // color:'#F91616',
-                                backgroundColor: '#E8EEF6',
-                                padding: '5px',
-                                borderRadius: '5px',
-                                fontSize: '30px',
-
-                            }} />
+                        {/* 📈 Icon for revenue */}
+                        <div>
+                            <FaArrowTrendUp
+                                style={{
+                                    backgroundColor: '#E8EEF6',
+                                    padding: '5px',
+                                    borderRadius: '5px',
+                                    fontSize: '30px',
+                                }}
+                            />
                         </div>
+
+                        {/* Title: "Total Revenue" (translated) */}
                         <div className="payment">
-                            Total Revenue
+                            {t('totalRevenue')}
                         </div>
+
+                        {/* 💵 Amount display */}
                         <div className="doller">$45,680</div>
-                        <div
-                            className="week">+12% from last week</div>
 
-
+                        {/* 📊 Subtitle: performance from last week (translated) */}
+                        <div className="week">
+                            {t('twelvePercentFromLastWeek')}
+                        </div>
                     </div>
-                    <div className="payment-boxes">
 
+                    {/* ===== Pending Payouts Card ===== */}
+                    <div className="payment-boxes">
+                        {/* ⏰ Icon for pending payouts */}
                         <div>
                             <FiClock
                                 style={{
@@ -39,20 +55,30 @@ const PaymentFinance = () => {
                                     padding: '5px',
                                     borderRadius: '5px',
                                     fontSize: '30px'
-                                }} />
+                                }}
+                            />
                         </div>
-                        <div className="payment">
-                        Pending Payouts
-                        </div>
-                        <div className="doller">$12,340</div>
-                        <div
-                            className="week">Awaiting approval</div>
 
+                        {/* Title: "Pending Payouts" (translated) */}
+                        <div className="payment">
+                            {t('pendingPayouts')}
+                        </div>
+
+                        {/* 💵 Amount display */}
+                        <div className="doller">$12,340</div>
+
+                        {/* 📋 Subtitle: waiting for approval (translated) */}
+                        <div className="week">
+                            {t('awaitingApproval')}
+                        </div>
                     </div>
                 </div>
-                <PaymentTable/>
+
+                {/* ===== Payment Table Section ===== */}
+                <PaymentTable /> {/* Reusable table component showing detailed records */}
             </div>
         </>
-    )
-}
-export default PaymentFinance
+    );
+};
+
+export default PaymentFinance;

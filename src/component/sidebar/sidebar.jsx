@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { HiUsers, HiOutlineShoppingCart } from "react-icons/hi2";
-import { FaDollarSign, FaSignOutAlt, FaBars } from "react-icons/fa";
+import {  FaSignOutAlt, FaBars } from "react-icons/fa";
+import { PiCurrencyDollarSimple } from "react-icons/pi";
 import { MdOutlineNotifications } from "react-icons/md";
 import { NavLink } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 import './sidebar.css';
+
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const sidebarRef = useRef(null);
+  const { t } = useTranslation();
+  const language = useSelector((state) => state.translation.language);
+  const isRTL = language === 'ar' || language === 'he';
 
   // Sidebar toggle
   const toggleSidebar = () => {
@@ -18,24 +26,51 @@ const Sidebar = () => {
     setIsOpen(false);
   };
 
+  // Click outside to close sidebar
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isOpen && sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    // Add event listener when sidebar is open
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    // Cleanup event listener
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen]);
+
   return (
     <>
       {/* Hamburger for small screens */}
       <div className="hamburger" onClick={toggleSidebar}>
+
         <FaBars />
       </div>
 
       {/* Sidebar */}
-      <div className={`sidebar-container ${isOpen ? "open" : ""}`}>
+      <div className={`sidebar-container ${isOpen ? "open" : ""}`} ref={sidebarRef} dir={isRTL ? "rtl" : "ltr"}>
+
 
         {/* Logo */}
         <div className="sidebar-logo">
 
           <div className='logo-container2'>
-            <img src='/images/logoo.png' alt="logo" className='login-logo-image2' width={600} />
+            <img 
+              src='/images/tick-box.png' 
+              alt="logo" 
+              className='login-logo-image2'
+              loading="eager"
+              decoding="sync"
+            />
           </div>
           <div className='login-logo-text2'>
-            <img src="/images/T3all.png" alt="" width={100} />
+            <img src="/images/T3all.png" alt="" width={120} />
           </div>
 
         </div>
@@ -47,10 +82,13 @@ const Sidebar = () => {
             to="/userManagement"
             className={({ isActive }) => isActive ? "active-link" : ""}
             onClick={handleLinkClick}
+            style={{
+              textDecoration:'None'
+            }}
           >
             <div className="sidebar-item">
-              <HiUsers className="sidebar-icon" />
-              <span>User Management</span>
+              <div className='sidebar-icon-container'><HiUsers className="sidebar-icon" size={22} /></div>
+              <div className='sidebar-text1'>{t('userManagement')}</div>
             </div>
           </NavLink>
 
@@ -60,8 +98,8 @@ const Sidebar = () => {
             onClick={handleLinkClick}
           >
             <div className="sidebar-item">
-              <HiOutlineShoppingCart className="sidebar-icon" />
-              <span>Super Market</span>
+              <div className='sidebar-icon-container'><HiOutlineShoppingCart className="sidebar-icon" size={22} /></div>
+              <div className='sidebar-text1'>{t('supermarket')}</div>
             </div>
           </NavLink>
 
@@ -71,8 +109,9 @@ const Sidebar = () => {
             onClick={handleLinkClick}
           >
             <div className="sidebar-item">
-              <FaDollarSign className="sidebar-icon" />
-              <span>Payments $ finance</span>
+              <div className='sidebar-icon-container'><PiCurrencyDollarSimple  size={22}/>
+              </div>
+              <div className='sidebar-text1'>{t('payments')}</div>
             </div>
           </NavLink>
 
@@ -82,26 +121,26 @@ const Sidebar = () => {
             onClick={handleLinkClick}
           >
             <div className="sidebar-item">
-              <MdOutlineNotifications className="sidebar-icon" />
-              <span>Notification</span>
+              <div className='sidebar-icon-container'><MdOutlineNotifications className="sidebar-icon" size={24} /></div>
+              <div className='sidebar-text1'>{t('notification')}</div>
             </div>
           </NavLink>
+          <div className="sidebar-logout">
 
+            {/* Logout */}
+            <NavLink
+              to="/"
+              className={({ isActive }) => isActive ? "active-link" : ""}
+              onClick={handleLinkClick}
+            >
+              <div className='sidebar-item2'>
+                <div><FaSignOutAlt className="sidebar-icon logout-icon" size={18} /></div>
+                <div className='sidebar-text1'>{t('logout')}</div>
+              </div>
+            </NavLink>
+          </div>
         </div>
-        <div  className="sidebar-logout">
 
-          {/* Logout */}
-          <NavLink
-            to="/"
-            className={({ isActive }) => isActive ? "active-link" : ""}
-            onClick={handleLinkClick}
-          >
-            <div className='sidebar-item2'>
-              <FaSignOutAlt className="sidebar-icon logout-icon" />
-              <span>Logout</span>
-            </div>
-          </NavLink>
-        </div>
 
       </div>
     </>

@@ -1,131 +1,215 @@
-import React, { useEffect, useRef, useState } from 'react';
-import './MarketTable.css';
+import React, { useState, useEffect } from "react";
+import { FaTrashAlt, FaEdit, FaTimes } from "react-icons/fa";
+import { useTranslation } from 'react-i18next';
+import Select from "react-select";
 
-const statusStyles = {
-    Preparing: { background: '#fde68a', color: '#92400e' },
-    Pending: { background: '#e5e7eb', color: '#374151' },
-    'Out for Delivery': { background: '#bfdbfe', color: '#1e3a8a' }
-};
-
-function StatusBadge({ status }) {
-    const style = statusStyles[status] || { background: '#e5e7eb', color: '#374151' };
-    return (
-        <span style={{
-            padding: '4px 10px',
-            borderRadius: '12px',
-            fontSize: '12px',
-            fontWeight: 600,
-            display: 'inline-block',
-            ...style
-        }}>
-            {status}
-        </span>
-    );
-}
+const getData = (t) => ({
+  "Cleaning & Household": [
+    {
+      name: "Surf Excel Detergent (1kg)",
+      description: t('surfExcelDescription'),
+      price: "$5.25",
+      status: true,
+    },
+  ],
+  "Personal Care": [
+    {
+      name: "ChickColgate Toothpaste (120g)",
+      description: t('colgateDescription'),
+      price: "$2.75",
+      status: true,
+    },
+  ],
+  Beverages: [
+    {
+      name: "Pepsi (1.5L)",
+      description: t('pepsiDescription'),
+      price: "$1.99",
+      status: false,
+    },
+  ],
+  Snacks: [
+    {
+      name: "Oreo Biscuits (Pack of 6)",
+      description: t('oreoDescription'),
+      price: "$2.25",
+      status: true,
+    },
+  ],
+  "Dairy & Breakfast": [],
+  "Grocery Essentials": [],
+});
 
 const MarketTable = () => {
-    const [items, setItems] = useState([
-        { id: 'IT-001', name: 'Margherita Pizza', category: 'Pizza', price: 12.75, stock: 0, restaurant: 'Pizza Palace', status: 'Preparing' },
-        { id: 'IT-002', name: 'Chicken Burger', category: 'Burger', price: 24.3, stock: 15, restaurant: 'Burger House', status: 'Pending' },
-        { id: 'IT-003', name: 'California Roll', category: 'Burger', price: 24.3, stock: 20, restaurant: 'Sushi Zen', status: 'Out for Delivery' },
-        { id: 'IT-004', name: 'Pepperoni Pizza', category: 'Sushi', price: 24.3, stock: 30, restaurant: 'Pizza Palace', status: 'Preparing' },
-        { id: 'IT-005', name: 'Pad Thai', category: 'Thai', price: 32.75, stock: 8, restaurant: 'Thai Garden', status: 'Pending' },
-        { id: 'IT-006', name: 'Beef Burger', category: 'Burger', price: 67.3, stock: 18, restaurant: 'Burger House', status: 'Out for Delivery' },
-        { id: 'IT-007', name: 'Chicken Alfredo', category: 'Mexican', price: 45.5, stock: 0, restaurant: 'Italian Bistro', status: 'Preparing' },
-        { id: 'IT-008', name: 'Fish Tacos', category: 'Mexican', price: 32.75, stock: 12, restaurant: 'Mexican Grill', status: 'Pending' },
-    ]);
+  const { t } = useTranslation();
+  const [items, setItems] = useState(getData(t));
 
-    const [openMenuIndex, setOpenMenuIndex] = useState(null);
-    const menuRef = useRef(null);
+  // Update data when language changes
+  useEffect(() => {
+    setItems(getData(t));
+  }, [t]);
+  const [deleteModal, setDeleteModal] = useState({
+    isOpen: false,
+    category: '',
+    index: -1,
+    itemName: ''
+  });
+  const [editModal, setEditModal] = useState({
+    isOpen: false,
+    category: '',
+    index: -1,
+    item: null
+  });
 
-    useEffect(() => {
-        const handleClickOutside = (e) => {
-            if (menuRef.current && !menuRef.current.contains(e.target)) {
-                setOpenMenuIndex(null);
-            }
-        };
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, []);
+  const handleToggle = (category, index) => {
+    const updated = { ...items };
+    updated[category][index].status = !updated[category][index].status;
+    setItems(updated);
+  };
 
-    const handleDelete = (id) => {
-        setItems((prev) => prev.filter((row) => row.id !== id));
-        setOpenMenuIndex(null);
-    };
+  const openDeleteModal = (category, index, itemName) => {
+    setDeleteModal({ isOpen: true, category, index, itemName });
+  };
+  const closeDeleteModal = () => setDeleteModal({ isOpen: false, category: '', index: -1, itemName: '' });
+  const handleDelete = () => {
+    const updated = { ...items };
+    updated[deleteModal.category].splice(deleteModal.index, 1);
+    setItems(updated);
+    closeDeleteModal();
+  };
 
-    return (
-        <div className="market-table-container">
-            <table className="market-table">
-                    <thead>
-                        <tr className="th">
-                            <th>
-                                <input type="checkbox" />
-                            </th>
-                        <th>Item ID</th>
-                        <th>Name</th>
-                        <th>Category</th>
-                        <th>Price</th>
-                        <th>Stock</th>
-                        <th>Restaurant</th>
-                        <th>Status</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {items.map((item, idx) => (
-                        <tr key={item.id}>
-                                <td>
-                                    <input type="checkbox" />
-                                </td>
-                            <td style={{ color: 'black', fontWeight: 700 }}>{item.id}</td>
-                            <td style={{ color: 'black' }}>{item.name}</td>
-                            <td style={{ color: 'black' }}>{item.category}</td>
-                            <td style={{ color: 'black' }}>{`$${item.price}`}</td>
-                            <td style={{ color: 'black' }}>{item.stock}</td>
-                            <td style={{ color: 'black' }}>{item.restaurant}</td>
-                            <td><StatusBadge status={item.status} /></td>
-                            <td className="actions-cell" style={{ position: 'relative' }}>
-                                <span className="dots" style={{ cursor: 'pointer' }} onClick={() => setOpenMenuIndex(openMenuIndex === idx ? null : idx)}>⋮</span>
-                                {openMenuIndex === idx && (
-                                    <div ref={menuRef} style={{
-                                        position: 'absolute',
-                                        right: 0,
-                                        top: '24px',
-                                        background: '#fff',
-                                        border: '1px solid #e5e7eb',
-                                        borderRadius: '8px',
-                                        boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
-                                        overflow: 'hidden',
-                                        zIndex: 10,
-                                        minWidth: '130px'
-                                    }}>
-                                        <button onClick={() => { /* open edit modal hook here */ setOpenMenuIndex(null); }} style={{
-                                            width: '100%',
-                                            background: 'transparent',
-                                            border: 'none',
-                                            textAlign: 'left',
-                                            padding: '10px 12px',
-                                            cursor: 'pointer',
-                                            color: '#111827'
-                                        }}>Edit</button>
-                                        <button onClick={() => handleDelete(item.id)} style={{
-                                            width: '100%',
-                                            background: 'transparent',
-                                            border: 'none',
-                                            textAlign: 'left',
-                                            padding: '10px 12px',
-                                            cursor: 'pointer',
-                                            color: '#b91c1c'
-                                        }}>Delete</button>
-                                        </div>
-                                    )}
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+  const openEditModal = (category, index, item) => {
+    setEditModal({ isOpen: true, category, index, item: { ...item } });
+  };
+  const closeEditModal = () => setEditModal({ isOpen: false, category: '', index: -1, item: null });
+  const handleEditChange = (field, value) => {
+    setEditModal(prev => ({ ...prev, item: { ...prev.item, [field]: value } }));
+  };
+  const handleSaveEdit = () => {
+    const updated = { ...items };
+    updated[editModal.category][editModal.index] = editModal.item;
+    setItems(updated);
+    closeEditModal();
+  };
+
+  return (
+    <div className="product-table">
+      {Object.keys(items).map((category) => (
+        <div key={category} className="category-block">
+          <h3 className="category-title">{category}</h3>
+
+          {/* Each table gets its own horizontal scroller (table-wrapper) */}
+          <div className="table-wrapper">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>{t('itemName')}</th>
+                  <th>{t('description')}</th>
+                  <th>{t('price')}</th>
+                  <th>{t('status')}</th>
+                  <th>{t('action')}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {items[category].length > 0 ? (
+                  items[category].map((item, i) => (
+                    <tr key={i}>
+                      <td>{item.name}</td>
+                      <td className="desc">{t(item.description)}</td>
+                      <td>{item.price}</td>
+                      <td>
+                        <div className="status-toggle">
+                          <label className="switch">
+                            <input
+                              type="checkbox"
+                              checked={item.status}
+                              onChange={() => handleToggle(category, i)}
+                            />
+                            <span className="slider round"></span>
+                          </label>
+                          <span className={`status-text ${item.status ? "available" : "unavailable"}`}>
+                            {item.status ? t('available') : t('unavailable')}
+                          </span>
+                        </div>
+                      </td>
+                      <td className="actions">
+                        <FaEdit className="edit" onClick={() => openEditModal(category, i, item)} />
+                        <FaTrashAlt className="deleteM" onClick={() => openDeleteModal(category, i, item.name)} />
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="5" className="no-items">No items in this category</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ))}
+
+      {/* Delete Modal */}
+      {deleteModal.isOpen && (
+        <div className="ud-backdrop">
+          <div className="ud-modal">
+            <h4>{t('deleteRecord') || 'Delete Item?'}</h4>
+            <p>{t('cannotBeUndone') || 'This action cannot be undone.'}</p>
+            <div className="ud-actions">
+              <button className="ud-cancel" onClick={closeDeleteModal}>{t('cancel')}</button>
+              <button className="ud-confirm" onClick={handleDelete}>{t('delete')}</button>
             </div>
-    );
+          </div>
+        </div>
+      )}
+
+      {/* Edit Modal */}
+      {editModal.isOpen && (
+        <div className="modal-overlay">
+          <div className="edit-modal">
+            <div className="modal-header">
+              <h3>{t('editItem')}</h3>
+              <FaTimes className="close-btn" onClick={closeEditModal} />
+            </div>
+            <div className="modal-body">
+              <div className="form-group">
+                <label>{t('itemName')}</label>
+                <input type="text" value={editModal.item?.name || ''} onChange={(e) => handleEditChange('name', e.target.value)} placeholder={t('enterItemName')} />
+              </div>
+              <div className="form-group">
+                <label>{t('description')}</label>
+                <textarea value={editModal.item?.description || ''} onChange={(e) => handleEditChange('description', e.target.value)} placeholder={t('enterItemDescription')} rows="3" />
+              </div>
+              <div className="form-group">
+                <label>{t('price')}</label>
+                <input type="text" value={editModal.item?.price || ''} onChange={(e) => handleEditChange('price', e.target.value)} placeholder={t('enterPrice')} />
+              </div>
+              <div className="form-group">
+                <label>{t('status')}</label>
+                <Select
+                  options={[{ value: true, label: t('available') }, { value: false, label: t('unavailable') }]}
+                  value={{ value: editModal.item?.status, label: editModal.item?.status ? t('available') : t('unavailable') }}
+                  onChange={(selected) => handleEditChange('status', selected.value)}
+                  placeholder={t('selectStatus')}
+                  menuPortalTarget={document.body}
+                  styles={{
+                    menuPortal: base => ({ ...base, zIndex: 9999 }),
+                    control: (base, state) => ({ ...base, borderColor: state.isFocused ? "#3BBE70" : "#d1d5db", borderRadius: "6px", padding: "2px", fontSize: "14px", boxShadow: state.isFocused ? "0 0 0 3px rgba(59, 190, 112, 0.1)" : "none", minHeight: "38px", outline: "none", caretColor: "#3BBE70" }),
+                    input: (base) => ({ ...base, caretColor: "#3BBE70", color: "#374151" }),
+                    option: (base, state) => ({ ...base, backgroundColor: state.isFocused ? "#f3f4f6" : "#fff", color: "#374151", cursor: "pointer" }),
+                  }}
+                />
+              </div>
+            </div>
+            <div className="modal-footer">
+              <button className="cancel-btn" onClick={closeEditModal}>{t('cancel')}</button>
+              <button className="save-btn" onClick={handleSaveEdit}>{t('save')}</button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default MarketTable;

@@ -1,80 +1,133 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { CiSearch } from "react-icons/ci";
+import { useTranslation } from 'react-i18next';
 import MarketTable from "./marketTable";
 import Order from "./order";
 import Gallery from "./Gallery";
-import Select from "react-select"; // ✅ NEW IMPORT
+import Select from "react-select";
+import { IoImageOutline } from "react-icons/io5";
+import { MdOutlineFileDownload } from "react-icons/md";
+
+// Page-level styles for SuperMarket section
 import "./MarketTable.css";
 import "./supperMarket.css";
 
+// SuperMarket main screen: tabs (Item/Order/Gallery) + Add Item modal
 const SupperMarket = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newItem, setNewItem] = useState({
-    id: "",
+  const { t } = useTranslation();
+
+  // ===== Modal + Form state =====
+  const [isModalOpen, setIsModalOpen] = useState(false); // add-item modal visibility
+  const [newItem, setNewItem] = useState({ // add-item form model
     name: "",
+    description: "",
     category: "",
     price: "",
-    stock: "",
-    restaurant: "",
-    status: "Preparing",
+    preparationTime: "",
+    availability: true,
+    image: null,
   });
+
+  // Current active tab: "item" | "order" | "gallery"
   const [activeTab, setActiveTab] = useState("item");
 
-  // ✅ React Select options
-  const statusOptions = [
-    { value: "Preparing", label: "Preparing" },
-    { value: "Pending", label: "Pending" },
-    { value: "Out for Delivery", label: "Out for Delivery" },
+  // ===== Select dropdown options =====
+  const categoryOptions = [
+    { value: "Cleaning", label: t('cleaning') },
+    { value: "Personal Care", label: t('personalCare') },
+    { value: "Beverages", label: t('beverages') },
+    { value: "Snacks", label: t('snacks') },
+    { value: "Dairy & Eggs", label: t('dairyEggs') },
+    { value: "Groceries", label: t('groceries') },
   ];
+
+  const preparationTimeOptions = [
+    { value: "5 minutes", label: t('fiveMinutes') },
+    { value: "10 minutes", label: t('tenMinutes') },
+    { value: "15 minutes", label: t('fifteenMinutes') },
+    { value: "20 minutes", label: t('twentyMinutes') },
+    { value: "30 minutes", label: t('thirtyMinutes') },
+    { value: "45 minutes", label: t('fortyFiveMinutes') },
+    { value: "1 hour", label: t('oneHour') },
+  ];
+
+  // ===== Image upload handlers (single image) =====
+  const fileInputRef = useRef();
+  // Triggered when file selected via hidden input
+  const handleImageChange = (e) => {
+    const file = e.target.files?.[0];
+    if (file && file.type.startsWith("image/")) {
+      setNewItem((prev) => ({ ...prev, image: { url: URL.createObjectURL(file), file } }));
+    }
+  };
+  // Opens hidden file picker
+  const handleAreaClick = () => fileInputRef.current && fileInputRef.current.click();
+  // Accepts drop from drag-and-drop area
+  const handleDrop = (e) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files?.[0];
+    if (file && file.type.startsWith("image/")) {
+      setNewItem((prev) => ({ ...prev, image: { url: URL.createObjectURL(file), file } }));
+    }
+  };
+  // Prevents default browser behavior while dragging over dropzone
+  const handleDragOver = (e) => e.preventDefault();
 
   return (
     <div className="support-manag">
       <div>
+        {/* ===== Tabs + Search + Add button header ===== */}
         <div className="user-first">
           <div className="support-management">
+            {/* Tabs */}
             <button
               className={`sup-btn ${activeTab === "item" ? "active" : ""}`}
               onClick={() => setActiveTab("item")}
             >
-              Item
+              {t('item')}
             </button>
             <button
               className={`sup-btn ${activeTab === "order" ? "active" : ""}`}
               onClick={() => setActiveTab("order")}
             >
-              Order
+              {t('order')}
             </button>
             <button
               className={`sup-btn ${activeTab === "gallery" ? "active" : ""}`}
               onClick={() => setActiveTab("gallery")}
             >
-              Gallery
+              {t('gallery')}
             </button>
           </div>
+
+          {/* Search input + Add Item */}
           <div className="user-second">
             <div className="input-wrapper">
               <CiSearch className="user-icon" />
               <input
                 type="text"
-                placeholder="Search by name email or phone..."
+                placeholder={t('searchPlaceholder')}
                 className="user-input"
               />
             </div>
             <button className="user-btn" onClick={() => setIsModalOpen(true)}>
-              + Add item
+              + {t('addItems')}
             </button>
           </div>
         </div>
 
+        {/* ===== Tab content ===== */}
         {activeTab === "item" && <MarketTable />}
         {activeTab === "order" && <Order />}
         {activeTab === "gallery" && <Gallery />}
 
+        {/* ===== Add Item Modal ===== */}
         {isModalOpen && (
           <div className="modal-overlay">
             <div className="modal">
+              {/* Modal header */}
               <div className="modal-header">
-                <h2>Add Item</h2>
+                <h2>{t('addNewItem')}</h2>
                 <button
                   className="close-btn"
                   onClick={() => setIsModalOpen(false)}
@@ -82,103 +135,210 @@ const SupperMarket = () => {
                   ×
                 </button>
               </div>
+
+              {/* Modal body */}
               <div className="modal-body addd-form">
-                <div className="form-group">
-                  <label>Item ID</label>
-                  <input
-                    value={newItem.id}
-                    onChange={(e) =>
-                      setNewItem({ ...newItem, id: e.target.value })
-                    }
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Name</label>
-                  <input
-                    value={newItem.name}
-                    onChange={(e) =>
-                      setNewItem({ ...newItem, name: e.target.value })
-                    }
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Category</label>
-                  <input
-                    value={newItem.category}
-                    onChange={(e) =>
-                      setNewItem({ ...newItem, category: e.target.value })
-                    }
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Price</label>
-                  <input
-                    type="number"
-                    value={newItem.price}
-                    onChange={(e) =>
-                      setNewItem({ ...newItem, price: e.target.value })
-                    }
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Stock</label>
-                  <input
-                    type="number"
-                    value={newItem.stock}
-                    onChange={(e) =>
-                      setNewItem({ ...newItem, stock: e.target.value })
-                    }
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Restaurant</label>
-                  <input
-                    value={newItem.restaurant}
-                    onChange={(e) =>
-                      setNewItem({ ...newItem, restaurant: e.target.value })
-                    }
-                  />
+                {/* Left column: item inputs */}
+                <div className="input-sec">
+                  <div className="form-group">
+                    <label>{t('itemName')}</label>
+                    <input
+                      value={newItem.name}
+                      onChange={(e) =>
+                        setNewItem({ ...newItem, name: e.target.value })
+                      }
+                      placeholder={t('itemNamePlaceholder')}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>{t('description')}</label>
+                    <input
+                      value={newItem.description}
+                      onChange={(e) =>
+                        setNewItem({ ...newItem, description: e.target.value })
+                      }
+                      placeholder={t('descriptionPlaceholder')}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>{t('category')}</label>
+                    <Select
+                      options={categoryOptions}
+                      value={categoryOptions.find(
+                        (opt) => opt.value === newItem.category
+                      )}
+                      onChange={(selected) =>
+                        setNewItem({ ...newItem, category: selected.value })
+                      }
+                      placeholder={t('selectCategory')}
+                      isSearchable={false}
+                      styles={{
+                        control: (base) => ({
+                          ...base,
+                          borderColor: "#ccc",
+                          borderRadius: "6px",
+                          padding: "2px",
+                          fontSize: "14px",
+                          boxShadow: "none",
+                          backgroundColor: "#f9fafb",
+                        }),
+                        menu: (base) => ({
+                          ...base,
+                          backgroundColor: "#f3f4f6",
+                          borderRadius: "6px",
+                          marginTop: "4px",
+                          zIndex: 1000,
+                        }),
+                        option: (base, state) => ({
+                          ...base,
+                          backgroundColor: state.isFocused ? "#e5e7eb" : "#f3f4f6",
+                          color: "#111827",
+                          cursor: "pointer",
+                        }),
+                        singleValue: (base) => ({
+                          ...base,
+                          color: "#111827",
+                        }),
+                      }}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>{t('price')}</label>
+                    <input
+                      type="text"
+                      value={newItem.price}
+                      onChange={(e) =>
+                        setNewItem({ ...newItem, price: e.target.value })
+                      }
+                      placeholder={t('enterPrice')}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>{t('preparationTime')}</label>
+                    <Select
+                      options={preparationTimeOptions}
+                      value={preparationTimeOptions.find(
+                        (opt) => opt.value === newItem.preparationTime
+                      )}
+                      onChange={(selected) =>
+                        setNewItem({ ...newItem, preparationTime: selected.value })
+                      }
+                      placeholder={t('selectPreparationTime')}
+                      isSearchable={false}
+                      styles={{
+                        control: (base) => ({
+                          ...base,
+                          borderColor: "#ccc",
+                          borderRadius: "6px",
+                          padding: "2px",
+                          fontSize: "14px",
+                          boxShadow: "none",
+                          backgroundColor: "#f9fafb",
+                        }),
+                        menu: (base) => ({
+                          ...base,
+                          backgroundColor: "#f3f4f6",
+                          borderRadius: "6px",
+                          marginTop: "4px",
+                          zIndex: 1000,
+                        }),
+                        option: (base, state) => ({
+                          ...base,
+                          backgroundColor: state.isFocused ? "#e5e7eb" : "#f3f4f6",
+                          color: "#111827",
+                          cursor: "pointer",
+                        }),
+                        singleValue: (base) => ({
+                          ...base,
+                          color: "#111827",
+                        }),
+                      }}
+                    />
+                  </div>
                 </div>
 
-                {/* ✅ REPLACED STATUS SELECT */}
-                <div className="form-group">
-                  <label>Status</label>
-                  <Select
-                    options={statusOptions}
-                    value={statusOptions.find(
-                      (opt) => opt.value === newItem.status
-                    )}
-                    onChange={(selected) =>
-                      setNewItem({ ...newItem, status: selected.value })
-                    }
-                    placeholder="Select Status"
-                    menuPortalTarget={document.body}
-                    styles={{
-                      menuPortal: (base) => ({ ...base, zIndex: 9999 }),
-                      control: (base) => ({
-                        ...base,
-                        borderColor: "#ccc",
-                        borderRadius: "6px",
-                        padding: "2px",
-                        fontSize: "14px",
-                        boxShadow: "none",
-                      }),
-                    }}
-                  />
+                {/* Right column: availability + image upload */}
+                <h2>{t('gallery')}</h2>
+                <div className="form-group-item">
+
+                  <div className="form-group">
+                    <label>{t('availability')}</label>
+                    <div className="availability-section">
+                      <label className="toggle-switch">
+                        <input
+                          type="checkbox"
+                          checked={newItem.availability}
+                          onChange={(e) =>
+                            setNewItem({ ...newItem, availability: e.target.checked })
+                          }
+                        />
+                        <span className="toggle-slider"></span>
+                      </label>
+                      <div>
+                        <div className="toggle-container">
+                          <span className="toggle-label">{newItem.availability ? t('available') : t('unavailable')}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Image selection: separate drag-n-drop + upload button */}
+                  <div className="form-group">
+                    <label>{t('itemImage')}</label>
+                    <div className="image-upload-section">
+                      {/* Drag & drop area (no click) */}
+                      <div
+                        className="image-upload-area"
+                        onDrop={handleDrop}
+                        onDragOver={handleDragOver}
+                        tabIndex={0}
+                        style={{ marginBottom: 10, cursor: 'copy' }}
+                      >
+                        <div className="upload-icon"><IoImageOutline /></div>
+                        <p>{t('dragDropImages')}</p>
+                      </div>
+                      {/* Upload button (only click) */}
+                      <button
+                        type="button"
+                        className="upload-btn"
+                        onClick={(e) => { e.preventDefault(); fileInputRef.current && fileInputRef.current.click(); }}
+                        style={{ margin: '0 auto', display: 'block', minWidth: '80px' }}
+                      >
+                        <MdOutlineFileDownload style={{ marginRight: 4 }} />{t('uploadImage')}
+                      </button>
+                      {/* Hidden file input */}
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept="image/*"
+                        style={{ display: "none" }}
+                        onChange={handleImageChange}
+                      />
+                      {/* Image preview (if selected) */}
+                      {newItem.image && (
+                        <>
+                          <img src={newItem.image.url} alt="preview" style={{ maxWidth: 80, maxHeight: 80, borderRadius: 6, margin: "8px auto", display: "block" }} />
+                          <button type="button" className="upload-btn" style={{ background: '#eee', color: '#dc2626', border: 'none', width: 'auto', minWidth: 0, margin: '6px auto', display: 'block' }} onClick={(e) => { e.preventDefault(); setNewItem(prev => ({ ...prev, image: null })); }}>{t('remove') || 'Remove'}</button>
+                        </>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
+
+              {/* Modal footer buttons */}
               <div className="modal-footer">
                 <button
                   className="btn-cancel"
                   onClick={() => setIsModalOpen(false)}
                 >
-                  Cancel
+                  {t('cancel')}
                 </button>
                 <button
                   className="btn-save"
                   onClick={() => setIsModalOpen(false)}
                 >
-                  Save
+                  {t('save')}
                 </button>
               </div>
             </div>

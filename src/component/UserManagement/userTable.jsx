@@ -1,112 +1,132 @@
+// Importing necessary libraries and components
 import React, { useEffect, useRef, useState } from 'react';
-import './userTable.css';
-// import UserAddForm from './UserAddForm';
-import UserDelete from './UserDelete';
-import { FiEdit, FiTrash, FiX, FiUser } from 'react-icons/fi';
+import Select from 'react-select'; // For dropdown/select components (currently unused in this file)
+import './userTable.css'; // Styling for the table
+import { useTranslation } from 'react-i18next'; // For multi-language support (i18n)
+import { FiEdit, FiTrash } from 'react-icons/fi'; // Icons for edit and delete actions
+import EditUserModal from './EditUserModal'; // Separate component for editing user details
 
 const UserTable = () => {
-    const [users, setUsers] = useState([
-        {
-            name: 'John',
-            email: 'daniel@gmail.com',
-            phone: '+92 123456789',
-            adress: 'Male',
-            userType: 'Cutomer',
-            image: '/images/john.png',
-            customerCode: 'C001',
-        },
-        {
-            name: 'Jane',
-            email: 'daniel@gmail.com',
-            phone: '+92 123456789',
-            adress: 'Male',
-            userType: 'Cutomer',
-            image: '/images/jane.png',
-            customerCode: 'C002',
-        },
-        {
-            name: 'John',
-            email: 'daniel@gmail.com',
-            phone: '+92 123456789',
-            adress: 'Male',
-            userType: 'Cutomer',
-            image: '/images/john.png',
-            customerCode: 'C003',
-        },
-        {
-            name: 'Daniel',
-            email: 'daniel@gmail.com',
-            phone: '+92 123456789',
-            adress: 'Male',
-            userType: 'Cutomer',
-            image: '/images/mike.png',
-            customerCode: 'C004',
-        },
-        {
-            name: 'Daniel',
-            email: 'daniel@gmail.com',
-            phone: '+92 123456789',
-            adress: 'Male',
-            userType: 'Cutomer',
-            image: '/images/mike.png',
-            customerCode: 'C005',
-        },
-        {
-            name: 'Daniel',
-            email: 'daniel@gmail.com',
-            phone: '+92 123456789',
-            adress: 'Male',
-            userType: 'Cutomer',
-            image: '/images/mike.png',
-            customerCode: 'C006',
-        },
-        {
-            name: 'Daniel',
-            email: 'daniel@gmail.com',
-            phone: '+92 123456789',
-            adress: 'Male',
-            userType: 'Cutomer',
-            image: '/images/mike.png',
-            customerCode: 'C007',
-        },
-        {
-            name: 'Daniel',
-            email: 'daniel@gmail.com',
-            phone: '+92 123456789',
-            adress: 'Male',
-            userType: 'Cutomer',
-            image: '/images/mike.png',
-            customerCode: 'C008',
-        },
-        {
-            name: 'Daniel',
-            email: 'daniel@gmail.com',
-            phone: '+92 123456789',
-            adress: 'Male',
-            userType: 'Cutomer',
-            image: '/images/mike.png',
-            customerCode: 'C009',
-        },
-        {
-            name: 'Daniel',
-            email: 'daniel@gmail.com',
-            phone: '+92 123456789',
-            adress: 'Male',
-            userType: 'Cutomer',
-            image: '/images/mike.png',
-            customerCode: 'C010',
-        },
-    ]);
+    // Translation function from i18next
+    const { t } = useTranslation();
 
-    const [openDropdown, setOpenDropdown] = useState(null);
-    const [dropdownPosition, setDropdownPosition] = useState({ top: 0, right: 0 });
-    const dropdownRef = useRef(null);
+    // State for storing list of users
+    const [users, setUsers] = useState([{
+        name: 'John',
+        email: 'daniel@gmail.com',
+        phone: '+92 123456789',
+        adress: 'Male',
+        userType: 'Cutomer',
+        image: '/images/john.png',
+        customerCode: 'C001',
+    },
+    {
+        name: 'Jane',
+        email: 'daniel@gmail.com',
+        phone: '+92 123456789',
+        adress: 'Male',
+        userType: 'Cutomer',
+        image: '/images/jane.png',
+        customerCode: 'C002',
+    },
+    {
+        name: 'John',
+        email: 'daniel@gmail.com',
+        phone: '+92 123456789',
+        adress: 'Male',
+        userType: 'Cutomer',
+        image: '/images/john.png',
+        customerCode: 'C003',
+    },
+    {
+        name: 'Daniel',
+        email: 'daniel@gmail.com',
+        phone: '+92 123456789',
+        adress: 'Male',
+        userType: 'Cutomer',
+        image: '/images/mike.png',
+        customerCode: 'C004',
+    },
+    {
+        name: 'Daniel',
+        email: 'daniel@gmail.com',
+        phone: '+92 123456789',
+        adress: 'Male',
+        userType: 'Cutomer', image: '/images/mike.png', customerCode: 'C005',
+    }, {
+        name: 'Daniel',
+        email: 'daniel@gmail.com',
+        phone: '+92 123456789',
+        adress: 'Male',
+        userType: 'Cutomer',
+        image: '/images/mike.png',
+        customerCode: 'C006',
+    },
+    {
+        name: 'Daniel',
+        email: 'daniel@gmail.com',
+        phone: '+92 123456789',
+        adress: 'Male',
+        userType: 'Cutomer',
+        image: '/images/mike.png',
+        customerCode: 'C007',
+    },
+    {
+        name: 'Daniel',
+        email: 'daniel@gmail.com',
+        phone: '+92 123456789',
+        adress: 'Male',
+        userType: 'Cutomer',
+        image: '/images/mike.png',
+        customerCode: 'C008',
+    },
+    {
+        name: 'Daniel',
+        email: 'daniel@gmail.com',
+        phone: '+92 123456789',
+        adress: 'Male',
+        userType: 'Cutomer',
+        image: '/images/mike.png',
+        customerCode: 'C009',
+    },
+    {
+        name: 'Daniel',
+        email: 'daniel@gmail.com',
+        phone: '+92 123456789',
+        adress: 'Male',
+        userType: 'Cutomer',
+        image: '/images/mike.png',
+        customerCode: 'C010',
+    },]);
 
-    const [editIndex, setEditIndex] = useState(null);
-    const [editUser, setEditUser] = useState(null);
-    const [showEditModal, setShowEditModal] = useState(false);
-    const [deleteIndex, setDeleteIndex] = useState(null);
+    // Dropdown and modal state variables
+    const [openDropdown, setOpenDropdown] = useState(null); // Tracks which user's action menu is open
+    const [dropdownPosition, setDropdownPosition] = useState({ top: 0, right: 0 }); // Dynamic position for dropdown
+    const dropdownRef = useRef(null); // Reference for dropdown to detect clicks outside
 
+    const [editIndex, setEditIndex] = useState(null); // Index of the user being edited
+    const [editUser, setEditUser] = useState(null); // Stores selected user data for editing
+    const [showEditModal, setShowEditModal] = useState(false); // Toggles edit modal visibility
+    const [deleteIndex, setDeleteIndex] = useState(null); // Index of the user selected for delete confirmation
+
+    // Dropdown options for edit modal form fields
+    const genderOptions = [
+        { value: 'Male', label: t('male') },
+        { value: 'Female', label: t('female') },
+        { value: 'Other', label: t('other') },
+    ];
+    const userTypeOptions = [
+        { value: 'Admin', label: t('admin') },
+        { value: 'User', label: t('user') },
+        { value: 'Provider', label: t('provider') },
+    ];
+    const statusOptions = [
+        { value: 'Active', label: t('active') },
+        { value: 'Moderate', label: t('moderate') },
+        { value: 'Decline', label: t('decline') },
+    ];
+
+    // Handles toggling dropdown visibility and calculates its position
     const handleToggleDropdown = (index, event) => {
         const target = event?.currentTarget || event?.target;
         if (target && target.getBoundingClientRect) {
@@ -119,27 +139,30 @@ const UserTable = () => {
         setOpenDropdown(openDropdown === index ? null : index);
     };
 
+    // Detects clicks outside dropdown to close it
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
                 setOpenDropdown(null);
             }
         };
-
         document.addEventListener('click', handleClickOutside);
         return () => document.removeEventListener('click', handleClickOutside);
     }, []);
 
+    // Handles actual deletion of user from the list
     const handleDeleteUser = (indexToDelete) => {
         const updatedUsers = users.filter((_, index) => index !== indexToDelete);
         setUsers(updatedUsers);
     };
 
+    // Opens delete confirmation modal
     const handleAskDelete = (index) => {
         setDeleteIndex(index);
         setOpenDropdown(null);
     };
 
+    // Opens edit modal and loads user data into form
     const handleEditUser = (index) => {
         setEditIndex(index);
         setEditUser({ ...users[index] });
@@ -147,10 +170,12 @@ const UserTable = () => {
         setOpenDropdown(null);
     };
 
+    // Updates form input changes inside edit modal
     const handleChange = (e) => {
         setEditUser({ ...editUser, [e.target.name]: e.target.value });
     };
 
+    // Saves updated user data back to list
     const handleSaveEdit = () => {
         const updatedUsers = [...users];
         updatedUsers[editIndex] = editUser;
@@ -160,6 +185,7 @@ const UserTable = () => {
         setEditUser(null);
     };
 
+    // Closes edit modal without saving
     const handleCloseModal = () => {
         setShowEditModal(false);
         setEditIndex(null);
@@ -168,59 +194,80 @@ const UserTable = () => {
 
     return (
         <>
+            {/* ==== USER TABLE SECTION ==== */}
             <div className="table-container">
                 <table className="user-table">
                     <thead>
                         <tr className="th">
-                            <th>
-                                <input type="checkbox" />
-                            </th>
-                            <th>Customer</th>
-                            <th>Email </th>
-                            <th>Contact</th>
-                            <th>Adress</th>
-                            <th>Type</th>
+                            <th><input type="checkbox" /></th>
+                            <th>{t('customer')}</th>
+                            <th>{t('email')}</th>
+                            <th>{t('contact')}</th>
+                            <th>{t('address')}</th>
+                            <th>{t('type')}</th>
                             <th></th>
-
-
                         </tr>
                     </thead>
                     <tbody>
+                        {/* Mapping through users array to display each user's data */}
                         {users.map((user, index) => (
                             <tr key={index}>
-                                <td>
-                                    <input type="checkbox" />
-                                </td>
+                                <td><input type="checkbox" /></td>
+
+                                {/* Customer name + image + code */}
                                 <td style={{ color: 'black' }}>
-                                    <img 
-                                        src={user.image} 
-                                        alt="Customer" 
-                                        style={{ 
-                                            width: '24px', 
-                                            height: '24px', 
-                                            marginRight: '15px', 
+                                    <img
+                                        src={user.image}
+                                        alt="Customer"
+                                        style={{
+                                            width: '24px',
+                                            height: '24px',
+                                            marginRight: document.dir === 'ltr' ? '15px' : '0',
+                                            marginLeft: document.dir === 'rtl' ? '15px' : '0',
                                             verticalAlign: 'middle',
-                                            borderRadius: '50%'
-                                        }} 
+                                            borderRadius: '50%',
+                                            padding: '5px',
+                                        }}
                                     />
-                                    {user.name} <span style={{ color: '#666', fontWeight: 'normal' }}>{user.customerCode}</span>
+                                    {user.name}{' '}
+                                    <span style={{ color: '#666', fontWeight: 'normal' }}>
+                                        {user.customerCode}
+                                    </span>
                                 </td>
+
+                                {/* User info columns */}
                                 <td style={{ color: 'black' }}>{user.email}</td>
                                 <td style={{ color: 'black' }}>{user.phone}</td>
-                                <td style={{ color: 'black' }}>{user.adress}</td>
-                                <td style={{ color: 'black' }}>{user.userType}</td>
+                                <td style={{ color: 'black' }}>{t(user.adress.toLowerCase())}</td>
+                                <td style={{ color: 'black' }}>{t(user.userType.toLowerCase())}</td>
 
+                                {/* Actions column (Edit/Delete dropdown) */}
                                 <td className="actions-cell">
-                                    <span className="dots" onMouseDown={(e)=>e.stopPropagation()} onClick={(e) => { e.stopPropagation(); handleToggleDropdown(index, e); }}>
+                                    <span
+                                        className="dots"
+                                        onMouseDown={(e) => e.stopPropagation()}
+                                        onClick={(e) => { e.stopPropagation(); handleToggleDropdown(index, e); }}
+                                    >
                                         ⋮
                                     </span>
+
+                                    {/* Dropdown menu for Edit/Delete */}
                                     {openDropdown === index && (
-                                        <div className="dropdown" ref={dropdownRef} onMouseDown={(e)=>e.stopPropagation()} onClick={(e) => e.stopPropagation()} style={{ top: `${dropdownPosition.top}px`, right: `${dropdownPosition.right}px` }}>
-                                            <button onMouseDown={(e)=>e.stopPropagation()} onClick={(e) => { e.stopPropagation(); handleEditUser(index); }}>
-                                                <FiEdit /> Edit
+                                        <div
+                                            className="dropdown"
+                                            ref={dropdownRef}
+                                            onMouseDown={(e) => e.stopPropagation()}
+                                            onClick={(e) => e.stopPropagation()}
+                                            style={{
+                                                top: `${dropdownPosition.top}px`,
+                                                right: `${dropdownPosition.right}px`,
+                                            }}
+                                        >
+                                            <button onClick={() => handleEditUser(index)}>
+                                                <FiEdit /> {t('edit')}
                                             </button>
-                                            <button onMouseDown={(e)=>e.stopPropagation()} onClick={(e)=>{ e.stopPropagation(); handleAskDelete(index); }}>
-                                                <FiTrash style={{ color: 'black' }} /> Delete
+                                            <button onClick={() => handleAskDelete(index)}>
+                                                <FiTrash style={{ color: 'black' }} /> {t('delete')}
                                             </button>
                                         </div>
                                     )}
@@ -231,73 +278,40 @@ const UserTable = () => {
                 </table>
             </div>
 
+            {/* ==== EDIT USER MODAL ==== */}
             {showEditModal && (
-                <div className="modal-overlay">
-                    <div className="modal">
-                        <div className="modal-header">
-                            <h2>Edit User</h2>
-                            <button className="close-btn" onClick={handleCloseModal}>
-                                <FiX /> 
-                            </button>
-                        </div>
-                        <div className="modal-body">
-                            <div className="form-group">
-                                <label>Name</label>
-                                <input name="name" value={editUser.name} onChange={handleChange} />
-                            </div>
-                            <div className="form-group">
-                                <label>Email Address</label>
-                                <input name="email" value={editUser.email} onChange={handleChange} />
-                            </div>
-                            <div className="form-group">
-                                <label>Phone No</label>
-                                <input name="phone" value={editUser.phone} onChange={handleChange} />
-                            </div>
-                            <div className="form-group">
-                                <label>Gender</label>
-                                <select name="gender" value={editUser.gender} onChange={handleChange}>
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
-                                    <option value="Other">Other</option>
-                                </select>
-                            </div>
-                            <div className="form-group">
-                                <label>User Type</label>
-                                <select name="userType" value={editUser.userType} onChange={handleChange}>
-                                    <option value="Admin">Admin</option>
-                                    <option value="User">User</option>
-                                    <option value="Provider">Provider</option>
-                                </select>
-                            </div>
-                            <div className="form-group">
-                                <label>Status</label>
-                                <select name="status" value={editUser.status} onChange={handleChange}>
-                                    <option value="Active">Active</option>
-                                    <option value="Moderate">Moderate</option>
-                                    <option value="Decline">Decline</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div className="modal-footer">
-                            <button className="btn-cancel" onClick={handleCloseModal}>
-                                Cancel
-                            </button>
-                            <button className="btn-save" onClick={handleSaveEdit}>
-                                Save Changes
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                <EditUserModal
+                    show={showEditModal}
+                    user={editUser}
+                    genderOptions={genderOptions}
+                    userTypeOptions={userTypeOptions}
+                    statusOptions={statusOptions}
+                    onChange={handleChange}
+                    onSave={handleSaveEdit}
+                    onClose={handleCloseModal}
+                    t={t}
+                />
             )}
 
+            {/* ==== DELETE CONFIRMATION MODAL ==== */}
             {deleteIndex !== null && (
                 <div className="ud-backdrop">
                     <div className="ud-modal">
-                        <h4>Delete this user?</h4>
-                        <p>This action cannot be undone.</p>
+                        <h4>{t('deleteUserConfirm')}</h4>
+                        <p>{t('deleteWarning')}</p>
                         <div className="ud-actions">
-                            <button className="ud-confirm" onClick={() => { handleDeleteUser(deleteIndex); setDeleteIndex(null); }}>Delete</button>
-                            <button className="ud-cancel" onClick={() => setDeleteIndex(null)}>Cancel</button>
+                            <button className="ud-cancel" onClick={() => setDeleteIndex(null)}>
+                                {t('cancel')}
+                            </button>
+                            <button
+                                className="ud-confirm"
+                                onClick={() => {
+                                    handleDeleteUser(deleteIndex);
+                                    setDeleteIndex(null);
+                                }}
+                            >
+                                {t('delete')}
+                            </button>
                         </div>
                     </div>
                 </div>

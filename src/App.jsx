@@ -5,31 +5,32 @@ import Header from "./component/Header/header.jsx";
 import Sidebar from "./component/sidebar/sidebar.jsx"
 import UserManagement from "./component/UserManagement/userManagement.jsx"; // ✅ ye page banayenge
 import "./App.css";
+import ForgotPassword from "./component/Login/ForgotPassword.jsx";
 import SupperMarket from "./component/supperMarket/SupperMarket.jsx";
 import PaymentFinance from "./component/Payment-finance/Payment-finance.jsx";
 import Notification from "./component/notification/Notification.jsx";
 
 function LayoutWithHeaderSidebar({ children }) {
   return (
-    <div style={{ 
-      display: "flex", 
-      height: "100vh", 
-      width: "100%", 
+    <div style={{
+      display: "flex",
+      height: "100vh",
+      width: "100%",
       overflow: "hidden",
       boxSizing: "border-box"
     }}>
       <Sidebar />
-      <div style={{ 
-        flex: 1, 
-        display: "flex", 
-        flexDirection: "column", 
+      <div style={{
+        flex: 1,
+        display: "flex",
+        flexDirection: "column",
         minWidth: 0,
         overflow: "hidden"
       }}>
         <Header />
-        <div className="main-content" style={{ 
-          flex: 1, 
-          padding: "20px", 
+        <div className="main-content" style={{
+          flex: 1,
+          padding: "20px",
           overflow: "auto",
           minWidth: 0,
           boxSizing: "border-box"
@@ -47,8 +48,10 @@ const App = () => {
       <Routes>
         {/* Login page without header/sidebar */}
         <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
 
-      
+
         <Route
           path="/userManagement"
           element={
@@ -81,7 +84,7 @@ const App = () => {
             </LayoutWithHeaderSidebar>
           }
         />
-        
+
 
       </Routes>
     </Router>

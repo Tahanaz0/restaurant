@@ -1,27 +1,27 @@
 
-.payment-table-container {
-  width: 98%;
-  border-radius: 5px;
-  padding: 5px;
-  margin: 10px;
-  font-family: "Nunito", sans-serif;
 
+.payment-table-container{
+  width: 100%;
+ 
+   overflow-x: auto;
+   font-family: "Nunito", sans-serif;
 }
 
 .payment-table {
   min-width: 200px;
-  width: 97%;
+  width: 100%;
   overflow-x: auto;
-  border-collapse: collapse;
+  border-collapse:separate;
   border: #e5e7eb 1px solid;
   border-radius: 5px;
   border-spacing: 0;
-  table-layout: auto;
+  /* table-layout: auto; */
+  /* overflow: hidden;  */
 }
 
 
 @media (min-width: 1200px) {
-  .payment-table-container {
+  .payment- {
     max-width: calc(100vw - 270px);
   
   }
@@ -49,7 +49,7 @@
 }
 
 @media (max-width: 768px) {
-  .payment-table-container {
+  .payment- {
     margin: 6px;
     padding: 4px;
     width: 100%;
@@ -80,7 +80,7 @@
 }
 
 @media (max-width: 480px) {
-  .payment-table-container {
+  .payment- {
     margin: 3px;
     padding: 2px;
     max-width: calc(100vw - 10px);
@@ -118,7 +118,7 @@
 
 .payment-table th:first-child {
   width: 5%;
-  padding: 12px 2px;
+  padding: 12px 12px;
 }
 
 .payment-table th:nth-child(2) {
@@ -162,15 +162,14 @@
 
 .payment-table td {
   background: #fff;
-  padding: 10px 10px;
+  padding: 7px 20px;
   text-align: left;
   font-size: 14px;
   color: #4b5563;
   border: none;
   border-top: 1px solid #e5e7eb;
   border-bottom: 1px solid #e5e7eb;
-  vertical-align: middle;
-  overflow: visible;
+vertical-align: middle;
 
 }
 
@@ -198,16 +197,16 @@
 }
 
 .payment-table td:first-child {
-  border-top-left-radius: 6px;
-  border-bottom-left-radius: 6px;
+  /* border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px; */
   width: 5%;
-  padding: 12px 2px;
+  padding: 12px 12px;
 }
 
-.payment-table td:last-child {
+/* .payment-table td:last-child {
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;
-}
+} */
 
 /* Hover effect */
 .payment-table tr:hover td {
@@ -222,6 +221,16 @@
   font-size: 12px;
   font-weight: 600;
 }
+select option:hover {
+  background-color: #e5e5e5 !important; /* hover pe grey */
+  color: #000 !important;
+}
+
+select option:checked {
+  background-color: #e5e5e5 !important; /* selected option */
+  color: #000 !important;
+}
+
 
 
 
@@ -273,11 +282,14 @@
 }
 
 .dropdown-btn.delete-btn {
-  color: #b91c1c;
+  /* color: #FF6D6D; */
+  font-weight: 500;
 }
 
 .dropdown-btn.delete-btn:hover {
-  background-color: #fef2f2;
+  background-color: #f3f4f6 !important;
+  color: #111827 !important;
+  box-shadow: none !important;
 }
 
 /* ================= Delete Modal ================= */
@@ -287,11 +299,12 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 5000;
+  backdrop-filter: blur(2px);
 }
 
 .ud-modal {
@@ -300,22 +313,38 @@
   padding: 24px 28px;
   width: 380px;
   max-width: 90%;
-  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   text-align: center;
-  animation: fadeIn 0.25s ease-in-out;
+  animation: modalSlideIn 0.3s ease-out;
+  font-family: 'Nunito', sans-serif;
+  border: 1px solid #e5e7eb;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .ud-modal h4 {
   margin-bottom: 10px;
-  font-size: 20px;
-  font-weight: 600;
-  color: #333;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1f2937;
+  font-family: 'Nunito', sans-serif;
 }
 
 .ud-modal p {
   margin-bottom: 20px;
   font-size: 14px;
-  color: #666;
+  color: #374151;
+  font-family: 'Nunito', sans-serif;
+  line-height: 1.5;
 }
 
 .ud-actions {
@@ -325,33 +354,46 @@
 }
 
 .ud-confirm {
-  background: #e63946;
+  background-color: #16a34a;
   color: #fff;
   border: none;
-  padding: 8px 18px;
+  padding: 10px 20px;
   border-radius: 6px;
   cursor: pointer;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
+  font-family: 'Nunito', sans-serif;
+  transition: all 0.2s ease;
+  min-width: 80px;
 }
 
 .ud-confirm:hover {
-  background: #d62828;
+  background-color: #1cba56;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 109, 109, 0.3);
+}
+
+.ud-confirm:active {
+  transform: scale(0.98);
 }
 
 .ud-cancel {
-  background: #f1f1f1;
-  color: #333;
-  border: none;
-  padding: 8px 18px;
+  background: #f3f4f6;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  padding: 10px 20px;
   border-radius: 6px;
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
+  font-family: 'Nunito', sans-serif;
+  transition: all 0.2s ease;
+  min-width: 80px;
 }
 
 .ud-cancel:hover {
-  background: #e0e0e0;
+  background: #e5e7eb;
+  color: #1f2937;
 }
 
 /* ================= Edit Modal ================= */
@@ -371,7 +413,7 @@
 .modal {
   background: #fff;
   border-radius: 12px;
-  padding: 24px;
+  padding: 0px 10px;
   width: 480px;
   max-width: 95%;
   box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2);
@@ -382,7 +424,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
+  /* margin-bottom: 16px; */
 }
 
 .close-btn {
@@ -420,7 +462,7 @@
 }
 
 .modal-footer {
-  margin-top: 20px;
+  /* margin-top: 20px; */
   display: flex;
   justify-content: flex-end;
   gap: 10px;
@@ -440,7 +482,7 @@
 }
 
 .btn-save {
-  background: #2563eb;
+  background: #278a51;
   color: #fff;
   border: none;
   padding: 8px 16px;
@@ -449,7 +491,7 @@
 }
 
 .btn-save:hover {
-  background: #1e40af;
+  background: #278a51;
 }
 
 /* ================= Animation ================= */
@@ -514,7 +556,7 @@
 }
 
 .add-btn {
-  background-color: #2563eb;
+  background-color: #2F985A;
   color: white;
   width: 7%;
   padding: 5px;
@@ -549,10 +591,44 @@
 .submit-btn:hover {
   background: #1e40af;
 }
+/* html[dir="rtl"] .dropdown {
+  direction: rtl;
+  text-align: right;
+  transform-origin: top right;
+} */
+
+
+/* html[dir="rtl"] .dropdown {
+  right: auto !important;
+  left: 0 !important;
+  text-align: right;
+} */
+
 
 /* @media(min-width:425px){
-    .table-container{
+    .{
       width: 100%;
       overflow-y: auto;
     }
   } */
+/* ✅ RTL layout fix for dropdown (Arabic, Hebrew etc.) */
+/* ✅ RTL layout (Arabic, Hebrew) ke liye dropdown LEFT side pe khulega */
+/* ✅ RTL layout (Arabic, Hebrew) — thoda left se hatkar dropdown */
+html[dir="rtl"] .dropdown {
+  right: auto !important;
+  left: 10px !important; /* ← jitna chaho utna increase kar sakte ho */
+  text-align: right;
+  direction: rtl;
+  transform: translateX(10px); /* thoda sa smooth shift */
+}
+
+
+/* ✅ LTR layout (English etc.) ke liye normal right side pe khulega */
+html[dir="ltr"] .dropdown {
+  left: auto !important;
+  right: 10px !important;
+  text-align: left;
+  direction: ltr;
+}
+
+  
