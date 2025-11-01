@@ -117,8 +117,30 @@ html[dir="rtl"] .user-management-container{
     /* display: flex; */
     width: 100%;
     /* gap: 26%; */
+    display: flex;
+    justify-content: space-between;
     flex-wrap: wrap;
     /* justify-content: space-between; */
   }
+  .right-btn {
+    padding: 8px 10px;
+    font-size: 12px;
+    flex: 1;
+    min-width: 0;
+  }
 
+}
+@media (max-width: 320px){ 
+  .user-management{ 
+    width: 100%; 
+    display: flex; 
+    flex-wrap: nowrap;
+    gap: 3px;
+  }
+  .right-btn {
+    padding: 8px 10px;
+    font-size: 12px;
+    flex: 1;
+    min-width: 0;
+  }
 }

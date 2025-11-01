@@ -53,9 +53,10 @@ body[dir="rtl"] .main-content {
   margin-right: 40%;  /* same gap as LTR but on opposite side */
   margin-left: 0;
 }
-/* ✅ LTR large screens — add right safe space to avoid cut */
+/* ✅ LTR large screens — equal left and right padding */
 html[dir="ltr"] .main-content,
 body[dir="ltr"] .main-content {
+  padding-left: 2% !important;
   padding-right: 2% !important;
   box-sizing: border-box;
 }

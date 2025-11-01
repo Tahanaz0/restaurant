@@ -465,4 +465,10 @@
     .user-table{
       min-width: 800px;
     }
+    /* Remove ellipsis dots (text-overflow) from checkbox column on small screens */
+    .user-table th:first-child,
+    .user-table td:first-child {
+      text-overflow: clip;
+      overflow: visible;
+    }
   }
