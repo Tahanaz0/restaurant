@@ -2,22 +2,26 @@ import { loadStripe } from "@stripe/stripe-js";
 import { IoBagCheckOutline } from "react-icons/io5";
 import "./check_out.css";
 
-const stripePromise = loadStripe(
-  "pk_test_51SPMsxFPpmjSSKW4o1MSHgds1wyM2o8R8xasSaC6XuwehEE4nCqHi0ECRXktrmOGcfaAxpDQ0PTPlzcOe7KXNTJg00dgxWJy38"
-);
+const PUBLISHABLE_KEY = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY;
+const API_BASE_URL = import.meta.env.VITE_API_URL ?? "http://localhost:4242";
+
+const stripePromise = loadStripe(PUBLISHABLE_KEY);
 
 export default function CheckOutBtn() {
   const handleCheckout = async () => {
     const stripe = await stripePromise;
 
     try {
-      const response = await fetch(
-        "http://localhost:4242/create-checkout-session",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      if (!PUBLISHABLE_KEY) {
+        console.error("Missing VITE_STRIPE_PUBLISHABLE_KEY env var");
+        alert("Stripe publishable key is not configured.");
+        return;
+      }
+
+      const response = await fetch(`${API_BASE_URL}/create-checkout-session`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
 
       if (!response.ok) {
         const errorText = await response.text();
