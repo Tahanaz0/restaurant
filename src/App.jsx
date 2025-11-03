@@ -9,6 +9,9 @@ import ForgotPassword from "./component/Login/ForgotPassword.jsx";
 import SupperMarket from "./component/supperMarket/SupperMarket.jsx";
 import PaymentFinance from "./component/Payment-finance/Payment-finance.jsx";
 import Notification from "./component/notification/Notification.jsx";
+import CheckoutModal from "./component/checkOut/CheckoutModal.jsx";
+import Success from "./component/checkOut/Success.jsx";
+import Cancel from "./component/checkOut/Cancel.jsx";
 
 function LayoutWithHeaderSidebar({ children }) {
   return (
@@ -51,6 +54,10 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
 
+        {/* Stripe Checkout redirects */}
+        <Route path="/success" element={<Success />} />
+        <Route path="/cancel" element={<Cancel />} />
+
 
         <Route
           path="/userManagement"
@@ -87,6 +94,7 @@ const App = () => {
 
 
       </Routes>
+      <CheckoutModal />
     </Router>
   );
 };

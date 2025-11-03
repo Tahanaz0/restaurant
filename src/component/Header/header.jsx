@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setLanguage } from '../../store/features/translationSlice';
 
 import './header.css';
+import CheckOutBtn from '../checkOut/check_out_btn';
 
 const Header = () => {
   // ✅ Get current route using React Router
@@ -89,6 +90,7 @@ const Header = () => {
 
         {/* ✅ Header right-side icons and profile */}
         <div className='header-right'>
+          <CheckOutBtn />
 
           {/* 🔔 Notification Icon */}
           <NavLink to='/notification'>

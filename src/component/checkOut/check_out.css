@@ -1,0 +1,10 @@
+.icon-hover {
+    color: #000;
+    transition: color 0.3s;
+  }
+  
+  .icon-hover:hover {
+    color: #3BBE70;
+    cursor: pointer;
+  }
+  
