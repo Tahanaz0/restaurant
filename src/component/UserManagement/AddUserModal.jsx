@@ -1,94 +1,123 @@
 import React, { useState } from "react";
 import Select from "react-select";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 import "./addUserModal.css";
 
+// ✅ Firebase imports
+import { db } from "../../firebase.js";
+import { collection, addDoc } from "firebase/firestore";
+
 const AddUserModal = ({ onClose }) => {
-  // ✅ Initialize translation hook
   const { t, i18n } = useTranslation();
-
-  // ✅ State to store selected user type
-  const [userType, setUserType] = useState(null);
-
-  // ✅ Detect if the current language direction is RTL (like Arabic)
   const isRTL = i18n.dir() === "rtl";
 
-  // ✅ Dropdown options (translated)
+  // ✅ Form states
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [contact, setContact] = useState("");
+  const [address, setAddress] = useState("");
+  const [userType, setUserType] = useState(null);
+
+  // ✅ Dropdown options
   const options = [
-    { value: "Customer", label: t('customer') },
-    { value: "Driver", label: t('driver') },
-    { value: "Restaurant", label: t('restaurant') },
+    { value: "Customer", label: t("customer") },
+    { value: "Driver", label: t("driver") },
+    { value: "Restaurant", label: t("restaurant") },
   ];
 
+  // ✅ Function to handle form submit and save data in Firestore
+  const handleAddUser = async (e) => {
+    e.preventDefault();
+
+    if (!name || !email || !contact || !address || !userType) {
+      alert("Please fill all fields!");
+      return;
+    }
+
+    try {
+      await addDoc(collection(db, "users"), {
+        name,
+        email,
+        contact,
+        address,
+        type: userType.value,
+        createdAt: new Date(),
+      });
+
+      alert("User added successfully!");
+      onClose(); // close modal after save
+    } catch (error) {
+      console.error("Error adding user: ", error);
+      alert("Failed to add user.");
+    }
+  };
+
   return (
-    // ✅ Apply RTL or LTR class to modal container
-    <div className={`modal-overlay ${isRTL ? 'rtl' : 'ltr'}`}>
-      <div className={`modal-content ${isRTL ? 'rtl' : 'ltr'}`}>
-        {/* ✅ Close button */}
+    <div className={`modal-overlay ${isRTL ? "rtl" : "ltr"}`}>
+      <div className={`modal-content ${isRTL ? "rtl" : "ltr"}`}>
         <span className="modal-close" onClick={onClose}>
           &times;
         </span>
 
-        {/* ✅ Modal title (translated) */}
-        <h2>{t('addNewUser')}</h2>
+        <h2>{t("addNewUser")}</h2>
 
-        {/* ✅ User form */}
-        <form className="modal-form">
-
-          {/* ✅ Customer name input */}
+        <form className="modal-form" onSubmit={handleAddUser}>
           <label>
-            {t('customerName')}
+            {t("customerName")}
             <input
               type="text"
-              placeholder={t('customerNamePlaceholder')}
-              dir={isRTL ? "rtl" : "ltr"} // support for RTL input
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder={t("customerNamePlaceholder")}
+              dir={isRTL ? "rtl" : "ltr"}
             />
           </label>
 
-          {/* ✅ Email input */}
           <label>
-            {t('email')}
+            {t("email")}
             <input
               type="email"
-              placeholder={t('emailPlaceholder')}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder={t("emailPlaceholder")}
               dir={isRTL ? "rtl" : "ltr"}
             />
           </label>
 
-          {/* ✅ Contact input */}
           <label>
-            {t('contact')}
+            {t("contact")}
             <input
               type="text"
-              placeholder={t('contactPlaceholder')}
+              value={contact}
+              onChange={(e) => setContact(e.target.value)}
+              placeholder={t("contactPlaceholder")}
               dir={isRTL ? "rtl" : "ltr"}
             />
           </label>
 
-          {/* ✅ Address input */}
           <label>
-            {t('address')}
+            {t("address")}
             <input
               type="text"
-              placeholder={t('addressPlaceholder')}
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              placeholder={t("addressPlaceholder")}
               dir={isRTL ? "rtl" : "ltr"}
             />
           </label>
 
-          {/* ✅ User Type Dropdown (using react-select) */}
           <label>
-            {t('type')}
+            {t("type")}
             <Select
               options={options}
               value={userType}
               onChange={setUserType}
-              placeholder={t('selectType')}
+              placeholder={t("selectType")}
               menuShouldScrollIntoView
               menuShouldBlockScroll={false}
               menuPlacement="auto"
               menuPosition="absolute"
               styles={{
-                // ✅ Dropdown main input style
                 control: (base) => ({
                   ...base,
                   borderColor: "#ccc",
@@ -96,34 +125,31 @@ const AddUserModal = ({ onClose }) => {
                   padding: "2px",
                   fontSize: "14px",
                   boxShadow: "none",
-                  direction: isRTL ? "rtl" : "ltr", // adjust direction
+                  direction: isRTL ? "rtl" : "ltr",
                 }),
-                // ✅ Dropdown menu style
                 menu: (base) => ({
                   ...base,
                   zIndex: 10000,
                   position: "absolute",
                   direction: isRTL ? "rtl" : "ltr",
                 }),
-                // ✅ Each option style
                 option: (base, state) => ({
                   ...base,
                   backgroundColor: state.isFocused ? "#f3f4f6" : "#fff",
                   color: "black",
                   cursor: "pointer",
-                  textAlign: isRTL ? "right" : "left", // align text properly
+                  textAlign: isRTL ? "right" : "left",
                 }),
               }}
             />
           </label>
 
-          {/* ✅ Modal action buttons */}
           <div className="modal-actions">
             <button type="button" onClick={onClose}>
-              {t('cancel')}
+              {t("cancel")}
             </button>
             <button type="submit" className="add-btn">
-              {t('addUser')}
+              {t("addUser")}
             </button>
           </div>
         </form>

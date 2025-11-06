@@ -1,196 +1,172 @@
-// Import required libraries and components
-import React from 'react';
-import Select from 'react-select'; // Dropdown component for select fields
-import { FiX } from 'react-icons/fi'; // Close icon for modal header
+import React, { useState } from "react";
+import Select from "react-select";
+import { FiX } from "react-icons/fi";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../../firebase"; // apni Firebase config ka path
 
-// EditUserModal Component - displays a modal to edit user information
-const EditUserModal = ({
-  show,               // Boolean - controls whether modal is visible or not
-  user,               // Object - user data to be edited
-  genderOptions,      // Dropdown options for gender
-  userTypeOptions,    // Dropdown options for user type
-  statusOptions,      // Dropdown options for account status
-  onChange,           // Function - handles input/select field changes
-  onSave,             // Function - called when user saves changes
-  onClose,            // Function - closes the modal
-  t                   // Translation function from i18next
+const AddUserModal = ({
+  show,
+  onClose,
+  t,
+  genderOptions,
+  userTypeOptions,
+  statusOptions,
+  onUserAdded, // callback to refresh users after add
 }) => {
+  const [newUser, setNewUser] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    gender: "",
+    userType: "",
+    status: "",
+  });
 
-  // If modal should not be shown or user data is missing, render nothing
-  if (!show || !user) return null;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setNewUser({ ...newUser, [name]: value });
+  };
+
+  const handleSelectChange = (name, value) => {
+    setNewUser({ ...newUser, [name]: value });
+  };
+
+  const handleSave = async () => {
+    try {
+      if (
+        !newUser.name ||
+        !newUser.email ||
+        !newUser.phone ||
+        !newUser.gender ||
+        !newUser.userType ||
+        !newUser.status
+      ) {
+        alert("Please fill all fields!");
+        return;
+      }
+
+      // Default avatar & user code
+      const defaultImage = "https://cdn-icons-png.flaticon.com/512/149/149071.png";
+      const userCode = "C" + Math.floor(Math.random() * 1000 + 1)
+        .toString()
+        .padStart(3, "0");
+
+      const userData = {
+        ...newUser,
+        image: defaultImage,
+        code: userCode,
+        createdAt: new Date(),
+      };
+
+      await addDoc(collection(db, "users"), userData);
+
+      if (onUserAdded) onUserAdded(); // refresh list
+      onClose();
+      setNewUser({
+        name: "",
+        email: "",
+        phone: "",
+        gender: "",
+        userType: "",
+        status: "",
+      });
+
+      console.log("User added successfully!");
+    } catch (error) {
+      console.error("Error adding user:", error);
+    }
+  };
+
+  if (!show) return null;
 
   return (
-    // Overlay covers entire screen when modal is open
     <div className="modal-overlay">
       <div className="modal">
-        {/* ==== MODAL HEADER ==== */}
+        {/* ==== HEADER ==== */}
         <div className="modal-header">
-          <h2>{t('editUser')}</h2>
-          {/* Close button to hide modal */}
+          <h2>{t("addUser")}</h2>
           <button className="close-btn" onClick={onClose}>
             <FiX />
           </button>
         </div>
 
-        {/* ==== MODAL BODY ==== */}
+        {/* ==== BODY ==== */}
         <div className="modal-body">
-          {/* Name input field */}
           <div className="form-group">
-            <label>{t('name')}</label>
-            <input name="name" value={user.name} onChange={onChange} />
+            <label>{t("name")}</label>
+            <input
+              name="name"
+              value={newUser.name}
+              onChange={handleChange}
+              placeholder="Enter name"
+            />
           </div>
 
-          {/* Email input field */}
           <div className="form-group">
-            <label>{t('emailAddress')}</label>
-            <input name="email" value={user.email} onChange={onChange} />
+            <label>{t("emailAddress")}</label>
+            <input
+              name="email"
+              value={newUser.email}
+              onChange={handleChange}
+              placeholder="Enter email"
+            />
           </div>
 
-          {/* Phone number input field */}
           <div className="form-group">
-            <label>{t('phoneNo')}</label>
-            <input name="phone" value={user.phone} onChange={onChange} />
+            <label>{t("phoneNo")}</label>
+            <input
+              name="phone"
+              value={newUser.phone}
+              onChange={handleChange}
+              placeholder="+92..."
+            />
           </div>
 
-          {/* ==== Gender dropdown ==== */}
           <div className="form-group">
-            <label>{t('gender')}</label>
+            <label>{t("gender")}</label>
             <Select
               options={genderOptions}
-              value={genderOptions.find(o => o.value === user.gender)}
-              onChange={selected =>
-                onChange({ target: { name: 'gender', value: selected.value } })
-              }
+              value={genderOptions.find((o) => o.value === newUser.gender)}
+              onChange={(selected) => handleSelectChange("gender", selected.value)}
+              placeholder={t("selectGender")}
               isSearchable={false}
-              placeholder={t('selectGender')}
-              menuPosition="absolute"
-              menuShouldBlockScroll={false}
-              menuPlacement="auto"
-              // Custom styling for Select component
-              styles={{
-                menu: base => ({ ...base, zIndex: 10000, position: 'absolute' }),
-                control: (base, state) => ({
-                  ...base,
-                  borderColor: state.isFocused ? '#2F985A' : '#ccc',
-                  borderRadius: '6px',
-                  padding: '2px',
-                  fontSize: '14px',
-                  boxShadow: 'none',
-                }),
-                menuList: base => ({ ...base, maxHeight: 180, overflowY: 'auto' }),
-                option: (base, state) => ({
-                  ...base,
-                  backgroundColor: state.isSelected
-                    ? '#e5e7eb'
-                    : state.isFocused
-                    ? '#f3f4f6'
-                    : '#fff',
-                  color: '#111827',
-                }),
-              }}
-              // Theme customization for Select
-              theme={theme => ({
-                ...theme,
-                colors: { ...theme.colors, primary25: '#f3f4f6', primary: '#2F985A' },
-              })}
             />
           </div>
 
-          {/* ==== User Type dropdown ==== */}
           <div className="form-group">
-            <label>{t('userType')}</label>
+            <label>{t("userType")}</label>
             <Select
               options={userTypeOptions}
-              value={userTypeOptions.find(o => o.value === user.userType)}
-              onChange={selected =>
-                onChange({ target: { name: 'userType', value: selected.value } })
+              value={userTypeOptions.find((o) => o.value === newUser.userType)}
+              onChange={(selected) =>
+                handleSelectChange("userType", selected.value)
               }
+              placeholder={t("selectUserType")}
               isSearchable={false}
-              placeholder={t('selectUserType')}
-              menuPosition="absolute"
-              menuShouldBlockScroll={false}
-              menuPlacement="auto"
-              styles={{
-                menu: base => ({ ...base, zIndex: 10000, position: 'absolute' }),
-                control: (base, state) => ({
-                  ...base,
-                  borderColor: state.isFocused ? '#2F985A' : '#ccc',
-                  borderRadius: '6px',
-                  padding: '2px',
-                  fontSize: '14px',
-                  boxShadow: 'none',
-                }),
-                menuList: base => ({ ...base, maxHeight: 180, overflowY: 'auto' }),
-                option: (base, state) => ({
-                  ...base,
-                  backgroundColor: state.isSelected
-                    ? '#e5e7eb'
-                    : state.isFocused
-                    ? '#f3f4f6'
-                    : '#fff',
-                  color: '#111827',
-                }),
-              }}
-              theme={theme => ({
-                ...theme,
-                colors: { ...theme.colors, primary25: '#f3f4f6', primary: '#2F985A' },
-              })}
             />
           </div>
 
-          {/* ==== Status dropdown ==== */}
           <div className="form-group">
-            <label>{t('status')}</label>
+            <label>{t("status")}</label>
             <Select
               options={statusOptions}
-              value={statusOptions.find(o => o.value === user.status)}
-              onChange={selected =>
-                onChange({ target: { name: 'status', value: selected.value } })
+              value={statusOptions.find((o) => o.value === newUser.status)}
+              onChange={(selected) =>
+                handleSelectChange("status", selected.value)
               }
+              placeholder={t("selectStatus")}
               isSearchable={false}
-              placeholder={t('selectStatus')}
-              menuPosition="absolute"
-              menuShouldBlockScroll={false}
-              menuPlacement="auto"
-              styles={{
-                menu: base => ({ ...base, zIndex: 10000, position: 'absolute' }),
-                control: (base, state) => ({
-                  ...base,
-                  borderColor: state.isFocused ? '#2F985A' : '#ccc',
-                  borderRadius: '6px',
-                  padding: '2px',
-                  fontSize: '14px',
-                  boxShadow: 'none',
-                }),
-                menuList: base => ({ ...base, maxHeight: 180, overflowY: 'auto' }),
-                option: (base, state) => ({
-                  ...base,
-                  backgroundColor: state.isSelected
-                    ? '#e5e7eb'
-                    : state.isFocused
-                    ? '#f3f4f6'
-                    : '#fff',
-                  color: '#111827',
-                }),
-              }}
-              theme={theme => ({
-                ...theme,
-                colors: { ...theme.colors, primary25: '#f3f4f6', primary: '#2F985A' },
-              })}
             />
           </div>
         </div>
 
-        {/* ==== MODAL FOOTER ==== */}
+        {/* ==== FOOTER ==== */}
         <div className="modal-footer">
-          {/* Cancel button closes modal without saving */}
           <button className="btn-cancel" onClick={onClose}>
-            {t('cancel')}
+            {t("cancel")}
           </button>
-
-          {/* Save button applies user changes */}
-          <button className="btn-save" onClick={onSave}>
-            {t('saveChanges')}
+          <button className="btn-save" onClick={handleSave}>
+            {t("saveChanges")}
           </button>
         </div>
       </div>
@@ -198,4 +174,4 @@ const EditUserModal = ({
   );
 };
 
-export default EditUserModal;
+export default AddUserModal;
