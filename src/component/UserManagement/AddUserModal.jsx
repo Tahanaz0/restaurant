@@ -18,6 +18,9 @@ const AddUserModal = ({ onClose }) => {
   const [address, setAddress] = useState("");
   const [userType, setUserType] = useState(null);
 
+  // ✅ Loader state
+  const [loading, setLoading] = useState(false);
+
   // ✅ Dropdown options
   const options = [
     { value: "Customer", label: t("customer") },
@@ -34,6 +37,8 @@ const AddUserModal = ({ onClose }) => {
       return;
     }
 
+    setLoading(true); // show loader
+
     try {
       await addDoc(collection(db, "users"), {
         name,
@@ -49,6 +54,8 @@ const AddUserModal = ({ onClose }) => {
     } catch (error) {
       console.error("Error adding user: ", error);
       alert("Failed to add user.");
+    } finally {
+      setLoading(false); // hide loader
     }
   };
 
@@ -148,8 +155,17 @@ const AddUserModal = ({ onClose }) => {
             <button type="button" onClick={onClose}>
               {t("cancel")}
             </button>
-            <button type="submit" className="add-btn">
-              {t("addUser")}
+            <button
+              type="submit"
+              className="add-btn"
+              disabled={loading}
+              style={{ opacity: loading ? 0.7 : 1 }}
+            >
+              {loading ? (
+                <div className="loader"></div>
+              ) : (
+                t("addUser")
+              )}
             </button>
           </div>
         </form>

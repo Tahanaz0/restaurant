@@ -1,19 +1,19 @@
 // Importing necessary libraries and components
-import React, { useEffect, useRef, useState } from 'react';
-import Select from 'react-select';
-import './userTable.css';
-import { useTranslation } from 'react-i18next';
-import { FiEdit, FiTrash } from 'react-icons/fi';
-import EditUserModal from './EditUserModal';
+import React, { useEffect, useRef, useState } from "react";
+import Select from "react-select";
+import "./userTable.css";
+import { useTranslation } from "react-i18next";
+import { FiEdit, FiTrash } from "react-icons/fi";
+import EditUserModal from "./EditUserModal";
 
 // 🟢 Firestore imports
-import { collection, getDocs } from "firebase/firestore";
+import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebase.js";
 
 const UserTable = () => {
   const { t } = useTranslation();
 
-  // Users state (ab ye firestore se fill hoga)
+  // Users state (Firestore se realtime data)
   const [users, setUsers] = useState([]);
 
   // Dropdown and modal states
@@ -27,39 +27,32 @@ const UserTable = () => {
   const [deleteIndex, setDeleteIndex] = useState(null);
 
   const genderOptions = [
-    { value: 'Male', label: t('male') },
-    { value: 'Female', label: t('female') },
-    { value: 'Other', label: t('other') },
+    { value: "Male", label: t("male") },
+    { value: "Female", label: t("female") },
+    { value: "Other", label: t("other") },
   ];
   const userTypeOptions = [
-    { value: 'Admin', label: t('admin') },
-    { value: 'User', label: t('user') },
-    { value: 'Provider', label: t('provider') },
+    { value: "Admin", label: t("admin") },
+    { value: "User", label: t("user") },
+    { value: "Provider", label: t("provider") },
   ];
   const statusOptions = [
-    { value: 'Active', label: t('active') },
-    { value: 'Moderate', label: t('moderate') },
-    { value: 'Decline', label: t('decline') },
+    { value: "Active", label: t("active") },
+    { value: "Moderate", label: t("moderate") },
+    { value: "Decline", label: t("decline") },
   ];
 
-  // 🟢 Firestore se data fetch karne ka function
-  const fetchUsersFromFirestore = async () => {
-    try {
-      const querySnapshot = await getDocs(collection(db, "users"));
-      const fetchedUsers = querySnapshot.docs.map((doc) => ({
+  // 🟢 Firestore se realtime data suno (auto update)
+  useEffect(() => {
+    const unsubscribe = onSnapshot(collection(db, "users"), (snapshot) => {
+      const fetchedUsers = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
       setUsers(fetchedUsers);
-      console.log("Users fetched:", fetchedUsers);
-    } catch (error) {
-      console.error("Error fetching users:", error);
-    }
-  };
+    });
 
-  // 🟢 Page load hote hi data fetch kar lo
-  useEffect(() => {
-    fetchUsersFromFirestore();
+    return () => unsubscribe(); // cleanup listener
   }, []);
 
   // Dropdown close on outside click
@@ -69,8 +62,8 @@ const UserTable = () => {
         setOpenDropdown(null);
       }
     };
-    document.addEventListener('click', handleClickOutside);
-    return () => document.removeEventListener('click', handleClickOutside);
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
   }, []);
 
   // Functions for delete/edit
@@ -78,19 +71,23 @@ const UserTable = () => {
     const updatedUsers = users.filter((_, index) => index !== indexToDelete);
     setUsers(updatedUsers);
   };
+
   const handleAskDelete = (index) => {
     setDeleteIndex(index);
     setOpenDropdown(null);
   };
+
   const handleEditUser = (index) => {
     setEditIndex(index);
     setEditUser({ ...users[index] });
     setShowEditModal(true);
     setOpenDropdown(null);
   };
+
   const handleChange = (e) => {
     setEditUser({ ...editUser, [e.target.name]: e.target.value });
   };
+
   const handleSaveEdit = () => {
     const updatedUsers = [...users];
     updatedUsers[editIndex] = editUser;
@@ -99,11 +96,13 @@ const UserTable = () => {
     setEditIndex(null);
     setEditUser(null);
   };
+
   const handleCloseModal = () => {
     setShowEditModal(false);
     setEditIndex(null);
     setEditUser(null);
   };
+
   const handleToggleDropdown = (index, event) => {
     const target = event?.currentTarget || event?.target;
     if (target && target.getBoundingClientRect) {
@@ -123,49 +122,52 @@ const UserTable = () => {
           <thead>
             <tr className="th">
               <th><input type="checkbox" /></th>
-              <th>{t('customer')}</th>
-              <th>{t('email')}</th>
-              <th>{t('contact')}</th>
-              <th>{t('address')}</th>
-              <th>{t('type')}</th>
+              <th>{t("customer")}</th>
+              <th>{t("email")}</th>
+              <th>{t("contact")}</th>
+              <th>{t("address")}</th>
+              <th>{t("type")}</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
             {users.map((user, index) => (
-              <tr key={index}>
+              <tr key={user.id || index}>
                 <td><input type="checkbox" /></td>
-                <td style={{ color: 'black' }}>
+                <td style={{ color: "black" }}>
                   {user.image ? (
                     <img
                       src={user.image}
                       alt="Customer"
                       style={{
-                        width: '24px',
-                        height: '24px',
-                        marginRight: document.dir === 'ltr' ? '15px' : '0',
-                        marginLeft: document.dir === 'rtl' ? '15px' : '0',
-                        verticalAlign: 'middle',
-                        borderRadius: '50%',
-                        padding: '5px',
+                        width: "24px",
+                        height: "24px",
+                        marginRight: document.dir === "ltr" ? "15px" : "0",
+                        marginLeft: document.dir === "rtl" ? "15px" : "0",
+                        verticalAlign: "middle",
+                        borderRadius: "50%",
+                        padding: "5px",
                       }}
                     />
                   ) : null}
-                  {user.name}{' '}
-                  <span style={{ color: '#666', fontWeight: 'normal' }}>
-                    {user.customerCode || ''}
+                  {user.name}{" "}
+                  <span style={{ color: "#666", fontWeight: "normal" }}>
+                    {user.customerCode || ""}
                   </span>
                 </td>
-                <td style={{ color: 'black' }}>{user.email}</td>
-                <td style={{ color: 'black' }}>{user.contact || user.phone || ''}</td>
-                <td style={{ color: 'black' }}>{user.address || ''}</td>
-                <td style={{ color: 'black' }}>{user.type || user.userType || ''}</td>
+                <td style={{ color: "black" }}>{user.email}</td>
+                <td style={{ color: "black" }}>{user.contact || user.phone || ""}</td>
+                <td style={{ color: "black" }}>{user.address || ""}</td>
+                <td style={{ color: "black" }}>{user.type || user.userType || ""}</td>
 
                 <td className="actions-cell">
                   <span
                     className="dots"
                     onMouseDown={(e) => e.stopPropagation()}
-                    onClick={(e) => { e.stopPropagation(); handleToggleDropdown(index, e); }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleToggleDropdown(index, e);
+                    }}
                   >
                     ⋮
                   </span>
@@ -182,10 +184,10 @@ const UserTable = () => {
                       }}
                     >
                       <button onClick={() => handleEditUser(index)}>
-                        <FiEdit /> {t('edit')}
+                        <FiEdit /> {t("edit")}
                       </button>
                       <button onClick={() => handleAskDelete(index)}>
-                        <FiTrash style={{ color: 'black' }} /> {t('delete')}
+                        <FiTrash style={{ color: "black" }} /> {t("delete")}
                       </button>
                     </div>
                   )}
@@ -201,11 +203,7 @@ const UserTable = () => {
         <EditUserModal
           show={showEditModal}
           user={editUser}
-          genderOptions={genderOptions}
           userTypeOptions={userTypeOptions}
-          statusOptions={statusOptions}
-          onChange={handleChange}
-          onSave={handleSaveEdit}
           onClose={handleCloseModal}
           t={t}
         />
@@ -215,11 +213,11 @@ const UserTable = () => {
       {deleteIndex !== null && (
         <div className="ud-backdrop">
           <div className="ud-modal">
-            <h4>{t('deleteUserConfirm')}</h4>
-            <p>{t('deleteWarning')}</p>
+            <h4>{t("deleteUserConfirm")}</h4>
+            <p>{t("deleteWarning")}</p>
             <div className="ud-actions">
               <button className="ud-cancel" onClick={() => setDeleteIndex(null)}>
-                {t('cancel')}
+                {t("cancel")}
               </button>
               <button
                 className="ud-confirm"
@@ -228,7 +226,7 @@ const UserTable = () => {
                   setDeleteIndex(null);
                 }}
               >
-                {t('delete')}
+                {t("delete")}
               </button>
             </div>
           </div>
